@@ -1097,15 +1097,6 @@
         let selectedOption = null;
         let currentModalHandler = null;
         
-        // LinkedIn Configuration
-        const LINKEDIN_CONFIG = {
-            clientId: 'YOUR_LINKEDIN_CLIENT_ID_HERE',
-            redirectUri: window.location.origin + '/linkedin-callback.html',
-            scope: 'r_liteprofile r_emailaddress',
-            state: 'profileforge_' + Date.now(),
-            responseType: 'code'
-        };
-        
         // Clean setup for modal button
         function setupModalButton() {
             const newBtn = modalPrimaryBtn.cloneNode(true);
@@ -1188,7 +1179,7 @@
                     modalPrimaryBtn.textContent = 'Load from Storage';
                     currentModalHandler = handleLocalStorage;
                 } else if (selectedOption === 'linkedinOption') {
-                    modalPrimaryBtn.textContent = 'Connect LinkedIn';
+                    modalPrimaryBtn.textContent = 'Import from LinkedIn';
                     currentModalHandler = handleLinkedInImport;
                 } else if (selectedOption === 'uploadOption') {
                     modalPrimaryBtn.textContent = 'Upload File';
@@ -1290,44 +1281,34 @@
             };
         }
         
-        // Handle LinkedIn import
+        // Handle LinkedIn import - FIXED: Coming Soon message
         function handleLinkedInImport() {
-            modalIcon.className = 'fab fa-linkedin';
+            modalIcon.className = 'fas fa-clock';
             modalMessage.innerHTML = `
-                <p>Connect your LinkedIn account to import:</p>
-                <ul style="text-align: left; margin: 15px 0; padding-left: 20px;">
-                    <li>Profile information</li>
-                    <li>Work experience</li>
-                    <li>Education history</li>
-                    <li>Skills & endorsements</li>
-                </ul>
-                <p>We'll only access your public profile information.</p>
+                <div style="text-align: center; padding: 20px;">
+                    <div style="font-size: 3rem; color: var(--accent); margin-bottom: 15px;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 style="color: var(--dark); margin-bottom: 10px;">Coming Soon!</h3>
+                    <p style="color: var(--gray); margin-bottom: 20px;">
+                        LinkedIn integration is currently under development.<br>
+                        You can still create an amazing resume by filling out the form manually.
+                    </p>
+                    <div style="background: rgba(245, 158, 11, 0.1); padding: 10px; border-radius: 8px; margin: 15px 0;">
+                        <i class="fas fa-lightbulb" style="color: var(--accent);"></i>
+                        <span style="color: var(--dark); font-weight: 600;">Tip:</span>
+                        <span style="color: var(--gray);"> You can copy-paste from your LinkedIn profile</span>
+                    </div>
+                </div>
             `;
             
-            modalPrimaryBtn.textContent = 'Connect with LinkedIn';
+            modalPrimaryBtn.textContent = 'Start Manually';
             modalPrimaryBtn.disabled = false;
             
             currentModalHandler = () => {
-                startLinkedInConnection();
+                closeModal();
+                window.location.href = 'form.html';
             };
-        }
-        
-        function startLinkedInConnection() {
-            modalIcon.className = 'fas fa-spinner fa-spin';
-            modalMessage.textContent = 'Connecting to LinkedIn...';
-            modalPrimaryBtn.disabled = true;
-            
-            setTimeout(() => {
-                modalIcon.className = 'fas fa-check-circle';
-                modalMessage.textContent = 'Successfully connected! Importing your profile data...';
-                
-                setTimeout(() => {
-                    sessionStorage.setItem('linkedinImport', 'true');
-                    
-                    closeModal();
-                    window.location.href = 'form.html?source=linkedin';
-                }, 1500);
-            }, 2000);
         }
         
         // Handle file upload
