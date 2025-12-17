@@ -199,7 +199,7 @@
             display: none;
         }
 
-        /* SIMPLE TEMPLATE STYLES - WORKS FOR ALL */
+        /* SIMPLE TEMPLATE STYLES - DEFAULT */
         .template-simple .header {
             border-bottom: 2px solid var(--primary);
             padding-bottom: 20px;
@@ -289,6 +289,330 @@
             border-radius: 12px;
             font-size: 10px;
             font-weight: 500;
+        }
+
+        /* EXECUTIVE TEMPLATE */
+        .template-executive .header {
+            border-bottom: 2px solid #111827;
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .template-executive .name {
+            font-size: 28px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .template-executive .title {
+            font-size: 16px;
+            color: #4b5563;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .template-executive .contact-info {
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .template-executive .section {
+            margin-bottom: 16px;
+        }
+
+        .template-executive .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #111827;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 4px;
+        }
+
+        .template-executive .content {
+            font-size: 11px;
+            line-height: 1.5;
+            color: #4b5563;
+        }
+
+        /* MODERN TEMPLATE */
+        .template-modern .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #7c3aed;
+            padding-bottom: 15px;
+        }
+
+        .template-modern .name-container {
+            flex: 1;
+        }
+
+        .template-modern .name {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 2px;
+        }
+
+        .template-modern .title {
+            font-size: 15px;
+            color: #7c3aed;
+            font-weight: 600;
+        }
+
+        .template-modern .contact {
+            font-size: 11px;
+            color: #6b7280;
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        .template-modern .section {
+            margin-bottom: 15px;
+        }
+
+        .template-modern .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .template-modern .section-title:before {
+            content: "▸";
+            color: #7c3aed;
+            font-size: 10px;
+        }
+
+        /* MINIMAL TEMPLATE */
+        .template-minimal .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .template-minimal .name {
+            font-size: 28px;
+            font-weight: 400;
+            color: #1f2937;
+            margin-bottom: 3px;
+            letter-spacing: 1px;
+        }
+
+        .template-minimal .title {
+            font-size: 14px;
+            color: #6b7280;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .template-minimal .divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 15px 0;
+        }
+
+        .template-minimal .section {
+            margin-bottom: 15px;
+        }
+
+        .template-minimal .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 6px;
+            letter-spacing: 1.5px;
+        }
+
+        /* CREATIVE TEMPLATE */
+        .template-creative .resume-content {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 25px;
+        }
+
+        .template-creative .sidebar {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .template-creative .name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            line-height: 1.2;
+        }
+
+        .template-creative .title {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .template-creative .section {
+            margin-bottom: 20px;
+        }
+
+        .template-creative .sidebar-section-title {
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        .template-creative .main-content {
+            padding-top: 10px;
+        }
+
+        /* TECH TEMPLATE */
+        .template-tech .resume-content {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #1f2937;
+            color: #e5e7eb;
+            padding: 25px;
+            border-radius: 4px;
+        }
+
+        .template-tech .header {
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #4b5563;
+        }
+
+        .template-tech .name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            color: #ffffff;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .template-tech .title {
+            font-size: 12px;
+            color: #9ca3af;
+            font-family: 'Consolas', monospace;
+        }
+
+        .template-tech .section {
+            margin-bottom: 15px;
+        }
+
+        .template-tech .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 6px;
+            font-family: 'Consolas', monospace;
+        }
+
+        .template-tech .content {
+            font-size: 11px;
+            color: #d1d5db;
+            line-height: 1.5;
+            font-family: 'Consolas', monospace;
+        }
+
+        /* BOLD TEMPLATE */
+        .template-bold .header {
+            background: #1f2937;
+            color: white;
+            padding: 15px 25px;
+            margin: -25px -25px 20px -25px;
+            border-radius: 4px 4px 0 0;
+        }
+
+        .template-bold .name {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 3px;
+            letter-spacing: 0.5px;
+        }
+
+        .template-bold .title {
+            font-size: 13px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        .template-bold .section {
+            margin-bottom: 18px;
+            padding: 0 10px;
+        }
+
+        .template-bold .section-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: inline-block;
+            padding-bottom: 4px;
+            border-bottom: 2px solid #7c3aed;
+        }
+
+        .template-bold .content {
+            font-size: 12px;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        /* ACADEMIC TEMPLATE */
+        .template-academic .header {
+            text-align: center;
+            border-bottom: 2px solid #1e40af;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .template-academic .name {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 3px;
+        }
+
+        .template-academic .title {
+            font-size: 14px;
+            color: #374151;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .template-academic .contact-info {
+            font-size: 11px;
+            color: #6b7280;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .template-academic .section {
+            margin-bottom: 20px;
+        }
+
+        .template-academic .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 8px;
+            font-family: 'Times New Roman', serif;
         }
 
         /* Print styles - Keep for browser print option */
@@ -571,6 +895,10 @@
                 top: 0;
                 left: 0;
             }
+            
+            .template-creative .resume-content {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -758,170 +1086,44 @@
             document.getElementById('actionsPanel').style.display = 'none';
         }
 
-        // Render the resume - SIMPLIFIED VERSION THAT WORKS
+        // Render the resume with selected template
         function renderResume() {
             const container = document.getElementById('resumeContent');
-            const { contact, summary, skills, work, education, certifications, projects, languages } = resumeData;
+            const { selectedTemplate } = resumeData;
             
-            // Always use simple template for now (fixes the header issue)
-            container.className = 'resume-content template-simple';
+            // Use the selected template or default to 'simple'
+            const template = selectedTemplate || 'simple';
+            container.className = `resume-content template-${template}`;
             
-            // Use work title for the resume title
-            const jobTitle = work?.title || 'Professional Title';
+            let html = '';
             
-            // ====== ALWAYS INCLUDE THE HEADER ======
-            let html = `
-                <div class="header">
-                    <div class="name">${escapeHtml(contact?.name || 'Your Name')}</div>
-                    <div class="title">${escapeHtml(jobTitle)}</div>
-                    <div class="contact-info">
-                        ${contact?.email ? `<div><strong>Email:</strong> ${escapeHtml(contact.email)}</div>` : ''}
-                        ${contact?.phone ? `<div><strong>Phone:</strong> ${escapeHtml(contact.phone)}</div>` : ''}
-                        ${contact?.location ? `<div><strong>Location:</strong> ${escapeHtml(contact.location)}</div>` : ''}
-                        ${contact?.linkedin ? `<div><strong>LinkedIn:</strong> ${escapeHtml(contact.linkedin)}</div>` : ''}
-                        ${contact?.portfolio ? `<div><strong>Portfolio:</strong> ${escapeHtml(contact.portfolio)}</div>` : ''}
-                    </div>
-                </div>
-            `;
-
-            // ====== PROFESSIONAL SUMMARY ======
-            if (summary) {
-                html += `
-                    <div class="section">
-                        <div class="section-title">PROFESSIONAL SUMMARY</div>
-                        <div class="content-description">${formatText(escapeHtml(summary))}</div>
-                    </div>`;
+            // ====== TEMPLATE-SPECIFIC RENDERING ======
+            switch(template) {
+                case 'executive':
+                    html = renderExecutiveTemplate();
+                    break;
+                case 'modern':
+                    html = renderModernTemplate();
+                    break;
+                case 'minimal':
+                    html = renderMinimalTemplate();
+                    break;
+                case 'creative':
+                    html = renderCreativeTemplate();
+                    break;
+                case 'tech':
+                    html = renderTechTemplate();
+                    break;
+                case 'bold':
+                    html = renderBoldTemplate();
+                    break;
+                case 'academic':
+                    html = renderAcademicTemplate();
+                    break;
+                default:
+                    html = renderSimpleTemplate();
             }
-
-            // ====== WORK EXPERIENCE ======
-            if (work) {
-                html += `
-                    <div class="section">
-                        <div class="section-title">WORK EXPERIENCE</div>
-                        <div class="content-item">
-                            <div class="content-header">
-                                <div>
-                                    <div class="content-title">${escapeHtml(work.title || 'Your Position')}</div>
-                                    <div class="content-subtitle">${escapeHtml(work.company || 'Company Name')} ${work.location ? `• ${escapeHtml(work.location)}` : ''}</div>
-                                </div>
-                                <div class="content-date">
-                                    ${work.startDate || 'Start'} 
-                                    ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}
-                                </div>
-                            </div>
-                            ${work.description ? `<div class="content-description">${formatText(escapeHtml(work.description))}</div>` : ''}
-                        </div>
-                    </div>`;
-            }
-
-            // ====== EDUCATION ======
-            if (education) {
-                html += `
-                    <div class="section">
-                        <div class="section-title">EDUCATION</div>
-                        <div class="content-item">
-                            <div class="content-header">
-                                <div>
-                                    <div class="content-title">${escapeHtml(education.degree || 'Your Degree')}</div>
-                                    <div class="content-subtitle">${escapeHtml(education.institution || 'Institution')}</div>
-                                </div>
-                                <div class="content-date">${education.graduationYear || 'Graduation Year'}</div>
-                            </div>
-                            ${education.honorsGPA ? `<div class="content-description">${formatText(escapeHtml(education.honorsGPA))}</div>` : ''}
-                        </div>
-                    </div>`;
-            }
-
-            // ====== SKILLS ======
-            if (skills && (skills.hard?.length > 0 || skills.soft?.length > 0 || skills.tools?.length > 0)) {
-                html += `
-                    <div class="section">
-                        <div class="section-title">SKILLS</div>`;
-                
-                if (skills.hard?.length > 0) {
-                    html += `
-                        <div style="margin-bottom: 10px;">
-                            <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">Hard Skills:</div>
-                            <div class="skills-container">
-                                ${skills.hard.map(skill => `<div class="skill-tag">${escapeHtml(skill)}</div>`).join('')}
-                            </div>
-                        </div>`;
-                }
-                
-                if (skills.soft?.length > 0) {
-                    html += `
-                        <div style="margin-bottom: 10px;">
-                            <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">Soft Skills:</div>
-                            <div class="skills-container">
-                                ${skills.soft.map(skill => `<div class="skill-tag">${escapeHtml(skill)}</div>`).join('')}
-                            </div>
-                        </div>`;
-                }
-                
-                if (skills.tools?.length > 0) {
-                    html += `
-                        <div>
-                            <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">Tools & Technologies:</div>
-                            <div class="skills-container">
-                                ${skills.tools.map(skill => `<div class="skill-tag">${escapeHtml(skill)}</div>`).join('')}
-                            </div>
-                        </div>`;
-                }
-                
-                html += `</div>`;
-            }
-
-            // ====== CERTIFICATIONS ======
-            if (certifications?.length > 0) {
-                html += `
-                    <div class="section">
-                        <div class="section-title">CERTIFICATIONS & AWARDS</div>
-                        ${certifications.map(cert => `
-                            <div class="content-item">
-                                <div class="content-header">
-                                    <div class="content-title">${escapeHtml(cert.name || '')}</div>
-                                    <div class="content-date">${cert.date || ''}</div>
-                                </div>
-                                <div class="content-subtitle">${escapeHtml(cert.organization || '')} ${cert.credentialId ? `• ID: ${escapeHtml(cert.credentialId)}` : ''}</div>
-                            </div>
-                        `).join('')}
-                    </div>`;
-            }
-
-            // ====== PROJECTS ======
-            if (projects?.length > 0) {
-                html += `
-                    <div class="section">
-                        <div class="section-title">PROJECTS / PORTFOLIO</div>
-                        ${projects.map(project => `
-                            <div class="content-item">
-                                <div class="content-header">
-                                    <div class="content-title">${escapeHtml(project.title || '')}</div>
-                                </div>
-                                ${project.description ? `<div class="content-description">${formatText(escapeHtml(project.description))}</div>` : ''}
-                                ${project.tools ? `<div style="font-size: 11px; color: var(--gray); margin-top: 5px;"><strong>Tools:</strong> ${escapeHtml(project.tools)}</div>` : ''}
-                                ${project.link ? `<div style="font-size: 11px; color: var(--primary); margin-top: 3px;">${escapeHtml(project.link)}</div>` : ''}
-                            </div>
-                        `).join('')}
-                    </div>`;
-            }
-
-            // ====== LANGUAGES ======
-            if (languages?.length > 0) {
-                html += `
-                    <div class="section">
-                        <div class="section-title">LANGUAGES</div>
-                        <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
-                            ${languages.map(lang => `
-                                <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f0f0f0;">
-                                    <span>${escapeHtml(lang.name || '')}</span>
-                                    <span style="color: var(--primary); font-weight: 500;">${formatLanguageLevel(lang.level)}</span>
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>`;
-            }
-
+            
             container.innerHTML = html;
         }
 
@@ -940,7 +1142,7 @@
 
         function formatText(text) {
             if (!text) return '';
-            return text.replace(/\n/g, '<br>');
+            return text.replace(/\n/g, '<br>').replace(/\•/g, '•');
         }
 
         function formatLanguageLevel(level) {
@@ -952,6 +1154,549 @@
                 'basic': 'Basic'
             };
             return levels[level] || level || '';
+        }
+
+        // Template rendering functions
+        function renderSimpleTemplate() {
+            const { contact, summary, skills, work, education, certifications, projects, languages } = resumeData;
+            const jobTitle = work?.title || 'Professional Title';
+            
+            return `
+                <div class="header">
+                    <div class="name">${escapeHtml(contact?.name || 'Your Name')}</div>
+                    <div class="title">${escapeHtml(jobTitle)}</div>
+                    <div class="contact-info">
+                        ${contact?.email ? `<div><strong>Email:</strong> ${escapeHtml(contact.email)}</div>` : ''}
+                        ${contact?.phone ? `<div><strong>Phone:</strong> ${escapeHtml(contact.phone)}</div>` : ''}
+                        ${contact?.location ? `<div><strong>Location:</strong> ${escapeHtml(contact.location)}</div>` : ''}
+                        ${contact?.linkedin ? `<div><strong>LinkedIn:</strong> ${escapeHtml(contact.linkedin)}</div>` : ''}
+                        ${contact?.portfolio ? `<div><strong>Portfolio:</strong> ${escapeHtml(contact.portfolio)}</div>` : ''}
+                    </div>
+                </div>
+                
+                ${summary ? `
+                <div class="section">
+                    <div class="section-title">PROFESSIONAL SUMMARY</div>
+                    <div class="content-description">${formatText(escapeHtml(summary))}</div>
+                </div>` : ''}
+                
+                ${work ? `
+                <div class="section">
+                    <div class="section-title">WORK EXPERIENCE</div>
+                    <div class="content-item">
+                        <div class="content-header">
+                            <div>
+                                <div class="content-title">${escapeHtml(work.title || 'Your Position')}</div>
+                                <div class="content-subtitle">${escapeHtml(work.company || 'Company Name')} ${work.location ? `• ${escapeHtml(work.location)}` : ''}</div>
+                            </div>
+                            <div class="content-date">
+                                ${work.startDate || 'Start'} 
+                                ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}
+                            </div>
+                        </div>
+                        ${work.description ? `<div class="content-description">${formatText(escapeHtml(work.description))}</div>` : ''}
+                    </div>
+                </div>` : ''}
+                
+                ${education ? `
+                <div class="section">
+                    <div class="section-title">EDUCATION</div>
+                    <div class="content-item">
+                        <div class="content-header">
+                            <div>
+                                <div class="content-title">${escapeHtml(education.degree || 'Your Degree')}</div>
+                                <div class="content-subtitle">${escapeHtml(education.institution || 'Institution')}</div>
+                            </div>
+                            <div class="content-date">${education.graduationYear || 'Graduation Year'}</div>
+                        </div>
+                        ${education.honorsGPA ? `<div class="content-description">${formatText(escapeHtml(education.honorsGPA))}</div>` : ''}
+                    </div>
+                </div>` : ''}
+                
+                ${skills && (skills.hard?.length > 0 || skills.soft?.length > 0 || skills.tools?.length > 0) ? `
+                <div class="section">
+                    <div class="section-title">SKILLS</div>
+                    ${skills.hard?.length > 0 ? `
+                    <div style="margin-bottom: 10px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">Hard Skills:</div>
+                        <div class="skills-container">
+                            ${skills.hard.map(skill => `<div class="skill-tag">${escapeHtml(skill)}</div>`).join('')}
+                        </div>
+                    </div>` : ''}
+                    
+                    ${skills.soft?.length > 0 ? `
+                    <div style="margin-bottom: 10px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">Soft Skills:</div>
+                        <div class="skills-container">
+                            ${skills.soft.map(skill => `<div class="skill-tag">${escapeHtml(skill)}</div>`).join('')}
+                        </div>
+                    </div>` : ''}
+                    
+                    ${skills.tools?.length > 0 ? `
+                    <div>
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">Tools & Technologies:</div>
+                        <div class="skills-container">
+                            ${skills.tools.map(skill => `<div class="skill-tag">${escapeHtml(skill)}</div>`).join('')}
+                        </div>
+                    </div>` : ''}
+                </div>` : ''}
+                
+                ${certifications?.length > 0 ? `
+                <div class="section">
+                    <div class="section-title">CERTIFICATIONS & AWARDS</div>
+                    ${certifications.map(cert => `
+                        <div class="content-item">
+                            <div class="content-header">
+                                <div class="content-title">${escapeHtml(cert.name || '')}</div>
+                                <div class="content-date">${cert.date || ''}</div>
+                            </div>
+                            <div class="content-subtitle">${escapeHtml(cert.organization || '')} ${cert.credentialId ? `• ID: ${escapeHtml(cert.credentialId)}` : ''}</div>
+                        </div>
+                    `).join('')}
+                </div>` : ''}
+                
+                ${projects?.length > 0 ? `
+                <div class="section">
+                    <div class="section-title">PROJECTS / PORTFOLIO</div>
+                    ${projects.map(project => `
+                        <div class="content-item">
+                            <div class="content-header">
+                                <div class="content-title">${escapeHtml(project.title || '')}</div>
+                            </div>
+                            ${project.description ? `<div class="content-description">${formatText(escapeHtml(project.description))}</div>` : ''}
+                            ${project.tools ? `<div style="font-size: 11px; color: var(--gray); margin-top: 5px;"><strong>Tools:</strong> ${escapeHtml(project.tools)}</div>` : ''}
+                            ${project.link ? `<div style="font-size: 11px; color: var(--primary); margin-top: 3px;">${escapeHtml(project.link)}</div>` : ''}
+                        </div>
+                    `).join('')}
+                </div>` : ''}
+                
+                ${languages?.length > 0 ? `
+                <div class="section">
+                    <div class="section-title">LANGUAGES</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        ${languages.map(lang => `
+                            <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f0f0f0;">
+                                <span>${escapeHtml(lang.name || '')}</span>
+                                <span style="color: var(--primary); font-weight: 500;">${formatLanguageLevel(lang.level)}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>` : ''}
+            `;
+        }
+
+        function renderExecutiveTemplate() {
+            const { contact, summary, skills, work, education, certifications, projects, languages } = resumeData;
+            const jobTitle = work?.title || 'Professional Title';
+            
+            return `
+                <div class="header">
+                    <div class="name">${escapeHtml(contact?.name || 'ROBERT J. WILSON')}</div>
+                    <div class="title">${escapeHtml(jobTitle)}</div>
+                    <div class="contact-info">
+                        ${contact?.email || 'email@example.com'} • ${contact?.phone || '(555) 123-4567'} • ${contact?.location || 'City, State'}<br>
+                        ${contact?.linkedin || 'linkedin.com/in/yourprofile'} ${contact?.portfolio ? `• ${contact.portfolio}` : ''}
+                    </div>
+                </div>
+                
+                ${summary ? `
+                <div class="section">
+                    <div class="section-title">EXECUTIVE SUMMARY</div>
+                    <div class="content">${formatText(escapeHtml(summary))}</div>
+                </div>` : ''}
+                
+                ${work ? `
+                <div class="section">
+                    <div class="section-title">PROFESSIONAL EXPERIENCE</div>
+                    <div class="content">
+                        <strong>${escapeHtml(work.title || 'Your Position')} | ${escapeHtml(work.company || 'Company Name')}</strong><br>
+                        ${work.location ? `${escapeHtml(work.location)} | ` : ''}${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
+                        ${work.description ? formatText(escapeHtml(work.description)) : '• Led teams and drove business growth'}
+                    </div>
+                </div>` : ''}
+                
+                ${education ? `
+                <div class="section">
+                    <div class="section-title">EDUCATION</div>
+                    <div class="content">
+                        <strong>${escapeHtml(education.degree || 'Your Degree')}</strong><br>
+                        ${escapeHtml(education.institution || 'University Name')} | ${education.graduationYear || 'Year'}
+                    </div>
+                </div>` : ''}
+                
+                ${skills && (skills.hard?.length > 0 || skills.soft?.length > 0 || skills.tools?.length > 0) ? `
+                <div class="section">
+                    <div class="section-title">CORE COMPETENCIES</div>
+                    <div class="content">
+                        ${[...(skills.hard || []), ...(skills.soft || [])].slice(0, 10).map(skill => `<span style="display: inline-block; background: #f0f0f0; padding: 3px 8px; margin: 2px; border-radius: 3px; font-size: 10px;">${escapeHtml(skill)}</span>`).join('')}
+                    </div>
+                </div>` : ''}
+                
+                ${certifications?.length > 0 ? `
+                <div class="section">
+                    <div class="section-title">CERTIFICATIONS</div>
+                    <div class="content">
+                        ${certifications.map(cert => `• ${escapeHtml(cert.name || '')} (${escapeHtml(cert.organization || '')})${cert.date ? `, ${cert.date}` : ''}<br>`).join('')}
+                    </div>
+                </div>` : ''}
+                
+                ${languages?.length > 0 ? `
+                <div class="section">
+                    <div class="section-title">LANGUAGES</div>
+                    <div class="content">
+                        ${languages.map(lang => `• ${escapeHtml(lang.name || '')} (${formatLanguageLevel(lang.level)})<br>`).join('')}
+                    </div>
+                </div>` : ''}
+            `;
+        }
+
+        function renderModernTemplate() {
+            const { contact, summary, skills, work, education, certifications, projects, languages } = resumeData;
+            const jobTitle = work?.title || 'Professional Title';
+            
+            return `
+                <div class="header">
+                    <div class="name-container">
+                        <div class="name">${escapeHtml(contact?.name || 'SARAH CHEN')}</div>
+                        <div class="title">${escapeHtml(jobTitle)}</div>
+                    </div>
+                    <div class="contact">
+                        ${contact?.email || 'email@example.com'}<br>
+                        ${contact?.phone || '(555) 123-4567'}<br>
+                        ${contact?.location || 'City, State'}<br>
+                        ${contact?.linkedin || 'linkedin.com/in/yourprofile'}
+                    </div>
+                </div>
+                
+                ${summary ? `
+                <div class="section">
+                    <div class="section-title">PROFILE</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        ${formatText(escapeHtml(summary))}
+                    </div>
+                </div>` : ''}
+                
+                ${work ? `
+                <div class="section">
+                    <div class="section-title">EXPERIENCE</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        <strong>${escapeHtml(work.title || 'Your Position')} | ${escapeHtml(work.company || 'Company Name')}</strong><br>
+                        ${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
+                        ${work.description ? formatText(escapeHtml(work.description)) : 'Key responsibilities and achievements...'}
+                    </div>
+                </div>` : ''}
+                
+                ${education ? `
+                <div class="section">
+                    <div class="section-title">EDUCATION</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        <strong>${escapeHtml(education.degree || 'Your Degree')}</strong><br>
+                        ${escapeHtml(education.institution || 'University Name')} | ${education.graduationYear || 'Year'}
+                        ${education.honorsGPA ? `<br>${escapeHtml(education.honorsGPA)}` : ''}
+                    </div>
+                </div>` : ''}
+                
+                ${skills && (skills.hard?.length > 0 || skills.soft?.length > 0 || skills.tools?.length > 0) ? `
+                <div class="section">
+                    <div class="section-title">SKILLS</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        ${[...(skills.hard || []), ...(skills.tools || [])].slice(0, 12).map(skill => `${escapeHtml(skill)} • `).join('').slice(0, -2)}
+                    </div>
+                </div>` : ''}
+            `;
+        }
+
+        function renderMinimalTemplate() {
+            const { contact, summary, skills, work, education, certifications, projects, languages } = resumeData;
+            const jobTitle = work?.title || 'Professional Title';
+            
+            return `
+                <div class="header">
+                    <div class="name">${escapeHtml(contact?.name || 'MICHAEL PARK')}</div>
+                    <div class="title">${escapeHtml(jobTitle)}</div>
+                    <div style="font-size: 11px; color: #6b7280; margin-top: 5px;">
+                        ${contact?.email || 'email@example.com'} • ${contact?.location || 'City, State'}
+                    </div>
+                </div>
+                
+                <div class="divider"></div>
+                
+                ${summary ? `
+                <div class="section">
+                    <div class="section-title">PROFILE</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        ${formatText(escapeHtml(summary))}
+                    </div>
+                </div>
+                <div class="divider"></div>` : ''}
+                
+                ${work ? `
+                <div class="section">
+                    <div class="section-title">EXPERIENCE</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        <strong>${escapeHtml(work.title || 'Your Position')}</strong><br>
+                        ${escapeHtml(work.company || 'Company Name')} | ${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
+                        ${work.description ? formatText(escapeHtml(work.description)) : 'Key responsibilities...'}
+                    </div>
+                </div>
+                <div class="divider"></div>` : ''}
+                
+                ${education ? `
+                <div class="section">
+                    <div class="section-title">EDUCATION</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        <strong>${escapeHtml(education.degree || 'Your Degree')}</strong><br>
+                        ${escapeHtml(education.institution || 'University Name')} | ${education.graduationYear || 'Year'}
+                    </div>
+                </div>
+                <div class="divider"></div>` : ''}
+                
+                ${skills && (skills.hard?.length > 0 || skills.tools?.length > 0) ? `
+                <div class="section">
+                    <div class="section-title">SKILLS</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        ${[...(skills.hard || []), ...(skills.tools || [])].slice(0, 8).map(skill => `${escapeHtml(skill)} • `).join('').slice(0, -2)}
+                    </div>
+                </div>` : ''}
+            `;
+        }
+
+        function renderCreativeTemplate() {
+            const { contact, summary, skills, work, education, certifications, projects, languages } = resumeData;
+            const jobTitle = work?.title || 'Professional Title';
+            
+            return `
+                <div class="sidebar">
+                    <div class="name">${escapeHtml(contact?.name || 'OLIVIA REED')}</div>
+                    <div class="title">${escapeHtml(jobTitle)}</div>
+                    
+                    <div class="section">
+                        <div class="sidebar-section-title">CONTACT</div>
+                        <div style="font-size: 10px; line-height: 1.5;">
+                            ${contact?.email || 'email@example.com'}<br>
+                            ${contact?.phone || '(555) 123-4567'}<br>
+                            ${contact?.location || 'City, State'}<br>
+                            ${contact?.linkedin || 'linkedin.com/in/yourprofile'}
+                        </div>
+                    </div>
+                    
+                    ${skills && (skills.hard?.length > 0 || skills.tools?.length > 0) ? `
+                    <div class="section">
+                        <div class="sidebar-section-title">SKILLS</div>
+                        <div style="font-size: 10px; line-height: 1.6;">
+                            ${[...(skills.hard || []), ...(skills.tools || [])].slice(0, 8).map(skill => `${escapeHtml(skill)}<br>`).join('')}
+                        </div>
+                    </div>` : ''}
+                    
+                    ${languages?.length > 0 ? `
+                    <div class="section">
+                        <div class="sidebar-section-title">LANGUAGES</div>
+                        <div style="font-size: 10px; line-height: 1.6;">
+                            ${languages.map(lang => `${escapeHtml(lang.name || '')} (${formatLanguageLevel(lang.level)})<br>`).join('')}
+                        </div>
+                    </div>` : ''}
+                </div>
+                
+                <div class="main-content">
+                    ${summary ? `
+                    <div class="section">
+                        <div style="color: #1f2937; font-size: 12px; margin-bottom: 8px;">PROFILE</div>
+                        <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                            ${formatText(escapeHtml(summary))}
+                        </div>
+                    </div>` : ''}
+                    
+                    ${work ? `
+                    <div class="section">
+                        <div style="color: #1f2937; font-size: 12px; margin-bottom: 8px;">EXPERIENCE</div>
+                        <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                            <strong>${escapeHtml(work.title || 'Your Position')}</strong><br>
+                            ${escapeHtml(work.company || 'Company Name')} | ${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
+                            ${work.description ? formatText(escapeHtml(work.description)) : 'Key responsibilities and achievements...'}
+                        </div>
+                    </div>` : ''}
+                    
+                    ${education ? `
+                    <div class="section">
+                        <div style="color: #1f2937; font-size: 12px; margin-bottom: 8px;">EDUCATION</div>
+                        <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                            <strong>${escapeHtml(education.degree || 'Your Degree')}</strong><br>
+                            ${escapeHtml(education.institution || 'University Name')} | ${education.graduationYear || 'Year'}
+                        </div>
+                    </div>` : ''}
+                    
+                    ${projects?.length > 0 ? `
+                    <div class="section">
+                        <div style="color: #1f2937; font-size: 12px; margin-bottom: 8px;">PROJECTS</div>
+                        <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                            ${projects.slice(0, 3).map(project => `
+                                <strong>${escapeHtml(project.title || '')}</strong><br>
+                                ${project.description ? formatText(escapeHtml(project.description)) : ''}<br><br>
+                            `).join('')}
+                        </div>
+                    </div>` : ''}
+                </div>
+            `;
+        }
+
+        function renderTechTemplate() {
+            const { contact, summary, skills, work, education, certifications, projects, languages } = resumeData;
+            const jobTitle = work?.title || 'Software Engineer';
+            
+            return `
+                <div class="header">
+                    <div class="name">${escapeHtml(contact?.name || 'DAVID KIM')}</div>
+                    <div class="title">${escapeHtml(jobTitle.toUpperCase())}</div>
+                </div>
+                
+                ${summary ? `
+                <div class="section">
+                    <div class="section-title">SUMMARY</div>
+                    <div class="content">${formatText(escapeHtml(summary))}</div>
+                </div>` : ''}
+                
+                ${work ? `
+                <div class="section">
+                    <div class="section-title">EXPERIENCE</div>
+                    <div class="content">
+                        <strong>${escapeHtml(work.title || 'Your Position')} | ${escapeHtml(work.company || 'Company Name')}</strong><br>
+                        ${work.location ? `${escapeHtml(work.location)} | ` : ''}${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
+                        ${work.description ? formatText(escapeHtml(work.description)) : 'Key technical responsibilities...'}
+                    </div>
+                </div>` : ''}
+                
+                ${skills && (skills.hard?.length > 0 || skills.tools?.length > 0) ? `
+                <div class="section">
+                    <div class="section-title">TECH STACK</div>
+                    <div class="content">
+                        ${[...(skills.hard || []), ...(skills.tools || [])].slice(0, 12).map(skill => `<span style="display: inline-block; background: #374151; color: #d1d5db; padding: 3px 8px; margin: 2px; border-radius: 3px; font-size: 10px;">${escapeHtml(skill)}</span>`).join('')}
+                    </div>
+                </div>` : ''}
+                
+                ${projects?.length > 0 ? `
+                <div class="section">
+                    <div class="section-title">PROJECTS</div>
+                    <div class="content">
+                        ${projects.slice(0, 3).map(project => `
+                            <strong>${escapeHtml(project.title || '')}</strong><br>
+                            ${project.description ? formatText(escapeHtml(project.description)) : ''}<br><br>
+                        `).join('')}
+                    </div>
+                </div>` : ''}
+                
+                ${education ? `
+                <div class="section">
+                    <div class="section-title">EDUCATION</div>
+                    <div class="content">
+                        <strong>${escapeHtml(education.degree || 'Your Degree')}</strong><br>
+                        ${escapeHtml(education.institution || 'University Name')} | ${education.graduationYear || 'Year'}
+                    </div>
+                </div>` : ''}
+            `;
+        }
+
+        function renderBoldTemplate() {
+            const { contact, summary, skills, work, education, certifications, projects, languages } = resumeData;
+            const jobTitle = work?.title || 'Professional Title';
+            
+            return `
+                <div class="header">
+                    <div class="name">${escapeHtml(contact?.name || 'JAMES RODRIGUEZ')}</div>
+                    <div class="title">${escapeHtml(jobTitle.toUpperCase())}</div>
+                </div>
+                
+                ${summary ? `
+                <div class="section">
+                    <div class="section-title">PROFILE</div>
+                    <div class="content">${formatText(escapeHtml(summary))}</div>
+                </div>` : ''}
+                
+                ${work ? `
+                <div class="section">
+                    <div class="section-title">WORK EXPERIENCE</div>
+                    <div class="content">
+                        <strong>${escapeHtml(work.title || 'Your Position')}</strong><br>
+                        ${escapeHtml(work.company || 'Company Name')} | ${work.location ? `${escapeHtml(work.location)} | ` : ''}${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
+                        ${work.description ? formatText(escapeHtml(work.description)) : 'Key achievements and responsibilities...'}
+                    </div>
+                </div>` : ''}
+                
+                ${skills && (skills.hard?.length > 0 || skills.soft?.length > 0) ? `
+                <div class="section">
+                    <div class="section-title">KEY COMPETENCIES</div>
+                    <div class="content">
+                        ${[...(skills.hard || []), ...(skills.soft || [])].slice(0, 8).map(skill => `<span style="display: inline-block; background: #7c3aed; color: white; padding: 4px 10px; margin: 3px; border-radius: 4px; font-size: 10px; font-weight: 600;">${escapeHtml(skill)}</span>`).join('')}
+                    </div>
+                </div>` : ''}
+                
+                ${education ? `
+                <div class="section">
+                    <div class="section-title">EDUCATION</div>
+                    <div class="content">
+                        <strong>${escapeHtml(education.degree || 'Your Degree')}</strong><br>
+                        ${escapeHtml(education.institution || 'University Name')} | ${education.graduationYear || 'Year'}
+                    </div>
+                </div>` : ''}
+            `;
+        }
+
+        function renderAcademicTemplate() {
+            const { contact, summary, skills, work, education, certifications, projects, languages } = resumeData;
+            const jobTitle = work?.title || 'Research Professional';
+            
+            return `
+                <div class="header">
+                    <div class="name">${escapeHtml(contact?.name || 'DR. ELIZABETH CARTER')}</div>
+                    <div class="title">${escapeHtml(jobTitle)}</div>
+                    <div class="contact-info">
+                        ${contact?.email || 'email@university.edu'} • ${contact?.phone || '(555) 123-4567'} • ${contact?.location || 'City, State'}
+                    </div>
+                </div>
+                
+                ${education ? `
+                <div class="section">
+                    <div class="section-title">EDUCATION</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        <strong>${escapeHtml(education.degree || 'Your Degree')}</strong><br>
+                        ${escapeHtml(education.institution || 'University Name')} | ${education.graduationYear || 'Year'}
+                        ${education.honorsGPA ? `<br>${escapeHtml(education.honorsGPA)}` : ''}
+                    </div>
+                </div>` : ''}
+                
+                ${work ? `
+                <div class="section">
+                    <div class="section-title">PROFESSIONAL EXPERIENCE</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        <strong>${escapeHtml(work.title || 'Your Position')}</strong><br>
+                        ${escapeHtml(work.company || 'Company Name')} | ${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
+                        ${work.description ? formatText(escapeHtml(work.description)) : 'Research and professional activities...'}
+                    </div>
+                </div>` : ''}
+                
+                ${projects?.length > 0 ? `
+                <div class="section">
+                    <div class="section-title">RESEARCH / PUBLICATIONS</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        ${projects.slice(0, 3).map(project => `• ${escapeHtml(project.title || '')}${project.description ? `: ${formatText(escapeHtml(project.description))}` : ''}<br><br>`).join('')}
+                    </div>
+                </div>` : ''}
+                
+                ${certifications?.length > 0 ? `
+                <div class="section">
+                    <div class="section-title">CERTIFICATIONS</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        ${certifications.map(cert => `• ${escapeHtml(cert.name || '')} (${escapeHtml(cert.organization || '')})${cert.date ? `, ${cert.date}` : ''}<br>`).join('')}
+                    </div>
+                </div>` : ''}
+                
+                ${skills && (skills.hard?.length > 0 || skills.tools?.length > 0) ? `
+                <div class="section">
+                    <div class="section-title">RESEARCH SKILLS</div>
+                    <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                        ${[...(skills.hard || []), ...(skills.tools || [])].slice(0, 10).map(skill => `${escapeHtml(skill)} • `).join('').slice(0, -2)}
+                    </div>
+                </div>` : ''}
+            `;
         }
 
         // UI Controls
@@ -1013,33 +1758,46 @@
             }
             
             const element = document.getElementById('resumePaper');
-            const { contact } = resumeData;
+            const { contact, selectedTemplate } = resumeData;
             const name = contact?.name || 'resume';
-            const filename = `${name.replace(/\s+/g, '-')}-resume.pdf`;
+            const templateName = selectedTemplate || 'simple';
+            const filename = `${name.replace(/\s+/g, '-')}-${templateName}-resume.pdf`;
             
-            // Configure html2canvas for perfect capture
+            // Remove watermark temporarily for PDF
+            const watermark = element.querySelector('.resume-watermark');
+            const originalDisplay = watermark ? watermark.style.display : '';
+            if (watermark) watermark.style.display = 'none';
+            
             const options = {
-                scale: 3, // Ultra-high resolution for perfect print quality
+                scale: 3,
                 useCORS: true,
                 logging: false,
                 backgroundColor: '#ffffff',
                 removeContainer: true,
-                width: 794, // Exact A4 width
-                height: 1123, // Exact A4 height
+                width: 794,
+                height: 1123,
                 windowWidth: 794,
                 windowHeight: 1123,
                 onclone: function(clonedDoc) {
-                    // Remove watermark for PDF
-                    const watermark = clonedDoc.querySelector('.resume-watermark');
-                    if (watermark) {
-                        watermark.style.display = 'none';
-                    }
-                    
-                    // Ensure all content is visible
+                    // Ensure all template styles are applied
                     const content = clonedDoc.querySelector('.resume-content');
                     if (content) {
                         content.style.opacity = '1';
                         content.style.visibility = 'visible';
+                        content.style.position = 'relative';
+                        content.style.zIndex = '1';
+                    }
+                    
+                    // Remove watermark from clone
+                    const clonedWatermark = clonedDoc.querySelector('.resume-watermark');
+                    if (clonedWatermark) {
+                        clonedWatermark.style.display = 'none';
+                    }
+                    
+                    // Ensure template classes are present
+                    const templateClass = `template-${templateName}`;
+                    if (content && !content.classList.contains(templateClass)) {
+                        content.className = `resume-content ${templateClass}`;
                     }
                 }
             };
@@ -1047,8 +1805,6 @@
             html2canvas(element, options).then(canvas => {
                 try {
                     const { jsPDF } = window.jspdf;
-                    
-                    // Create PDF with exact A4 dimensions
                     const pdf = new jsPDF({
                         orientation: 'portrait',
                         unit: 'px',
@@ -1056,27 +1812,24 @@
                         compress: true
                     });
                     
-                    // Convert canvas to image with perfect quality
                     const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                    
-                    // Add image to PDF - exact fit
                     pdf.addImage(imgData, 'JPEG', 0, 0, 794, 1123, null, 'FAST');
                     
-                    // Add metadata
                     pdf.setProperties({
-                        title: `${name} - Resume`,
+                        title: `${name} - ${templateName} Resume`,
                         subject: 'Professional Resume',
                         author: 'ProfileForge',
                         creator: 'ProfileForge Resume Builder'
                     });
                     
-                    // Save the PDF
                     pdf.save(filename);
                     
+                    // Restore watermark
+                    if (watermark) watermark.style.display = originalDisplay;
                     hideLoading();
                     
                     setTimeout(() => {
-                        alert(`✓ Perfect PDF downloaded as "${filename}"\n\n• Exact A4 size (210 × 297 mm)\n• Print-ready quality\n• All colors preserved`);
+                        alert(`✓ Perfect PDF downloaded as "${filename}"\n\n• ${templateName} template applied\n• Exact A4 size (210 × 297 mm)\n• Print-ready quality\n• All colors preserved`);
                     }, 500);
                     
                 } catch (pdfError) {
@@ -1087,7 +1840,7 @@
             }).catch(canvasError => {
                 console.error('Canvas capture error:', canvasError);
                 hideLoading();
-                alert('Error capturing resume image. Please try the Print option instead.');
+                alert('Error capturing resume. Please try the Print option instead.');
             });
         }
 
@@ -1105,9 +1858,10 @@
             showLoading("Creating document...");
             updateDownloadStats();
             
-            const { contact } = resumeData;
+            const { contact, selectedTemplate } = resumeData;
             const name = contact?.name || 'resume';
-            const filename = `${name.replace(/\s+/g, '-')}-resume.html`;
+            const templateName = selectedTemplate || 'simple';
+            const filename = `${name.replace(/\s+/g, '-')}-${templateName}-resume.html`;
             
             const resumeHTML = document.getElementById('resumeContent').innerHTML;
             
@@ -1115,7 +1869,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>${escapeHtml(contact?.name || 'Resume')} - Resume</title>
+    <title>${escapeHtml(contact?.name || 'Resume')} - ${templateName} Resume</title>
     <style>
         body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; padding: 20px; }
         .name { font-size: 24px; font-weight: bold; }
@@ -1141,7 +1895,7 @@
             hideLoading();
             
             setTimeout(() => {
-                alert(`✓ Resume saved as "${filename}"\n\nOpen in Microsoft Word or any text editor.`);
+                alert(`✓ Resume saved as "${filename}"\n\nOpen in Microsoft Word or any text editor.\n• ${templateName} template included`);
             }, 300);
         }
 
@@ -1150,9 +1904,10 @@
             showLoading("Creating text file...");
             updateDownloadStats();
             
-            const { contact } = resumeData;
+            const { contact, selectedTemplate } = resumeData;
             const name = contact?.name || 'resume';
-            const filename = `${name.replace(/\s+/g, '-')}-resume.txt`;
+            const templateName = selectedTemplate || 'simple';
+            const filename = `${name.replace(/\s+/g, '-')}-${templateName}-resume.txt`;
             
             const resumeText = document.getElementById('resumeContent').innerText;
             
@@ -1170,7 +1925,7 @@
             hideLoading();
             
             setTimeout(() => {
-                alert(`✓ Text file downloaded as "${filename}"`);
+                alert(`✓ Text file downloaded as "${filename}"\n\n• ${templateName} template formatting included`);
             }, 300);
         }
 
