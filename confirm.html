@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Review Details | ProfileForge</title>
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .review-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .review-header h1 {
+            font-size: 2.2rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .review-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .resume-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin-bottom: 35px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--light-gray);
+            position: relative;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            width: 30px;
+            height: 30px;
+            background: rgba(124, 58, 237, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+        }
+
+        .info-group {
+            margin-bottom: 15px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        .info-value {
+            color: var(--gray);
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill-tag {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .summary-box {
+            background: rgba(16, 185, 129, 0.05);
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-style: italic;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .actions .btn {
+            flex: 1;
+            justify-content: center;
+        }
+
+        .edit-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(124, 58, 237, 0.1);
+            border: none;
+            color: var(--primary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .edit-btn:hover {
+            background: rgba(124, 58, 237, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* Category badges for skills */
+        .category-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin: 15px 0 10px;
+            font-size: 1rem;
+        }
+
+        /* Certifications and Projects styling */
+        .item-list {
+            margin-top: 10px;
+        }
+
+        .item-entry {
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.02);
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 3px solid var(--primary);
+        }
+
+        .item-title {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .item-details {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .item-description {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-top: 8px;
+        }
+
+        .item-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .item-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Languages styling */
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .language-item:last-child {
+            border-bottom: none;
+        }
+
+        .language-name {
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .language-level {
+            color: var(--primary);
+            background: rgba(124, 58, 237, 0.1);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .resume-card {
+                padding: 25px;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .language-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="../index.html" class="logo">
+            <i class="fas fa-sparkles"></i>
+            <span>ProfileForge</span>
+        </a>
+        <div class="header-badge">Step 2: Review Details</div>
+    </div>
+
+    <div class="container">
+        <div class="review-header">
+            <h1>Review Your Resume Details</h1>
+            <p>Please review all information before proceeding to template selection</p>
+        </div>
+
+        <div class="resume-card" id="resumeCard">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+
+        <div class="actions">
+            <button class="btn btn-secondary" onclick="window.location.href='form.html'">
+                <i class="fas fa-edit"></i> Edit Details
+            </button>
+            <button class="btn btn-primary" onclick="proceedToTemplates()">
+                Continue to Templates <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let resumeData = {};
+
+        function sanitizeHTML(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return String(text).replace(/[&<>"']/g, function(m) { return map[m]; });
+        }
+
+        function formatTextWithLineBreaks(text) {
+            if (!text) return '';
+            return escapeHtml(text).replace(/\n/g, '<br>');
+        }
+
+        function formatBulletPoints(text) {
+            if (!text) return '';
+            return escapeHtml(text).replace(/•/g, '<br>•').replace(/\n/g, '<br>');
+        }
+
+        function loadResumeData() {
+            try {
+                const savedData = localStorage.getItem('resumeData');
+                if (!savedData) {
+                    window.location.href = 'form.html';
+                    return;
+                }
+
+                const parsedData = JSON.parse(savedData);
+                resumeData = parsedData;
+
+                renderResumeReview();
+            } catch (error) {
+                console.error('Error loading resume data:', error);
+                alert('Error loading your resume data. Please re-enter your information.');
+                window.location.href = 'form.html';
+            }
+        }
+
+        function renderResumeReview() {
+            try {
+                const { contact, summary, skills, work, education, certifications, projects, languages } = resumeData;
+                
+                // Create safe versions of all data
+                const safeContact = {
+                    name: escapeHtml(contact?.name || 'Not provided'),
+                    phone: escapeHtml(contact?.phone || ''),
+                    email: escapeHtml(contact?.email || ''),
+                    linkedin: escapeHtml(contact?.linkedin || ''),
+                    portfolio: escapeHtml(contact?.portfolio || ''),
+                    location: escapeHtml(contact?.location || '')
+                };
+
+                const safeSummary = formatTextWithLineBreaks(summary || '');
+                
+                const safeSkills = {
+                    hard: skills?.hard?.map(skill => escapeHtml(skill)) || [],
+                    soft: skills?.soft?.map(skill => escapeHtml(skill)) || [],
+                    tools: skills?.tools?.map(skill => escapeHtml(skill)) || []
+                };
+
+                const safeWork = {
+                    title: escapeHtml(work?.title || 'Not provided'),
+                    company: escapeHtml(work?.company || 'Not provided'),
+                    location: escapeHtml(work?.location || ''),
+                    startDate: escapeHtml(work?.startDate || 'Not specified'),
+                    endDate: escapeHtml(work?.endDate || ''),
+                    current: Boolean(work?.current),
+                    description: formatBulletPoints(work?.description || '')
+                };
+
+                const safeEducation = {
+                    degree: escapeHtml(education?.degree || 'Not provided'),
+                    institution: escapeHtml(education?.institution || 'Not provided'),
+                    graduationYear: escapeHtml(education?.graduationYear || ''),
+                    honorsGPA: escapeHtml(education?.honorsGPA || '')
+                };
+
+                const safeCertifications = (certifications || []).filter(cert => cert.name || cert.organization).map(cert => ({
+                    name: escapeHtml(cert.name),
+                    organization: escapeHtml(cert.organization),
+                    date: escapeHtml(cert.date),
+                    credentialId: escapeHtml(cert.credentialId)
+                }));
+
+                const safeProjects = (projects || []).filter(project => project.title || project.description).map(project => ({
+                    title: escapeHtml(project.title),
+                    description: formatTextWithLineBreaks(project.description),
+                    tools: escapeHtml(project.tools),
+                    link: escapeHtml(project.link)
+                }));
+
+                const safeLanguages = (languages || []).filter(lang => lang.name && lang.level).map(lang => ({
+                    name: escapeHtml(lang.name),
+                    level: escapeHtml(lang.level)
+                }));
+
+                const html = `
+                    <!-- Section 1: Contact Information -->
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="fas fa-address-card"></i>
+                            <span>Contact Information</span>
+                        </h3>
+                        <div class="info-group">
+                            <div class="info-label">Full Name</div>
+                            <div class="info-value">${safeContact.name}</div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-label">Contact Details</div>
+                            <div class="info-value">
+                                ${safeContact.email ? `<strong>Email:</strong> ${safeContact.email}<br>` : ''}
+                                ${safeContact.phone ? `<strong>Phone:</strong> ${safeContact.phone}<br>` : ''}
+                                ${safeContact.location ? `<strong>Location:</strong> ${safeContact.location}<br>` : ''}
+                                ${safeContact.linkedin ? `<strong>LinkedIn:</strong> <a href="${safeContact.linkedin}" class="item-link" target="_blank">${safeContact.linkedin}</a><br>` : ''}
+                                ${safeContact.portfolio ? `<strong>Portfolio:</strong> <a href="${safeContact.portfolio}" class="item-link" target="_blank">${safeContact.portfolio}</a>` : ''}
+                            </div>
+                        </div>
+                        <button class="edit-btn" onclick="window.location.href='form.html#step1'">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                    </div>
+
+                    <!-- Section 2: Professional Summary -->
+                    ${safeSummary ? `
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Professional Summary</span>
+                        </h3>
+                        <div class="summary-box">${safeSummary}</div>
+                        <button class="edit-btn" onclick="window.location.href='form.html#step2'">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                    </div>
+                    ` : ''}
+
+                    <!-- Section 3: Skills -->
+                    ${(safeSkills.hard.length > 0 || safeSkills.soft.length > 0 || safeSkills.tools.length > 0) ? `
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="fas fa-star"></i>
+                            <span>Skills</span>
+                        </h3>
+                        
+                        ${safeSkills.hard.length > 0 ? `
+                        <div class="category-title">Hard Skills</div>
+                        <div class="skills-list">
+                            ${safeSkills.hard.map(skill => `<div class="skill-tag">${skill}</div>`).join('')}
+                        </div>
+                        ` : ''}
+                        
+                        ${safeSkills.soft.length > 0 ? `
+                        <div class="category-title">Soft Skills</div>
+                        <div class="skills-list">
+                            ${safeSkills.soft.map(skill => `<div class="skill-tag">${skill}</div>`).join('')}
+                        </div>
+                        ` : ''}
+                        
+                        ${safeSkills.tools.length > 0 ? `
+                        <div class="category-title">Tools & Technologies</div>
+                        <div class="skills-list">
+                            ${safeSkills.tools.map(skill => `<div class="skill-tag">${skill}</div>`).join('')}
+                        </div>
+                        ` : ''}
+                        
+                        <button class="edit-btn" onclick="window.location.href='form.html#step3'">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                    </div>
+                    ` : ''}
+
+                    <!-- Section 4: Work Experience -->
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="fas fa-briefcase"></i>
+                            <span>Work Experience</span>
+                        </h3>
+                        <div class="info-group">
+                            <div class="info-label">Position</div>
+                            <div class="info-value">${safeWork.title}</div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-label">Company</div>
+                            <div class="info-value">${safeWork.company} ${safeWork.location ? `(${safeWork.location})` : ''}</div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-label">Duration</div>
+                            <div class="info-value">
+                                ${safeWork.startDate} 
+                                ${safeWork.current ? '- Present' : safeWork.endDate ? `- ${safeWork.endDate}` : ''}
+                            </div>
+                        </div>
+                        ${safeWork.description ? `
+                        <div class="info-group">
+                            <div class="info-label">Responsibilities & Achievements</div>
+                            <div class="info-value">${safeWork.description}</div>
+                        </div>` : ''}
+                        <button class="edit-btn" onclick="window.location.href='form.html#step4'">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                    </div>
+
+                    <!-- Section 5: Education -->
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Education</span>
+                        </h3>
+                        <div class="info-group">
+                            <div class="info-label">Degree</div>
+                            <div class="info-value">${safeEducation.degree}</div>
+                        </div>
+                        <div class="info-group">
+                            <div class="info-label">Institution</div>
+                            <div class="info-value">${safeEducation.institution}</div>
+                        </div>
+                        ${safeEducation.graduationYear ? `
+                        <div class="info-group">
+                            <div class="info-label">Graduation Year</div>
+                            <div class="info-value">${safeEducation.graduationYear}</div>
+                        </div>
+                        ` : ''}
+                        ${safeEducation.honorsGPA ? `
+                        <div class="info-group">
+                            <div class="info-label">Honors & GPA</div>
+                            <div class="info-value">${safeEducation.honorsGPA}</div>
+                        </div>
+                        ` : ''}
+                        <button class="edit-btn" onclick="window.location.href='form.html#step5'">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                    </div>
+
+                    <!-- Section 6: Certifications & Awards -->
+                    ${safeCertifications.length > 0 ? `
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="fas fa-award"></i>
+                            <span>Certifications & Awards</span>
+                        </h3>
+                        <div class="item-list">
+                            ${safeCertifications.map(cert => `
+                                <div class="item-entry">
+                                    <div class="item-title">${cert.name}</div>
+                                    ${cert.organization ? `<div class="item-details">${cert.organization}</div>` : ''}
+                                    ${cert.date ? `<div class="item-details">Earned: ${cert.date}</div>` : ''}
+                                    ${cert.credentialId ? `<div class="item-details">Credential ID: ${cert.credentialId}</div>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="edit-btn" onclick="window.location.href='form.html#step6'">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                    </div>
+                    ` : ''}
+
+                    <!-- Section 7: Projects / Portfolio -->
+                    ${safeProjects.length > 0 ? `
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Projects / Portfolio</span>
+                        </h3>
+                        <div class="item-list">
+                            ${safeProjects.map(project => `
+                                <div class="item-entry">
+                                    <div class="item-title">${project.title}</div>
+                                    ${project.description ? `<div class="item-description">${project.description}</div>` : ''}
+                                    ${project.tools ? `<div class="item-details"><strong>Tools:</strong> ${project.tools}</div>` : ''}
+                                    ${project.link ? `<a href="${project.link}" class="item-link" target="_blank">View Project →</a>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="edit-btn" onclick="window.location.href='form.html#step7'">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                    </div>
+                    ` : ''}
+
+                    <!-- Section 8: Languages -->
+                    ${safeLanguages.length > 0 ? `
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="fas fa-language"></i>
+                            <span>Languages</span>
+                        </h3>
+                        <div class="info-group">
+                            ${safeLanguages.map(lang => `
+                                <div class="language-item">
+                                    <div class="language-name">${lang.name}</div>
+                                    <div class="language-level">${formatLanguageLevel(lang.level)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <button class="edit-btn" onclick="window.location.href='form.html#step8'">
+                            <i class="fas fa-pen"></i>
+                        </button>
+                    </div>
+                    ` : ''}
+                `;
+
+                document.getElementById('resumeCard').innerHTML = html;
+            } catch (error) {
+                console.error('Error rendering resume review:', error);
+                document.getElementById('resumeCard').innerHTML = `
+                    <div class="section">
+                        <h3 class="section-title">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Error Loading Data</span>
+                        </h3>
+                        <div class="info-group">
+                            <div class="info-value">Unable to display resume data. Please go back and re-enter your information.</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function formatLanguageLevel(level) {
+            const levelMap = {
+                'native': 'Native',
+                'fluent': 'Fluent',
+                'professional': 'Professional',
+                'intermediate': 'Intermediate',
+                'basic': 'Basic'
+            };
+            return levelMap[level] || level;
+        }
+
+        function proceedToTemplates() {
+            try {
+                // Save confirmation timestamp
+                resumeData.confirmedAt = new Date().toISOString();
+                resumeData.lastModified = new Date().toISOString();
+                
+                localStorage.setItem('resumeData', JSON.stringify(resumeData));
+                
+                // Proceed to template selection
+                window.location.href = 'temp.html';
+            } catch (error) {
+                console.error('Error proceeding to templates:', error);
+                alert('Error saving your data. Please try again.');
+            }
+        }
+
+        // Load data on page load with error handling
+        document.addEventListener('DOMContentLoaded', function() {
+            try {
+                loadResumeData();
+            } catch (error) {
+                console.error('Failed to initialize page:', error);
+                alert('An error occurred while loading the page. Please refresh.');
+            }
+        });
+    </script>
+</body>
+</html>

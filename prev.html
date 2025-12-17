@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Preview | ProfileForge</title>
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add jsPDF and html2canvas libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        .preview-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .success-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px 0;
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            color: var(--secondary);
+            margin-bottom: 15px;
+        }
+
+        .success-header h1 {
+            font-size: 1.8rem;
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .success-header p {
+            color: var(--gray);
+            font-size: 1rem;
+            max-width: 500px;
+            margin: 0 auto 15px;
+        }
+
+        .completion-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+            padding: 8px 16px;
+            border-radius: 16px;
+            font-weight: 600;
+            margin-top: 10px;
+            font-size: 0.85rem;
+        }
+
+        .resume-display {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 1024px) {
+            .resume-display {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* CSS Variables */
+        :root {
+            --primary: #7c3aed;
+            --primary-dark: #6d28d9;
+            --secondary: #10b981;
+            --accent: #f59e0b;
+            --dark: #1f2937;
+            --gray: #6b7280;
+            --light-gray: #e5e7eb;
+            --light: #f9fafb;
+        }
+
+        /* RESUME VIEWER */
+        .resume-viewer-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .resume-viewer-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .resume-viewer-controls h3 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            font-weight: 600;
+        }
+
+        .viewer-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .fullscreen-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+        }
+
+        .fullscreen-btn:hover {
+            background: var(--primary-dark);
+        }
+
+        /* A4 RESUME PAPER - Optimized for PDF capture */
+        .resume-paper {
+            background: white;
+            height: 1123px; /* A4 height in pixels at 96 DPI */
+            width: 794px;   /* A4 width in pixels at 96 DPI */
+            margin: 0 auto;
+            padding: 72px; /* 1-inch margins (72px = 1 inch at 96 DPI) */
+            border: 1px solid #e0e0e0;
+            border-radius: 2px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+            transform-origin: center;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+            font-family: 'Segoe UI', 'Inter', sans-serif;
+            /* Ensure high quality for PDF */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .resume-content {
+            height: 100%;
+            width: 100%;
+            position: relative;
+            font-size: 11px;
+            line-height: 1.4;
+            color: #1f2937;
+        }
+
+        .resume-watermark {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            color: rgba(0,0,0,0.08);
+            font-size: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+        }
+
+        .resume-footer {
+            margin-top: 15px;
+            padding-top: 12px;
+            border-top: 1px solid var(--light-gray);
+            text-align: center;
+            color: var(--gray);
+            font-size: 0.8rem;
+        }
+
+        .resume-paper.fullscreen {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            width: 794px;
+            height: 1123px;
+            z-index: 1000;
+            border-radius: 0;
+            padding: 72px;
+            margin: 0;
+            overflow: auto;
+            background: white;
+            box-shadow: 0 0 0 1000px rgba(0,0,0,0.5);
+        }
+
+        .resume-paper.fullscreen .resume-watermark {
+            display: none;
+        }
+
+        /* SIMPLE TEMPLATE STYLES - WORKS FOR ALL */
+        .template-simple .header {
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 20px;
+            margin-bottom: 25px;
+        }
+
+        .template-simple .name {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .template-simple .title {
+            font-size: 18px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .template-simple .contact-info {
+            font-size: 12px;
+            color: var(--gray);
+            line-height: 1.5;
+        }
+
+        .template-simple .section {
+            margin-bottom: 22px;
+        }
+
+        .template-simple .section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .template-simple .content-item {
+            margin-bottom: 15px;
+        }
+
+        .template-simple .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+        }
+
+        .template-simple .content-title {
+            font-weight: 600;
+            font-size: 13px;
+            color: var(--dark);
+        }
+
+        .template-simple .content-subtitle {
+            font-size: 12px;
+            color: var(--gray);
+            margin-top: 3px;
+        }
+
+        .template-simple .content-date {
+            font-size: 11px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .template-simple .content-description {
+            font-size: 11px;
+            line-height: 1.5;
+            color: #4b5563;
+            margin-top: 8px;
+        }
+
+        .template-simple .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .template-simple .skill-tag {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--primary);
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        /* Print styles - Keep for browser print option */
+        @media print {
+            .actions-panel,
+            .resume-viewer-controls,
+            .resume-footer,
+            .header,
+            .success-header,
+            .resume-watermark {
+                display: none !important;
+            }
+            
+            .resume-paper {
+                box-shadow: none !important;
+                border: none !important;
+                padding: 72px !important;
+                margin: 0 !important;
+                width: 794px !important;
+                height: 1123px !important;
+                transform: none !important;
+                page-break-after: always;
+            }
+            
+            body {
+                background: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            
+            .preview-container {
+                padding: 0 !important;
+                margin: 0 !important;
+                max-width: none !important;
+            }
+            
+            .resume-display {
+                display: block !important;
+                margin: 0 !important;
+            }
+            
+            .resume-viewer-container {
+                box-shadow: none !important;
+                padding: 0 !important;
+                border: none !important;
+            }
+        }
+
+        /* Actions panel */
+        .actions-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid #f0f0f0;
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+            box-shadow: var(--shadow);
+        }
+
+        .actions-panel h3 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--light-gray);
+            font-weight: 600;
+        }
+
+        .action-group {
+            margin-bottom: 20px;
+        }
+
+        .action-group h4 {
+            font-size: 0.95rem;
+            color: var(--dark);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .action-group h4 i {
+            color: var(--primary);
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: white;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+            width: 100%;
+        }
+
+        .action-btn:hover {
+            border-color: var(--primary);
+            background: rgba(124, 58, 237, 0.04);
+        }
+
+        .action-btn i {
+            width: 32px;
+            height: 32px;
+            background: rgba(124, 58, 237, 0.08);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+
+        .action-text h5 {
+            font-size: 0.9rem;
+            color: var(--dark);
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+
+        .action-text p {
+            font-size: 0.75rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        .share-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .share-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 10px 4px;
+            border: 1px solid var(--light-gray);
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .share-btn.linkedin { border-color: #0077b5; color: #0077b5; }
+        .share-btn.email { border-color: var(--primary); color: var(--primary); }
+
+        .share-btn i {
+            font-size: 1.1rem;
+        }
+
+        .share-btn span {
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 10px;
+            background: rgba(124, 58, 237, 0.04);
+            border-radius: 6px;
+        }
+
+        .stat-number {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--gray);
+        }
+
+        /* Loading overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Error state */
+        .error-state {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        .error-icon {
+            font-size: 3rem;
+            color: #ef4444;
+            margin-bottom: 20px;
+        }
+
+        .error-state h2 {
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .error-state p {
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .resume-paper {
+                transform: scale(0.85);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .resume-paper {
+                width: 100%;
+                height: auto;
+                min-height: 1123px;
+                transform: none;
+                padding: 48px;
+            }
+            
+            .resume-paper.fullscreen {
+                width: 100%;
+                height: 100%;
+                padding: 32px;
+                transform: none;
+                top: 0;
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="../index.html" class="logo">
+            <i class="fas fa-sparkles"></i>
+            <span>ProfileForge</span>
+        </a>
+        <div class="header-badge">Final Preview & Download</div>
+    </div>
+
+    <div class="preview-container">
+        <div class="success-header">
+            <div class="success-icon">
+                <i class="fas fa-file-alt"></i>
+            </div>
+            <h1>Your Professional Resume is Ready!</h1>
+            <p>Preview your complete resume with all 8 sections.</p>
+            <div class="completion-badge">
+                <i class="fas fa-check"></i>
+                <span>All 8 Sections Included • A4 Format Ready</span>
+            </div>
+        </div>
+
+        <div class="resume-display">
+            <div class="resume-viewer-container">
+                <div class="resume-viewer-controls">
+                    <h3>Resume Preview</h3>
+                    <div class="viewer-actions">
+                        <button class="fullscreen-btn" onclick="toggleFullscreen()" id="fullscreenBtn">
+                            <i class="fas fa-expand"></i>
+                            <span>Full Screen</span>
+                        </button>
+                        <button class="action-btn" onclick="printResume()" style="margin-left: 10px;">
+                            <i class="fas fa-print"></i>
+                            <span>Print</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="resume-paper" id="resumePaper">
+                    <div class="resume-content" id="resumeContent">
+                        <!-- Resume content will be inserted here -->
+                    </div>
+                    <div class="resume-watermark">
+                        <i class="fas fa-sparkles"></i>
+                        ProfileForge
+                    </div>
+                </div>
+
+                <div class="resume-footer">
+                    <p><i class="fas fa-info-circle"></i> Professional A4 format • All 8 sections included</p>
+                </div>
+            </div>
+
+            <div class="actions-panel" id="actionsPanel">
+                <h3>Download Options</h3>
+                
+                <div class="action-group">
+                    <h4><i class="fas fa-download"></i> Download</h4>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="downloadPDF()">
+                            <i class="fas fa-file-pdf"></i>
+                            <div class="action-text">
+                                <h5>Download PDF</h5>
+                                <p>Perfect quality, ready to print</p>
+                            </div>
+                        </button>
+                        
+                        <button class="action-btn" onclick="downloadDOCX()">
+                            <i class="fas fa-file-word"></i>
+                            <div class="action-text">
+                                <h5>Download Word</h5>
+                                <p>Editable format</p>
+                            </div>
+                        </button>
+
+                        <button class="action-btn" onclick="downloadTXT()">
+                            <i class="fas fa-file-alt"></i>
+                            <div class="action-text">
+                                <h5>Download Text</h5>
+                                <p>Simple text format</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="action-group">
+                    <h4><i class="fas fa-share-alt"></i> Share</h4>
+                    <div class="share-options">
+                        <button class="share-btn linkedin" onclick="shareLinkedIn()">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </button>
+                        <button class="share-btn email" onclick="shareEmail()">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="action-group">
+                    <h4><i class="fas fa-edit"></i> Manage</h4>
+                    <div class="action-buttons">
+                        <button class="action-btn" onclick="editResume()">
+                            <i class="fas fa-edit"></i>
+                            <div class="action-text">
+                                <h5>Edit Resume</h5>
+                                <p>Make changes</p>
+                            </div>
+                        </button>
+                        
+                        <button class="action-btn" onclick="startNewResume()">
+                            <i class="fas fa-plus-circle"></i>
+                            <div class="action-text">
+                                <h5>New Resume</h5>
+                                <p>Create another</p>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number" id="downloadCount">0</div>
+                        <div class="stat-label">Downloads</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" id="shareCount">0</div>
+                        <div class="stat-label">Shares</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let resumeData = {};
+        let isFullscreen = false;
+        let loadingTimeout = null;
+
+        // Load resume data
+        function loadResumeData() {
+            try {
+                const savedData = localStorage.getItem('resumeData');
+                if (!savedData) {
+                    showErrorState('No resume data found. Please create a resume first.');
+                    return;
+                }
+                
+                resumeData = JSON.parse(savedData);
+                
+                if (!resumeData.contact || !resumeData.contact.name) {
+                    showErrorState('Incomplete resume data. Please create a new resume.');
+                    return;
+                }
+                
+                renderResume();
+                updateStats();
+                
+            } catch (error) {
+                console.error('Error loading resume:', error);
+                showErrorState('Unable to load resume data. Please try creating a new resume.');
+            }
+        }
+
+        // Show error state
+        function showErrorState(message) {
+            const container = document.getElementById('resumeContent');
+            container.innerHTML = `
+                <div class="error-state">
+                    <div class="error-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <h2>Resume Not Found</h2>
+                    <p>${message}</p>
+                    <button onclick="window.location.href='form.html'" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i> Create New Resume
+                    </button>
+                </div>
+            `;
+            
+            // Hide download options
+            document.getElementById('actionsPanel').style.display = 'none';
+        }
+
+        // Render the resume - SIMPLIFIED VERSION THAT WORKS
+        function renderResume() {
+            const container = document.getElementById('resumeContent');
+            const { contact, summary, skills, work, education, certifications, projects, languages } = resumeData;
+            
+            // Always use simple template for now (fixes the header issue)
+            container.className = 'resume-content template-simple';
+            
+            // Use work title for the resume title
+            const jobTitle = work?.title || 'Professional Title';
+            
+            // ====== ALWAYS INCLUDE THE HEADER ======
+            let html = `
+                <div class="header">
+                    <div class="name">${escapeHtml(contact?.name || 'Your Name')}</div>
+                    <div class="title">${escapeHtml(jobTitle)}</div>
+                    <div class="contact-info">
+                        ${contact?.email ? `<div><strong>Email:</strong> ${escapeHtml(contact.email)}</div>` : ''}
+                        ${contact?.phone ? `<div><strong>Phone:</strong> ${escapeHtml(contact.phone)}</div>` : ''}
+                        ${contact?.location ? `<div><strong>Location:</strong> ${escapeHtml(contact.location)}</div>` : ''}
+                        ${contact?.linkedin ? `<div><strong>LinkedIn:</strong> ${escapeHtml(contact.linkedin)}</div>` : ''}
+                        ${contact?.portfolio ? `<div><strong>Portfolio:</strong> ${escapeHtml(contact.portfolio)}</div>` : ''}
+                    </div>
+                </div>
+            `;
+
+            // ====== PROFESSIONAL SUMMARY ======
+            if (summary) {
+                html += `
+                    <div class="section">
+                        <div class="section-title">PROFESSIONAL SUMMARY</div>
+                        <div class="content-description">${formatText(escapeHtml(summary))}</div>
+                    </div>`;
+            }
+
+            // ====== WORK EXPERIENCE ======
+            if (work) {
+                html += `
+                    <div class="section">
+                        <div class="section-title">WORK EXPERIENCE</div>
+                        <div class="content-item">
+                            <div class="content-header">
+                                <div>
+                                    <div class="content-title">${escapeHtml(work.title || 'Your Position')}</div>
+                                    <div class="content-subtitle">${escapeHtml(work.company || 'Company Name')} ${work.location ? `• ${escapeHtml(work.location)}` : ''}</div>
+                                </div>
+                                <div class="content-date">
+                                    ${work.startDate || 'Start'} 
+                                    ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}
+                                </div>
+                            </div>
+                            ${work.description ? `<div class="content-description">${formatText(escapeHtml(work.description))}</div>` : ''}
+                        </div>
+                    </div>`;
+            }
+
+            // ====== EDUCATION ======
+            if (education) {
+                html += `
+                    <div class="section">
+                        <div class="section-title">EDUCATION</div>
+                        <div class="content-item">
+                            <div class="content-header">
+                                <div>
+                                    <div class="content-title">${escapeHtml(education.degree || 'Your Degree')}</div>
+                                    <div class="content-subtitle">${escapeHtml(education.institution || 'Institution')}</div>
+                                </div>
+                                <div class="content-date">${education.graduationYear || 'Graduation Year'}</div>
+                            </div>
+                            ${education.honorsGPA ? `<div class="content-description">${formatText(escapeHtml(education.honorsGPA))}</div>` : ''}
+                        </div>
+                    </div>`;
+            }
+
+            // ====== SKILLS ======
+            if (skills && (skills.hard?.length > 0 || skills.soft?.length > 0 || skills.tools?.length > 0)) {
+                html += `
+                    <div class="section">
+                        <div class="section-title">SKILLS</div>`;
+                
+                if (skills.hard?.length > 0) {
+                    html += `
+                        <div style="margin-bottom: 10px;">
+                            <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">Hard Skills:</div>
+                            <div class="skills-container">
+                                ${skills.hard.map(skill => `<div class="skill-tag">${escapeHtml(skill)}</div>`).join('')}
+                            </div>
+                        </div>`;
+                }
+                
+                if (skills.soft?.length > 0) {
+                    html += `
+                        <div style="margin-bottom: 10px;">
+                            <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">Soft Skills:</div>
+                            <div class="skills-container">
+                                ${skills.soft.map(skill => `<div class="skill-tag">${escapeHtml(skill)}</div>`).join('')}
+                            </div>
+                        </div>`;
+                }
+                
+                if (skills.tools?.length > 0) {
+                    html += `
+                        <div>
+                            <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">Tools & Technologies:</div>
+                            <div class="skills-container">
+                                ${skills.tools.map(skill => `<div class="skill-tag">${escapeHtml(skill)}</div>`).join('')}
+                            </div>
+                        </div>`;
+                }
+                
+                html += `</div>`;
+            }
+
+            // ====== CERTIFICATIONS ======
+            if (certifications?.length > 0) {
+                html += `
+                    <div class="section">
+                        <div class="section-title">CERTIFICATIONS & AWARDS</div>
+                        ${certifications.map(cert => `
+                            <div class="content-item">
+                                <div class="content-header">
+                                    <div class="content-title">${escapeHtml(cert.name || '')}</div>
+                                    <div class="content-date">${cert.date || ''}</div>
+                                </div>
+                                <div class="content-subtitle">${escapeHtml(cert.organization || '')} ${cert.credentialId ? `• ID: ${escapeHtml(cert.credentialId)}` : ''}</div>
+                            </div>
+                        `).join('')}
+                    </div>`;
+            }
+
+            // ====== PROJECTS ======
+            if (projects?.length > 0) {
+                html += `
+                    <div class="section">
+                        <div class="section-title">PROJECTS / PORTFOLIO</div>
+                        ${projects.map(project => `
+                            <div class="content-item">
+                                <div class="content-header">
+                                    <div class="content-title">${escapeHtml(project.title || '')}</div>
+                                </div>
+                                ${project.description ? `<div class="content-description">${formatText(escapeHtml(project.description))}</div>` : ''}
+                                ${project.tools ? `<div style="font-size: 11px; color: var(--gray); margin-top: 5px;"><strong>Tools:</strong> ${escapeHtml(project.tools)}</div>` : ''}
+                                ${project.link ? `<div style="font-size: 11px; color: var(--primary); margin-top: 3px;">${escapeHtml(project.link)}</div>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>`;
+            }
+
+            // ====== LANGUAGES ======
+            if (languages?.length > 0) {
+                html += `
+                    <div class="section">
+                        <div class="section-title">LANGUAGES</div>
+                        <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                            ${languages.map(lang => `
+                                <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f0f0f0;">
+                                    <span>${escapeHtml(lang.name || '')}</span>
+                                    <span style="color: var(--primary); font-weight: 500;">${formatLanguageLevel(lang.level)}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>`;
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Helper functions
+        function escapeHtml(text) {
+            if (!text) return '';
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return String(text).replace(/[&<>"']/g, m => map[m]);
+        }
+
+        function formatText(text) {
+            if (!text) return '';
+            return text.replace(/\n/g, '<br>');
+        }
+
+        function formatLanguageLevel(level) {
+            const levels = {
+                'native': 'Native',
+                'fluent': 'Fluent',
+                'professional': 'Professional',
+                'intermediate': 'Intermediate',
+                'basic': 'Basic'
+            };
+            return levels[level] || level || '';
+        }
+
+        // UI Controls
+        function toggleFullscreen() {
+            const paper = document.getElementById('resumePaper');
+            const button = document.getElementById('fullscreenBtn');
+            
+            if (!isFullscreen) {
+                paper.classList.add('fullscreen');
+                button.innerHTML = '<i class="fas fa-compress"></i><span>Exit Full Screen</span>';
+                isFullscreen = true;
+            } else {
+                paper.classList.remove('fullscreen');
+                button.innerHTML = '<i class="fas fa-expand"></i><span>Full Screen</span>';
+                isFullscreen = false;
+            }
+        }
+
+        // Download Functions
+        function showLoading(message = "Preparing download...") {
+            hideLoading(); // Remove any existing overlay
+            
+            const loading = document.createElement('div');
+            loading.className = 'loading-overlay';
+            loading.id = 'loadingOverlay';
+            loading.innerHTML = `
+                <div class="loading-spinner"></div>
+                <h3>${message}</h3>
+                <p>Please wait a moment</p>
+            `;
+            document.body.appendChild(loading);
+            
+            // Auto-hide after 10 seconds (safety)
+            loadingTimeout = setTimeout(hideLoading, 10000);
+        }
+
+        function hideLoading() {
+            if (loadingTimeout) {
+                clearTimeout(loadingTimeout);
+                loadingTimeout = null;
+            }
+            
+            const loading = document.getElementById('loadingOverlay');
+            if (loading && loading.parentNode) {
+                loading.parentNode.removeChild(loading);
+            }
+        }
+
+        // ========== PERFECT PDF GENERATION ==========
+        function downloadPDF() {
+            showLoading("Generating high-quality PDF...");
+            updateDownloadStats();
+            
+            // Check if libraries are loaded
+            if (!window.jspdf || !html2canvas) {
+                hideLoading();
+                alert('PDF generation libraries failed to load. Please refresh the page and try again.');
+                return;
+            }
+            
+            const element = document.getElementById('resumePaper');
+            const { contact } = resumeData;
+            const name = contact?.name || 'resume';
+            const filename = `${name.replace(/\s+/g, '-')}-resume.pdf`;
+            
+            // Configure html2canvas for perfect capture
+            const options = {
+                scale: 3, // Ultra-high resolution for perfect print quality
+                useCORS: true,
+                logging: false,
+                backgroundColor: '#ffffff',
+                removeContainer: true,
+                width: 794, // Exact A4 width
+                height: 1123, // Exact A4 height
+                windowWidth: 794,
+                windowHeight: 1123,
+                onclone: function(clonedDoc) {
+                    // Remove watermark for PDF
+                    const watermark = clonedDoc.querySelector('.resume-watermark');
+                    if (watermark) {
+                        watermark.style.display = 'none';
+                    }
+                    
+                    // Ensure all content is visible
+                    const content = clonedDoc.querySelector('.resume-content');
+                    if (content) {
+                        content.style.opacity = '1';
+                        content.style.visibility = 'visible';
+                    }
+                }
+            };
+            
+            html2canvas(element, options).then(canvas => {
+                try {
+                    const { jsPDF } = window.jspdf;
+                    
+                    // Create PDF with exact A4 dimensions
+                    const pdf = new jsPDF({
+                        orientation: 'portrait',
+                        unit: 'px',
+                        format: [794, 1123],
+                        compress: true
+                    });
+                    
+                    // Convert canvas to image with perfect quality
+                    const imgData = canvas.toDataURL('image/jpeg', 1.0);
+                    
+                    // Add image to PDF - exact fit
+                    pdf.addImage(imgData, 'JPEG', 0, 0, 794, 1123, null, 'FAST');
+                    
+                    // Add metadata
+                    pdf.setProperties({
+                        title: `${name} - Resume`,
+                        subject: 'Professional Resume',
+                        author: 'ProfileForge',
+                        creator: 'ProfileForge Resume Builder'
+                    });
+                    
+                    // Save the PDF
+                    pdf.save(filename);
+                    
+                    hideLoading();
+                    
+                    setTimeout(() => {
+                        alert(`✓ Perfect PDF downloaded as "${filename}"\n\n• Exact A4 size (210 × 297 mm)\n• Print-ready quality\n• All colors preserved`);
+                    }, 500);
+                    
+                } catch (pdfError) {
+                    console.error('PDF creation error:', pdfError);
+                    hideLoading();
+                    alert('Error creating PDF. Please try the Print option instead.');
+                }
+            }).catch(canvasError => {
+                console.error('Canvas capture error:', canvasError);
+                hideLoading();
+                alert('Error capturing resume image. Please try the Print option instead.');
+            });
+        }
+
+        // Keep print option separate
+        function printResume() {
+            showLoading("Opening print dialog...");
+            setTimeout(() => {
+                hideLoading();
+                window.print();
+            }, 500);
+        }
+
+        // Word Document Download
+        function downloadDOCX() {
+            showLoading("Creating document...");
+            updateDownloadStats();
+            
+            const { contact } = resumeData;
+            const name = contact?.name || 'resume';
+            const filename = `${name.replace(/\s+/g, '-')}-resume.html`;
+            
+            const resumeHTML = document.getElementById('resumeContent').innerHTML;
+            
+            const fullHTML = `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>${escapeHtml(contact?.name || 'Resume')} - Resume</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; padding: 20px; }
+        .name { font-size: 24px; font-weight: bold; }
+        .section-title { font-size: 16px; font-weight: bold; color: #7c3aed; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    ${resumeHTML}
+</body>
+</html>`;
+            
+            const blob = new Blob([fullHTML], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+            hideLoading();
+            
+            setTimeout(() => {
+                alert(`✓ Resume saved as "${filename}"\n\nOpen in Microsoft Word or any text editor.`);
+            }, 300);
+        }
+
+        // Text Download
+        function downloadTXT() {
+            showLoading("Creating text file...");
+            updateDownloadStats();
+            
+            const { contact } = resumeData;
+            const name = contact?.name || 'resume';
+            const filename = `${name.replace(/\s+/g, '-')}-resume.txt`;
+            
+            const resumeText = document.getElementById('resumeContent').innerText;
+            
+            const blob = new Blob([resumeText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            URL.revokeObjectURL(url);
+            hideLoading();
+            
+            setTimeout(() => {
+                alert(`✓ Text file downloaded as "${filename}"`);
+            }, 300);
+        }
+
+        // Update download stats
+        function updateDownloadStats() {
+            const stats = JSON.parse(localStorage.getItem('resumeStats') || '{}');
+            stats.downloads = (stats.downloads || 0) + 1;
+            localStorage.setItem('resumeStats', JSON.stringify(stats));
+            updateStats();
+        }
+
+        // Share functions
+        function shareLinkedIn() {
+            const stats = JSON.parse(localStorage.getItem('resumeStats') || '{}');
+            stats.shares = (stats.shares || 0) + 1;
+            localStorage.setItem('resumeStats', JSON.stringify(stats));
+            updateStats();
+            
+            const name = resumeData.contact?.name || 'My';
+            const title = encodeURIComponent(`${name}'s Professional Resume`);
+            const url = encodeURIComponent(window.location.origin);
+            
+            window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}&title=${title}`, '_blank');
+        }
+
+        function shareEmail() {
+            const stats = JSON.parse(localStorage.getItem('resumeStats') || '{}');
+            stats.shares = (stats.shares || 0) + 1;
+            localStorage.setItem('resumeStats', JSON.stringify(stats));
+            updateStats();
+            
+            const name = resumeData.contact?.name || 'My';
+            const subject = encodeURIComponent(`${name}'s Professional Resume`);
+            const body = encodeURIComponent(`Check out my resume created with ProfileForge:\n\nYou can create your own professional resume for free at: ${window.location.origin}`);
+            
+            window.location.href = `mailto:?subject=${subject}&body=${body}`;
+        }
+
+        // Other functions
+        function editResume() {
+            window.location.href = 'form.html';
+        }
+
+        function startNewResume() {
+            if (confirm('Create a new resume? Your current data will be saved in your browser.')) {
+                window.location.href = 'form.html';
+            }
+        }
+
+        function updateStats() {
+            const stats = JSON.parse(localStorage.getItem('resumeStats') || '{}');
+            document.getElementById('downloadCount').textContent = stats.downloads || 0;
+            document.getElementById('shareCount').textContent = stats.shares || 0;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if PDF libraries loaded
+            if (!window.jspdf) {
+                console.warn('jsPDF library not loaded. PDF download may not work.');
+            }
+            if (!html2canvas) {
+                console.warn('html2canvas library not loaded. PDF download may not work.');
+            }
+            
+            loadResumeData();
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+                    e.preventDefault();
+                    printResume();
+                }
+                if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+                    e.preventDefault();
+                    downloadPDF();
+                }
+                if (e.key === 'Escape' && isFullscreen) {
+                    toggleFullscreen();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Template | ProfileForge</title>
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .template-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .template-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 20px;
+        }
+
+        .template-header h1 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .template-header p {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .template-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .template-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .template-card.selected {
+            border-color: var(--primary);
+            background: rgba(124, 58, 237, 0.02);
+        }
+
+        .template-preview {
+            width: 100%;
+            height: 400px;
+            background: #f8fafc;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .template-info {
+            padding: 15px 5px;
+        }
+
+        .template-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .template-tags {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .template-tag {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .template-description {
+            color: var(--gray);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .select-indicator {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--light-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .selected .select-indicator {
+            background: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .selected .select-indicator::after {
+            content: "✓";
+            color: white;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .preview-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .preview-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Realistic Template Preview Styles */
+        .realistic-template {
+            width: 100%;
+            height: 100%;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Segoe UI', 'Inter', -apple-system, sans-serif;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.85);
+            transform-origin: top center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Executive Template */
+        .template-executive .realistic-template {
+            background: white;
+            color: #1f2937;
+            border-top: 5px solid #111827;
+        }
+
+        .template-executive .name {
+            font-size: 24px;
+            font-weight: 800;
+            color: #111827;
+            margin-bottom: 3px;
+            letter-spacing: 0.5px;
+        }
+
+        .template-executive .title {
+            font-size: 14px;
+            color: #4b5563;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .template-executive .contact-info {
+            font-size: 11px;
+            color: #6b7280;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .template-executive .section {
+            margin-bottom: 16px;
+        }
+
+        .template-executive .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #111827;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            border-bottom: 1px solid #e5e7eb;
+            padding-bottom: 4px;
+        }
+
+        .template-executive .content {
+            font-size: 11px;
+            line-height: 1.5;
+            color: #4b5563;
+        }
+
+        /* Modern Template */
+        .template-modern .realistic-template {
+            background: white;
+            border: 2px solid #7c3aed;
+        }
+
+        .template-modern .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #7c3aed;
+            padding-bottom: 15px;
+        }
+
+        .template-modern .name-container {
+            flex: 1;
+        }
+
+        .template-modern .name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 2px;
+        }
+
+        .template-modern .title {
+            font-size: 13px;
+            color: #7c3aed;
+            font-weight: 600;
+        }
+
+        .template-modern .contact {
+            font-size: 10px;
+            color: #6b7280;
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        .template-modern .section {
+            margin-bottom: 15px;
+        }
+
+        .template-modern .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .template-modern .section-title:before {
+            content: "▸";
+            color: #7c3aed;
+            font-size: 10px;
+        }
+
+        /* Minimal Template */
+        .template-minimal .realistic-template {
+            background: white;
+            padding: 25px;
+            border: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .template-minimal .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .template-minimal .name {
+            font-size: 24px;
+            font-weight: 400;
+            color: #1f2937;
+            margin-bottom: 3px;
+            letter-spacing: 1px;
+        }
+
+        .template-minimal .title {
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .template-minimal .divider {
+            height: 1px;
+            background: #e5e7eb;
+            margin: 15px 0;
+        }
+
+        .template-minimal .section {
+            margin-bottom: 15px;
+        }
+
+        .template-minimal .section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 6px;
+            letter-spacing: 1.5px;
+        }
+
+        /* Creative Template */
+        .template-creative .realistic-template {
+            background: white;
+            display: grid;
+            grid-template-columns: 130px 1fr;
+            gap: 20px;
+            padding: 20px;
+            border: 2px solid #f59e0b;
+        }
+
+        .template-creative .sidebar {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .template-creative .name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            line-height: 1.2;
+        }
+
+        .template-creative .title {
+            font-size: 11px;
+            opacity: 0.9;
+            margin-bottom: 15px;
+            font-weight: 400;
+        }
+
+        .template-creative .section {
+            margin-bottom: 15px;
+        }
+
+        .template-creative .sidebar-section-title {
+            font-size: 10px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+        }
+
+        .template-creative .main-content {
+            padding-top: 5px;
+        }
+
+        /* Tech Template */
+        .template-tech .realistic-template {
+            background: white;
+            font-family: 'Consolas', 'Monaco', monospace;
+            border: 2px solid #374151;
+            background: #1f2937;
+            color: #e5e7eb;
+        }
+
+        .template-tech .header {
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #4b5563;
+        }
+
+        .template-tech .name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            color: #ffffff;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .template-tech .title {
+            font-size: 11px;
+            color: #9ca3af;
+            font-family: 'Consolas', monospace;
+        }
+
+        .template-tech .section {
+            margin-bottom: 15px;
+        }
+
+        .template-tech .section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #60a5fa;
+            margin-bottom: 6px;
+            font-family: 'Consolas', monospace;
+        }
+
+        .template-tech .content {
+            font-size: 10px;
+            color: #d1d5db;
+            line-height: 1.5;
+            font-family: 'Consolas', monospace;
+        }
+
+        /* Bold Template */
+        .template-bold .realistic-template {
+            background: white;
+            border: 3px solid #1f2937;
+            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+        }
+
+        .template-bold .header {
+            background: #1f2937;
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 5px 5px 0 0;
+        }
+
+        .template-bold .name {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 3px;
+            letter-spacing: 0.5px;
+        }
+
+        .template-bold .title {
+            font-size: 12px;
+            color: #9ca3af;
+            font-weight: 500;
+        }
+
+        .template-bold .section {
+            margin-bottom: 15px;
+            padding: 0 5px;
+        }
+
+        .template-bold .section-title {
+            font-size: 12px;
+            font-weight: 800;
+            color: #1f2937;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: inline-block;
+            padding-bottom: 3px;
+            border-bottom: 2px solid #7c3aed;
+        }
+
+        .template-bold .content {
+            font-size: 11px;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+
+        /* Academic Template */
+        .template-academic .realistic-template {
+            background: white;
+            border: 1px solid #1e40af;
+            padding: 25px;
+        }
+
+        .template-academic .header {
+            text-align: center;
+            border-bottom: 2px solid #1e40af;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .template-academic .name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e3a8a;
+            margin-bottom: 3px;
+        }
+
+        .template-academic .title {
+            font-size: 13px;
+            color: #374151;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .template-academic .contact-info {
+            font-size: 10px;
+            color: #6b7280;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .template-academic .section {
+            margin-bottom: 18px;
+        }
+
+        .template-academic .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #1e40af;
+            margin-bottom: 8px;
+            font-family: 'Times New Roman', serif;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(124, 58, 237, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(124, 58, 237, 0); }
+        }
+
+        .selected {
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .template-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .template-preview {
+                height: 350px;
+            }
+            
+            .template-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .realistic-template {
+                transform: scale(0.8);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .template-preview {
+                height: 300px;
+            }
+            
+            .realistic-template {
+                transform: scale(0.7);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="../index.html" class="logo">
+            <i class="fas fa-sparkles"></i>
+            <span>ProfileForge</span>
+        </a>
+        <div class="header-badge">Step 3: Choose Template</div>
+    </div>
+
+    <div class="template-container">
+        <div class="template-header">
+            <h1>Choose Your Resume Template</h1>
+            <p>Select a professional design that matches your style and industry</p>
+        </div>
+
+        <div class="template-grid" id="templateGrid">
+            <!-- Templates will be loaded here -->
+        </div>
+
+        <div class="navigation">
+            <button class="btn btn-secondary" onclick="window.location.href='confirm.html'">
+                <i class="fas fa-arrow-left"></i> Back to Review
+            </button>
+            <button class="btn btn-primary" id="continueBtn" onclick="continueToAd()" disabled>
+                Continue to Preview <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Professional Resume Templates with REALISTIC previews
+        const templates = [
+            {
+                id: 'executive',
+                name: 'Executive',
+                description: 'Classic, professional layout perfect for senior roles and corporate positions',
+                tags: ['Professional', 'Corporate', 'Traditional'],
+                html: `
+                    <div class="realistic-template template-executive">
+                        <div class="name">ROBERT J. WILSON</div>
+                        <div class="title">Chief Executive Officer</div>
+                        <div class="contact-info">
+                            r.wilson@executivemail.com • (212) 555-0123 • New York, NY<br>
+                            linkedin.com/in/robertwilson • robertwilson.com
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">EXECUTIVE SUMMARY</div>
+                            <div class="content">
+                                Visionary leader with 20+ years of experience driving organizational growth and operational excellence in Fortune 500 companies. Proven track record of transforming business units and delivering sustainable revenue growth.
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">PROFESSIONAL EXPERIENCE</div>
+                            <div class="content">
+                                <strong>CEO | Global Innovations Inc.</strong><br>
+                                New York, NY | 2018 - Present<br>
+                                • Led company through 300% revenue growth over 4 years<br>
+                                • Managed $500M annual budget and 2,000+ global team
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">EDUCATION</div>
+                            <div class="content">
+                                <strong>MBA, Finance</strong><br>
+                                Harvard Business School | 2002
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'modern',
+                name: 'Modern Pro',
+                description: 'Clean, contemporary design with accent colors for tech and creative professionals',
+                tags: ['ATS Friendly', 'Tech', 'Creative'],
+                html: `
+                    <div class="realistic-template template-modern">
+                        <div class="header">
+                            <div class="name-container">
+                                <div class="name">SARAH CHEN</div>
+                                <div class="title">Senior Product Designer</div>
+                            </div>
+                            <div class="contact">
+                                sarah.chen@design.com<br>
+                                (415) 123-4567<br>
+                                San Francisco, CA<br>
+                                linkedin.com/in/sarahchen
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">PROFILE</div>
+                            <div class="content" style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                                Product designer with 8+ years creating user-centered digital experiences. Specialized in mobile applications and SaaS platforms serving millions of users.
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">EXPERIENCE</div>
+                            <div class="content" style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                                <strong>Lead Product Designer | TechCorp Inc.</strong><br>
+                                2021 - Present<br>
+                                • Led design for flagship app with 5M+ monthly users<br>
+                                • Improved user retention by 35% through UX redesign
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">SKILLS</div>
+                            <div class="content" style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                                UI/UX Design • Figma • Prototyping • User Research • Design Systems • HTML/CSS
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'minimal',
+                name: 'Minimalist',
+                description: 'Simple, elegant design with focus on content and readability',
+                tags: ['Clean', 'Simple', 'Elegant'],
+                html: `
+                    <div class="realistic-template template-minimal">
+                        <div class="header">
+                            <div class="name">MICHAEL PARK</div>
+                            <div class="title">Software Engineer</div>
+                            <div style="font-size: 11px; color: #6b7280; margin-top: 5px;">
+                                michael@engineer.com • Seattle, WA
+                            </div>
+                        </div>
+                        
+                        <div class="divider"></div>
+                        
+                        <div class="section">
+                            <div class="section-title">EXPERIENCE</div>
+                            <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                                <strong>Senior Software Engineer</strong><br>
+                                CloudTech Solutions | 2020 - Present<br>
+                                • Developed scalable backend systems serving 500K+ users<br>
+                                • Implemented microservices reducing latency by 60%
+                            </div>
+                        </div>
+                        
+                        <div class="divider"></div>
+                        
+                        <div class="section">
+                            <div class="section-title">EDUCATION</div>
+                            <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                                <strong>M.S. Computer Science</strong><br>
+                                University of Washington | 2018
+                            </div>
+                        </div>
+                        
+                        <div class="divider"></div>
+                        
+                        <div class="section">
+                            <div class="section-title">TECHNOLOGIES</div>
+                            <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                                Python • JavaScript • React • AWS • Docker • Kubernetes • PostgreSQL
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'creative',
+                name: 'Creative',
+                description: 'Bold, artistic design perfect for designers and creative professionals',
+                tags: ['Creative', 'Artistic', 'Portfolio'],
+                html: `
+                    <div class="realistic-template template-creative">
+                        <div class="sidebar">
+                            <div class="name">OLIVIA REED</div>
+                            <div class="title">Creative Director</div>
+                            
+                            <div class="section">
+                                <div class="sidebar-section-title">CONTACT</div>
+                                <div style="font-size: 9px; line-height: 1.5;">
+                                    olivia@creative.com<br>
+                                    (212) 555-6789<br>
+                                    New York, NY<br>
+                                    @oliviareed.design
+                                </div>
+                            </div>
+                            
+                            <div class="section">
+                                <div class="sidebar-section-title">SKILLS</div>
+                                <div style="font-size: 9px; line-height: 1.6;">
+                                    Brand Strategy<br>
+                                    Art Direction<br>
+                                    Adobe Creative Suite<br>
+                                    UI/UX Design<br>
+                                    Motion Graphics
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="main-content">
+                            <div class="section">
+                                <div class="section-title" style="color: #1f2937; font-size: 12px; margin-bottom: 8px;">PROFILE</div>
+                                <div style="font-size: 10px; line-height: 1.5; color: #4b5563;">
+                                    Award-winning creative director with 10+ years building compelling brand narratives. Passionate about visual storytelling and innovative design solutions.
+                                </div>
+                            </div>
+                            
+                            <div class="section">
+                                <div class="section-title" style="color: #1f2937; font-size: 12px; margin-bottom: 8px;">EXPERIENCE</div>
+                                <div style="font-size: 10px; line-height: 1.5; color: #4b5563;">
+                                    <strong>Creative Director | Studio Creative</strong><br>
+                                    2019 - Present<br>
+                                    • Lead team of 15 designers on global campaigns<br>
+                                    • Won 5 industry awards for brand innovation
+                                </div>
+                            </div>
+                            
+                            <div class="section">
+                                <div class="section-title" style="color: #1f2937; font-size: 12px; margin-bottom: 8px;">EDUCATION</div>
+                                <div style="font-size: 10px; line-height: 1.5; color: #4b5563;">
+                                    <strong>BFA, Graphic Design</strong><br>
+                                    Rhode Island School of Design | 2012
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'tech',
+                name: 'Tech',
+                description: 'Modern, structured layout ideal for developers and engineers',
+                tags: ['Tech', 'Developer', 'Structured'],
+                html: `
+                    <div class="realistic-template template-tech">
+                        <div class="header">
+                            <div class="name">DAVID KIM</div>
+                            <div class="title">SENIOR SOFTWARE ENGINEER</div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">SUMMARY</div>
+                            <div class="content">
+                                Full-stack developer specializing in scalable applications and system architecture. Passionate about clean code and efficient solutions.
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">EXPERIENCE</div>
+                            <div class="content">
+                                <strong>Senior Backend Engineer | DataStream Systems</strong><br>
+                                2021 - Present | San Francisco, CA<br>
+                                • Built microservices handling 10K+ requests/second<br>
+                                • Reduced infrastructure costs by 40% through optimization
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">TECH STACK</div>
+                            <div class="content">
+                                <div style="margin-bottom: 3px;">
+                                    <strong>Backend:</strong> Python, Go, Node.js, PostgreSQL, MongoDB
+                                </div>
+                                <div style="margin-bottom: 3px;">
+                                    <strong>Frontend:</strong> React, TypeScript, Next.js, Tailwind CSS
+                                </div>
+                                <div>
+                                    <strong>Infra:</strong> AWS, Docker, Kubernetes, Terraform, CI/CD
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'bold',
+                name: 'Bold Contrast',
+                description: 'High-impact design with strong visual hierarchy for maximum impression',
+                tags: ['Bold', 'Modern', 'Impactful'],
+                html: `
+                    <div class="realistic-template template-bold">
+                        <div class="header">
+                            <div class="name">JAMES RODRIGUEZ</div>
+                            <div class="title">DIRECTOR OF MARKETING</div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">PROFILE</div>
+                            <div class="content">
+                                Strategic marketing leader with 12+ years driving brand growth and digital transformation. Expert in data-driven campaigns and team leadership.
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">KEY ACHIEVEMENTS</div>
+                            <div class="content">
+                                • Increased market share by 35% through digital campaigns<br>
+                                • Grew social media following from 50K to 2M+ in 18 months<br>
+                                • Generated $50M in additional revenue through brand partnerships
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">EXPERIENCE</div>
+                            <div class="content">
+                                <strong>Director of Marketing | Global Brand Solutions</strong><br>
+                                2019 - Present | Chicago, IL<br>
+                                • Oversee $20M marketing budget and 25-person team<br>
+                                • Lead campaigns across 3 continents
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                id: 'academic',
+                name: 'Academic',
+                description: 'Formal layout suitable for research, education, and academic positions',
+                tags: ['Academic', 'Research', 'Formal'],
+                html: `
+                    <div class="realistic-template template-academic">
+                        <div class="header">
+                            <div class="name">DR. ELIZABETH CARTER</div>
+                            <div class="title">Assistant Professor of Computer Science</div>
+                            <div class="contact-info">
+                                ecarter@university.edu • (617) 555-7890 • Boston, MA
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">EDUCATION</div>
+                            <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                                <strong>Ph.D. in Computer Science</strong><br>
+                                Massachusetts Institute of Technology | 2018<br>
+                                Dissertation: "Machine Learning Approaches to Natural Language Processing"
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">PUBLICATIONS</div>
+                            <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                                • "Advanced NLP Techniques" - Journal of AI Research, 2022<br>
+                                • "Neural Networks for Text Classification" - ACM Conference, 2021
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">TEACHING</div>
+                            <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                                <strong>Courses Taught:</strong><br>
+                                Machine Learning (CS401), Natural Language Processing (CS450), Data Structures (CS201)
+                            </div>
+                        </div>
+                        
+                        <div class="section">
+                            <div class="section-title">RESEARCH INTERESTS</div>
+                            <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                                Natural Language Processing, Machine Learning, Artificial Intelligence, Computational Linguistics
+                            </div>
+                        </div>
+                    </div>
+                `
+            }
+        ];
+
+        let selectedTemplate = null;
+
+        function loadTemplates() {
+            const grid = document.getElementById('templateGrid');
+            
+            templates.forEach(template => {
+                const card = document.createElement('div');
+                card.className = 'template-card';
+                card.dataset.id = template.id;
+                
+                card.innerHTML = `
+                    <div class="template-preview">
+                        ${template.html}
+                    </div>
+                    <div class="template-info">
+                        <div class="template-name">
+                            ${template.name}
+                            <div class="select-indicator"></div>
+                        </div>
+                        <div class="template-tags">
+                            ${template.tags.map(tag => `<span class="template-tag">${tag}</span>`).join('')}
+                        </div>
+                        <div class="template-description">
+                            ${template.description}
+                        </div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => selectTemplate(template.id));
+                grid.appendChild(card);
+            });
+        }
+
+        function selectTemplate(templateId) {
+            selectedTemplate = templateId;
+            
+            // Update UI
+            document.querySelectorAll('.template-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`[data-id="${templateId}"]`).classList.add('selected');
+            
+            // Enable continue button
+            document.getElementById('continueBtn').disabled = false;
+        }
+
+        function continueToAd() {
+            if (!selectedTemplate) {
+                alert('Please select a template first');
+                return;
+            }
+
+            try {
+                // Load existing resume data
+                const resumeData = JSON.parse(localStorage.getItem('resumeData') || '{}');
+                
+                // Save template selection
+                resumeData.selectedTemplate = selectedTemplate;
+                resumeData.templateSelectedAt = new Date().toISOString();
+                
+                // Save back to localStorage
+                localStorage.setItem('resumeData', JSON.stringify(resumeData));
+                
+                // Navigate to ad page (or preview page as requested)
+                window.location.href = 'prev.html';
+                
+            } catch (error) {
+                console.error('Error saving template selection:', error);
+                alert('Error saving your template selection. Please try again.');
+            }
+        }
+
+        // Check for previously selected template
+        function checkPreviousSelection() {
+            try {
+                const resumeData = JSON.parse(localStorage.getItem('resumeData') || '{}');
+                if (resumeData.selectedTemplate) {
+                    // Auto-select previously chosen template
+                    selectTemplate(resumeData.selectedTemplate);
+                }
+            } catch (error) {
+                console.error('Error loading previous selection:', error);
+            }
+        }
+
+        // Load templates on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTemplates();
+            checkPreviousSelection();
+            
+            // Add keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && selectedTemplate && !document.getElementById('continueBtn').disabled) {
+                    continueToAd();
+                }
+                if (e.key === 'Escape') {
+                    window.location.href = 'confirm.html';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+[file content end]

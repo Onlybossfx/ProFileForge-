@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProfileForge form</title>
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .details-container {
+            max-width: 800px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .progress-container {
+            margin-bottom: 40px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .progress-header h1 {
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        .step-indicator {
+            font-weight: 600;
+            color: var(--primary);
+            background: rgba(124, 58, 237, 0.1);
+            padding: 6px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--light-gray);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
+            width: 12.5%;
+            transition: width 0.3s ease;
+        }
+
+        .step-content {
+            display: none;
+        }
+
+        .step-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .section-description {
+            color: var(--gray);
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .required::after {
+            content: ' *';
+            color: #ef4444;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid var(--light-gray);
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .step-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .step-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .step-dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
+        }
+
+        /* Skills specific styles */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+            min-height: 50px;
+        }
+
+        .skill-tag {
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-tag button {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+
+        .skill-tag button:hover {
+            background: rgba(124, 58, 237, 0.2);
+        }
+
+        .skill-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .skill-input input {
+            flex: 1;
+        }
+
+        .skill-input .btn {
+            white-space: nowrap;
+        }
+
+        /* Checkbox styling */
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        label:has(input[type="checkbox"]) {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        /* Categories for skills */
+        .skills-categories {
+            margin-bottom: 25px;
+        }
+
+        .category-title {
+            font-size: 1.1rem;
+            margin: 15px 0 10px;
+            color: var(--dark);
+        }
+
+        /* Projects and certifications sections */
+        .add-more-btn {
+            background: var(--light-gray);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+
+        .add-more-btn:hover {
+            background: #e5e7eb;
+        }
+
+        .remove-btn {
+            background: #fee2e2;
+            color: #dc2626;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .remove-btn:hover {
+            background: #fecaca;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .details-container {
+                padding: 25px;
+                margin: 20px;
+            }
+            
+            .progress-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .skill-input {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="../index.html" class="logo">
+            <i class="fas fa-sparkles"></i>
+            <span> ProfileForge</span>
+        </a>
+    </div>
+
+    <div class="details-container">
+        <div class="progress-container">
+            <div class="progress-header">
+                <h1>Your Personal Details</h1>
+                <div class="step-indicator">Step 1 of 8</div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+
+        <!-- Step 1: Contact Information -->
+        <div class="step-content active" id="step1">
+            <h2 class="section-title">Contact Information</h2>
+            <p class="section-description">Let's start with your contact details</p>
+
+            <div class="form-group">
+                <label for="fullName" class="required">Full Name</label>
+                <input type="text" id="fullName" placeholder="John Doe" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone" class="required">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="(555) 123-4567" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="required">Email Address</label>
+                    <input type="email" id="email" placeholder="john.doe@example.com" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="linkedin">LinkedIn Profile URL</label>
+                <input type="url" id="linkedin" placeholder="https://linkedin.com/in/johndoe">
+            </div>
+
+            <div class="form-group">
+                <label for="portfolio">Portfolio or Personal Website</label>
+                <input type="url" id="portfolio" placeholder="https://johndoe.com">
+            </div>
+
+            <div class="form-group">
+                <label for="location" class="required">Location (City, State)</label>
+                <input type="text" id="location" placeholder="San Francisco, CA" required>
+            </div>
+
+            <div class="form-actions">
+                <div></div>
+                <button class="btn btn-primary" onclick="nextStep(2)">Next: Professional Summary →</button>
+            </div>
+        </div>
+
+        <!-- Step 2: Professional Summary -->
+        <div class="step-content" id="step2">
+            <h2 class="section-title">Professional Summary / Objective</h2>
+            <p class="section-description">A brief 2-3 sentence statement summarizing your experience and goals</p>
+
+            <div class="form-group">
+                <label for="summary" class="required">Professional Summary</label>
+                <textarea id="summary" placeholder="Experienced software engineer with 5+ years in full-stack development. Seeking to leverage expertise in React and Node.js to build innovative solutions at a forward-thinking tech company..." required></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="prevStep(1)">← Previous</button>
+                <button class="btn btn-primary" onclick="nextStep(3)">Next: Skills →</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Skills -->
+        <div class="step-content" id="step3">
+            <h2 class="section-title">Skills</h2>
+            <p class="section-description">Add your technical and professional skills</p>
+
+            <div class="skills-categories">
+                <div class="category-title">Hard Skills (e.g., programming, data analysis)</div>
+                <div class="skills-container" id="hardSkillsContainer"></div>
+                <div class="skill-input">
+                    <input type="text" id="newHardSkill" placeholder="Add a hard skill (e.g., JavaScript, Data Analysis)">
+                    <button type="button" class="btn btn-primary" onclick="addSkill('hard')">Add</button>
+                </div>
+            </div>
+
+            <div class="skills-categories">
+                <div class="category-title">Soft Skills (e.g., communication, teamwork)</div>
+                <div class="skills-container" id="softSkillsContainer"></div>
+                <div class="skill-input">
+                    <input type="text" id="newSoftSkill" placeholder="Add a soft skill (e.g., Leadership, Problem Solving)">
+                    <button type="button" class="btn btn-primary" onclick="addSkill('soft')">Add</button>
+                </div>
+            </div>
+
+            <div class="skills-categories">
+                <div class="category-title">Tools & Technologies</div>
+                <div class="skills-container" id="toolsSkillsContainer"></div>
+                <div class="skill-input">
+                    <input type="text" id="newToolSkill" placeholder="Add a tool (e.g., React, Figma, Git)">
+                    <button type="button" class="btn btn-primary" onclick="addSkill('tools')">Add</button>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="prevStep(2)">← Previous</button>
+                <button class="btn btn-primary" onclick="nextStep(4)">Next: Work Experience →</button>
+            </div>
+        </div>
+
+        <!-- Step 4: Work Experience -->
+        <div class="step-content" id="step4">
+            <h2 class="section-title">Work Experience</h2>
+            <p class="section-description">Add your relevant work history</p>
+
+            <div class="form-group">
+                <label for="jobTitle" class="required">Job Title</label>
+                <input type="text" id="jobTitle" placeholder="Senior Software Engineer" required>
+            </div>
+
+            <div class="form-group">
+                <label for="company" class="required">Company Name</label>
+                <input type="text" id="company" placeholder="TechCorp Inc." required>
+            </div>
+
+            <div class="form-group">
+                <label for="workLocation">Location</label>
+                <input type="text" id="workLocation" placeholder="San Francisco, CA">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="startDate" class="required">Start Date</label>
+                    <input type="month" id="startDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="endDate">End Date</label>
+                    <input type="month" id="endDate">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="currentJob"> I currently work here
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label for="workDescription" class="required">Key Responsibilities & Achievements</label>
+                <textarea id="workDescription" placeholder="• Led a team of 5 developers to deliver new features...
+• Improved application performance by 40%...
+• Implemented automated testing reducing bugs by 30%..." required></textarea>
+                <small style="color: var(--gray);">Use bullet points for each responsibility/achievement</small>
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="prevStep(3)">← Previous</button>
+                <button class="btn btn-primary" onclick="nextStep(5)">Next: Education →</button>
+            </div>
+        </div>
+
+        <!-- Step 5: Education -->
+        <div class="step-content" id="step5">
+            <h2 class="section-title">Education</h2>
+            <p class="section-description">Add your educational background</p>
+
+            <div class="form-group">
+                <label for="degree" class="required">Degree Earned</label>
+                <input type="text" id="degree" placeholder="Bachelor of Science in Computer Science" required>
+            </div>
+
+            <div class="form-group">
+                <label for="institution" class="required">Institution Name</label>
+                <input type="text" id="institution" placeholder="Stanford University" required>
+            </div>
+
+            <div class="form-group">
+                <label for="graduationYear" class="required">Year of Graduation</label>
+                <input type="number" id="graduationYear" placeholder="2020" min="1900" max="2030" required>
+            </div>
+
+            <div class="form-group">
+                <label for="honorsGPA">Honors & GPA (Optional)</label>
+                <input type="text" id="honorsGPA" placeholder="Magna Cum Laude, GPA: 3.8">
+            </div>
+
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="prevStep(4)">← Previous</button>
+                <button class="btn btn-primary" onclick="nextStep(6)">Next: Certifications →</button>
+            </div>
+        </div>
+
+        <!-- Step 6: Certifications & Awards -->
+        <div class="step-content" id="step6">
+            <h2 class="section-title">Certifications & Awards</h2>
+            <p class="section-description">Add any relevant certificates, licenses, or recognitions</p>
+
+            <div id="certificationsContainer">
+                <div class="form-group certification-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Certification/Award Name</label>
+                            <input type="text" class="certification-name" placeholder="AWS Certified Solutions Architect">
+                        </div>
+                        <div class="form-group">
+                            <label>Issuing Organization</label>
+                            <input type="text" class="certification-org" placeholder="Amazon Web Services">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date Earned</label>
+                            <input type="month" class="certification-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Credential ID (Optional)</label>
+                            <input type="text" class="certification-id" placeholder="ABC123XYZ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="add-more-btn" onclick="addCertification()">
+                <i class="fas fa-plus"></i> Add Another Certification
+            </button>
+
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="prevStep(5)">← Previous</button>
+                <button class="btn btn-primary" onclick="nextStep(7)">Next: Projects →</button>
+            </div>
+        </div>
+
+        <!-- Step 7: Projects / Portfolio -->
+        <div class="step-content" id="step7">
+            <h2 class="section-title">Projects / Portfolio</h2>
+            <p class="section-description">Showcase your work and projects</p>
+
+            <div id="projectsContainer">
+                <div class="form-group project-entry">
+                    <div class="form-group">
+                        <label>Project Title</label>
+                        <input type="text" class="project-title" placeholder="E-commerce Website Redesign">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="project-description" placeholder="Redesigned and implemented a responsive e-commerce platform with improved user experience..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Tools Used</label>
+                        <input type="text" class="project-tools" placeholder="React, Node.js, MongoDB, Figma">
+                    </div>
+                    <div class="form-group">
+                        <label>Project Link (Optional)</label>
+                        <input type="url" class="project-link" placeholder="https://github.com/username/project">
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="add-more-btn" onclick="addProject()">
+                <i class="fas fa-plus"></i> Add Another Project
+            </button>
+
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="prevStep(6)">← Previous</button>
+                <button class="btn btn-primary" onclick="nextStep(8)">Next: Languages →</button>
+            </div>
+        </div>
+
+        <!-- Step 8: Languages -->
+        <div class="step-content" id="step8">
+            <h2 class="section-title">Languages</h2>
+            <p class="section-description">List spoken/written languages and proficiency levels</p>
+
+            <div id="languagesContainer">
+                <div class="form-group language-entry">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Language</label>
+                            <input type="text" class="language-name" placeholder="English" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Proficiency Level</label>
+                            <select class="language-level" required>
+                                <option value="">Select level</option>
+                                <option value="native">Native</option>
+                                <option value="fluent">Fluent</option>
+                                <option value="professional">Professional</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="basic">Basic</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="add-more-btn" onclick="addLanguage()">
+                <i class="fas fa-plus"></i> Add Another Language
+            </button>
+
+            <div class="form-actions">
+                <button class="btn btn-secondary" onclick="prevStep(7)">← Previous</button>
+                <button class="btn btn-primary" onclick="saveAndContinue()">Review Details →</button>
+            </div>
+        </div>
+
+        <div class="step-indicators">
+            <div class="step-dot active" onclick="goToStep(1)"></div>
+            <div class="step-dot" onclick="goToStep(2)"></div>
+            <div class="step-dot" onclick="goToStep(3)"></div>
+            <div class="step-dot" onclick="goToStep(4)"></div>
+            <div class="step-dot" onclick="goToStep(5)"></div>
+            <div class="step-dot" onclick="goToStep(6)"></div>
+            <div class="step-dot" onclick="goToStep(7)"></div>
+            <div class="step-dot" onclick="goToStep(8)"></div>
+        </div>
+    </div>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 8;
+        
+        // Skills arrays for different categories
+        const hardSkills = [];
+        const softSkills = [];
+        const toolSkills = [];
+        
+        // Arrays for dynamic sections
+        let certifications = [{
+            name: '',
+            organization: '',
+            date: '',
+            credentialId: ''
+        }];
+        
+        let projects = [{
+            title: '',
+            description: '',
+            tools: '',
+            link: ''
+        }];
+        
+        let languages = [{
+            name: '',
+            level: ''
+        }];
+
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+            
+            const stepIndicator = document.querySelector('.step-indicator');
+            stepIndicator.textContent = `Step ${currentStep} of ${totalSteps}`;
+            
+            document.querySelectorAll('.step-dot').forEach((dot, index) => {
+                dot.classList.toggle('active', index + 1 === currentStep);
+            });
+        }
+
+        function goToStep(stepNumber) {
+            if (stepNumber < 1 || stepNumber > totalSteps) return;
+            
+            if (stepNumber > currentStep && !validateStep(currentStep)) {
+                return;
+            }
+            
+            document.querySelectorAll('.step-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            const targetStep = document.getElementById(`step${stepNumber}`);
+            if (targetStep) {
+                targetStep.classList.add('active');
+                currentStep = stepNumber;
+                updateProgress();
+            }
+        }
+
+        function nextStep(next) {
+            if (validateStep(currentStep)) {
+                goToStep(next);
+            }
+        }
+
+        function prevStep(prev) {
+            goToStep(prev);
+        }
+
+        function validateStep(step) {
+            let isValid = true;
+            let errorMessage = '';
+            
+            switch(step) {
+                case 1:
+                    const name = document.getElementById('fullName').value.trim();
+                    const phone = document.getElementById('phone').value.trim();
+                    const email = document.getElementById('email').value.trim();
+                    const location = document.getElementById('location').value.trim();
+                    
+                    if (!name) {
+                        errorMessage = 'Please enter your full name';
+                        document.getElementById('fullName').focus();
+                    } else if (!phone) {
+                        errorMessage = 'Please enter your phone number';
+                        document.getElementById('phone').focus();
+                    } else if (!email) {
+                        errorMessage = 'Please enter your email address';
+                        document.getElementById('email').focus();
+                    } else if (!validateEmail(email)) {
+                        errorMessage = 'Please enter a valid email address';
+                        document.getElementById('email').focus();
+                    } else if (!location) {
+                        errorMessage = 'Please enter your location';
+                        document.getElementById('location').focus();
+                    }
+                    break;
+                case 2:
+                    const summary = document.getElementById('summary').value.trim();
+                    if (!summary) {
+                        errorMessage = 'Please enter your professional summary';
+                        document.getElementById('summary').focus();
+                    }
+                    break;
+                case 4:
+                    const jobTitle = document.getElementById('jobTitle').value.trim();
+                    const company = document.getElementById('company').value.trim();
+                    const startDate = document.getElementById('startDate').value;
+                    const workDescription = document.getElementById('workDescription').value.trim();
+                    
+                    if (!jobTitle) {
+                        errorMessage = 'Please enter job title';
+                        document.getElementById('jobTitle').focus();
+                    } else if (!company) {
+                        errorMessage = 'Please enter company name';
+                        document.getElementById('company').focus();
+                    } else if (!startDate) {
+                        errorMessage = 'Please select a start date';
+                        document.getElementById('startDate').focus();
+                    } else if (!workDescription) {
+                        errorMessage = 'Please enter job responsibilities and achievements';
+                        document.getElementById('workDescription').focus();
+                    }
+                    break;
+                case 5:
+                    const degree = document.getElementById('degree').value.trim();
+                    const institution = document.getElementById('institution').value.trim();
+                    const graduationYear = document.getElementById('graduationYear').value.trim();
+                    
+                    if (!degree) {
+                        errorMessage = 'Please enter your degree';
+                        document.getElementById('degree').focus();
+                    } else if (!institution) {
+                        errorMessage = 'Please enter institution name';
+                        document.getElementById('institution').focus();
+                    } else if (!graduationYear) {
+                        errorMessage = 'Please enter graduation year';
+                        document.getElementById('graduationYear').focus();
+                    }
+                    break;
+                case 8:
+                    // Validate languages - FIXED: Only validate if language name is entered
+                    const languageInputs = document.querySelectorAll('.language-name');
+                    const languageLevels = document.querySelectorAll('.language-level');
+                    for (let i = 0; i < languageInputs.length; i++) {
+                        const name = languageInputs[i].value.trim();
+                        const level = languageLevels[i].value;
+                        
+                        if (name && !level) {
+                            errorMessage = 'Please select proficiency level for "' + name + '"';
+                            languageLevels[i].focus();
+                            break;
+                        }
+                        if (!name && level) {
+                            errorMessage = 'Please enter language name for selected level';
+                            languageInputs[i].focus();
+                            break;
+                        }
+                    }
+                    break;
+            }
+            
+            if (errorMessage) {
+                alert(errorMessage);
+                isValid = false;
+            }
+            
+            return isValid;
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function addSkill(type) {
+            let inputId, skillsArray, containerId;
+            
+            switch(type) {
+                case 'hard':
+                    inputId = 'newHardSkill';
+                    skillsArray = hardSkills;
+                    containerId = 'hardSkillsContainer';
+                    break;
+                case 'soft':
+                    inputId = 'newSoftSkill';
+                    skillsArray = softSkills;
+                    containerId = 'softSkillsContainer';
+                    break;
+                case 'tools':  // FIXED: Changed from 'tool' to 'tools'
+                    inputId = 'newToolSkill';
+                    skillsArray = toolSkills;
+                    containerId = 'toolsSkillsContainer';
+                    break;
+                default:
+                    return;
+            }
+            
+            const skillInput = document.getElementById(inputId);
+            const skill = skillInput.value.trim();
+            
+            if (skill && !skillsArray.includes(skill)) {
+                skillsArray.push(skill);
+                updateSkillsDisplay(type, skillsArray, containerId);
+                skillInput.value = '';
+                skillInput.focus();
+            }
+        }
+
+        function updateSkillsDisplay(type, skillsArray, containerId) {
+            const container = document.getElementById(containerId);
+            if (skillsArray.length === 0) {
+                container.innerHTML = '<div style="color: var(--gray); font-style: italic;">No skills added yet</div>';
+                return;
+            }
+            
+            container.innerHTML = skillsArray.map(skill => {
+                const safeSkill = escapeHtml(skill);
+                return `
+                    <div class="skill-tag">
+                        ${safeSkill}
+                        <button onclick="removeSkill('${type}', '${safeSkill.replace(/'/g, "\\'")}')">&times;</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function removeSkill(type, skillToRemove) {
+            const decodedSkill = skillToRemove.replace(/&amp;/g, '&')
+                                            .replace(/&lt;/g, '<')
+                                            .replace(/&gt;/g, '>')
+                                            .replace(/&quot;/g, '"')
+                                            .replace(/&#039;/g, "'");
+            
+            let skillsArray, containerId;
+            
+            switch(type) {
+                case 'hard':
+                    skillsArray = hardSkills;
+                    containerId = 'hardSkillsContainer';
+                    break;
+                case 'soft':
+                    skillsArray = softSkills;
+                    containerId = 'softSkillsContainer';
+                    break;
+                case 'tools':  // FIXED: Changed from 'tool' to 'tools'
+                    skillsArray = toolSkills;
+                    containerId = 'toolsSkillsContainer';
+                    break;
+            }
+            
+            const index = skillsArray.findIndex(skill => skill === decodedSkill);
+            if (index > -1) {
+                skillsArray.splice(index, 1);
+                updateSkillsDisplay(type, skillsArray, containerId);
+            }
+        }
+
+        function addCertification() {
+            certifications.push({
+                name: '',
+                organization: '',
+                date: '',
+                credentialId: ''
+            });
+            updateCertificationsDisplay();
+        }
+
+        function updateCertificationsDisplay() {
+            const container = document.getElementById('certificationsContainer');
+            container.innerHTML = certifications.map((cert, index) => `
+                <div class="form-group certification-entry" data-index="${index}">
+                    ${index > 0 ? '<div style="border-top: 2px dashed var(--light-gray); margin: 20px 0; padding-top: 20px;"></div>' : ''}
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Certification/Award Name ${index === 0 ? '' : '#' + (index + 1)}</label>
+                            <input type="text" class="certification-name" placeholder="AWS Certified Solutions Architect" 
+                                   value="${escapeHtml(cert.name)}" oninput="updateCertification(${index}, 'name', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Issuing Organization</label>
+                            <input type="text" class="certification-org" placeholder="Amazon Web Services" 
+                                   value="${escapeHtml(cert.organization)}" oninput="updateCertification(${index}, 'organization', this.value)">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Date Earned</label>
+                            <input type="month" class="certification-date" 
+                                   value="${cert.date}" oninput="updateCertification(${index}, 'date', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label>Credential ID (Optional)</label>
+                            <input type="text" class="certification-id" placeholder="ABC123XYZ" 
+                                   value="${escapeHtml(cert.credentialId)}" oninput="updateCertification(${index}, 'credentialId', this.value)">
+                        </div>
+                    </div>
+                    ${index > 0 ? `<button type="button" class="remove-btn" onclick="removeCertification(${index})">Remove Certification</button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function updateCertification(index, field, value) {
+            if (certifications[index]) {
+                certifications[index][field] = value;
+            }
+        }
+
+        function removeCertification(index) {
+            if (index > 0 && index < certifications.length) {
+                certifications.splice(index, 1);
+                updateCertificationsDisplay();
+            }
+        }
+
+        function addProject() {
+            projects.push({
+                title: '',
+                description: '',
+                tools: '',
+                link: ''
+            });
+            updateProjectsDisplay();
+        }
+
+        function updateProjectsDisplay() {
+            const container = document.getElementById('projectsContainer');
+            container.innerHTML = projects.map((project, index) => `
+                <div class="form-group project-entry" data-index="${index}">
+                    ${index > 0 ? '<div style="border-top: 2px dashed var(--light-gray); margin: 20px 0; padding-top: 20px;"></div>' : ''}
+                    <div class="form-group">
+                        <label>Project Title ${index === 0 ? '' : '#' + (index + 1)}</label>
+                        <input type="text" class="project-title" placeholder="E-commerce Website Redesign" 
+                               value="${escapeHtml(project.title)}" oninput="updateProject(${index}, 'title', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea class="project-description" placeholder="Redesigned and implemented a responsive e-commerce platform..."
+                                  oninput="updateProject(${index}, 'description', this.value)">${escapeHtml(project.description)}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Tools Used</label>
+                        <input type="text" class="project-tools" placeholder="React, Node.js, MongoDB, Figma" 
+                               value="${escapeHtml(project.tools)}" oninput="updateProject(${index}, 'tools', this.value)">
+                    </div>
+                    <div class="form-group">
+                        <label>Project Link (Optional)</label>
+                        <input type="url" class="project-link" placeholder="https://github.com/username/project" 
+                               value="${escapeHtml(project.link)}" oninput="updateProject(${index}, 'link', this.value)">
+                    </div>
+                    ${index > 0 ? `<button type="button" class="remove-btn" onclick="removeProject(${index})">Remove Project</button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function updateProject(index, field, value) {
+            if (projects[index]) {
+                projects[index][field] = value;
+            }
+        }
+
+        function removeProject(index) {
+            if (index > 0 && index < projects.length) {
+                projects.splice(index, 1);
+                updateProjectsDisplay();
+            }
+        }
+
+        function addLanguage() {
+            languages.push({
+                name: '',
+                level: ''
+            });
+            updateLanguagesDisplay();
+        }
+
+        function updateLanguagesDisplay() {
+            const container = document.getElementById('languagesContainer');
+            container.innerHTML = languages.map((language, index) => `
+                <div class="form-group language-entry" data-index="${index}">
+                    ${index > 0 ? '<div style="border-top: 2px dashed var(--light-gray); margin: 20px 0; padding-top: 20px;"></div>' : ''}
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Language ${index === 0 ? '' : '#' + (index + 1)}</label>
+                            <input type="text" class="language-name" placeholder="English" 
+                                   value="${escapeHtml(language.name)}" oninput="updateLanguage(${index}, 'name', this.value)" ${index === 0 ? 'required' : ''}>
+                        </div>
+                        <div class="form-group">
+                            <label>Proficiency Level</label>
+                            <select class="language-level" onchange="updateLanguage(${index}, 'level', this.value)" ${index === 0 ? 'required' : ''}>
+                                <option value="">Select level</option>
+                                <option value="native" ${language.level === 'native' ? 'selected' : ''}>Native</option>
+                                <option value="fluent" ${language.level === 'fluent' ? 'selected' : ''}>Fluent</option>
+                                <option value="professional" ${language.level === 'professional' ? 'selected' : ''}>Professional</option>
+                                <option value="intermediate" ${language.level === 'intermediate' ? 'selected' : ''}>Intermediate</option>
+                                <option value="basic" ${language.level === 'basic' ? 'selected' : ''}>Basic</option>
+                            </select>
+                        </div>
+                    </div>
+                    ${index > 0 ? `<button type="button" class="remove-btn" onclick="removeLanguage(${index})">Remove Language</button>` : ''}
+                </div>
+            `).join('');
+        }
+
+        function updateLanguage(index, field, value) {
+            if (languages[index]) {
+                languages[index][field] = value;
+            }
+        }
+
+        function removeLanguage(index) {
+            if (index > 0 && index < languages.length) {
+                languages.splice(index, 1);
+                updateLanguagesDisplay();
+            }
+        }
+
+        function saveAndContinue() {
+            if (!validateStep(currentStep)) {
+                return;
+            }
+
+            try {
+                // Collect all form data
+                const resumeData = {
+                    contact: {
+                        name: document.getElementById('fullName').value.trim(),
+                        phone: document.getElementById('phone').value.trim(),
+                        email: document.getElementById('email').value.trim(),
+                        linkedin: document.getElementById('linkedin').value.trim(),
+                        portfolio: document.getElementById('portfolio').value.trim(),
+                        location: document.getElementById('location').value.trim()
+                    },
+                    summary: document.getElementById('summary').value.trim(),
+                    skills: {
+                        hard: [...hardSkills],
+                        soft: [...softSkills],
+                        tools: [...toolSkills]  // FIXED: Matches 'tools' not 'tool'
+                    },
+                    work: {
+                        title: document.getElementById('jobTitle').value.trim(),
+                        company: document.getElementById('company').value.trim(),
+                        location: document.getElementById('workLocation').value.trim(),
+                        startDate: document.getElementById('startDate').value,
+                        endDate: document.getElementById('endDate').value,
+                        current: document.getElementById('currentJob').checked,
+                        description: document.getElementById('workDescription').value.trim()
+                    },
+                    education: {
+                        degree: document.getElementById('degree').value.trim(),
+                        institution: document.getElementById('institution').value.trim(),
+                        graduationYear: document.getElementById('graduationYear').value.trim(),
+                        honorsGPA: document.getElementById('honorsGPA').value.trim()
+                    },
+                    certifications: certifications.filter(cert => cert.name || cert.organization),
+                    projects: projects.filter(project => project.title || project.description),
+                    languages: languages.filter(lang => lang.name && lang.level),
+                    timestamp: new Date().toISOString()
+                };
+
+                localStorage.setItem('resumeData', JSON.stringify(resumeData));
+                window.location.href = 'confirm.html';
+            } catch (error) {
+                console.error('Error saving data:', error);
+                alert('An error occurred while saving your data. Please try again.');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            updateProgress();
+            
+            // Enter key for skill inputs - FIXED: Added for tools
+            document.getElementById('newHardSkill').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addSkill('hard');
+                }
+            });
+            
+            document.getElementById('newSoftSkill').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addSkill('soft');
+                }
+            });
+            
+            document.getElementById('newToolSkill').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    addSkill('tools');  // FIXED: Changed from 'tool' to 'tools'
+                }
+            });
+
+            // Handle current job checkbox disabling end date - NEW FIX
+            const currentJobCheckbox = document.getElementById('currentJob');
+            const endDateInput = document.getElementById('endDate');
+            
+            currentJobCheckbox.addEventListener('change', function() {
+                endDateInput.disabled = this.checked;
+                if (this.checked) {
+                    endDateInput.value = '';
+                }
+            });
+
+            // Load existing data if available
+            try {
+                const savedData = localStorage.getItem('resumeData');
+                if (savedData) {
+                    const resumeData = JSON.parse(savedData);
+                    
+                    if (resumeData.contact) {
+                        document.getElementById('fullName').value = resumeData.contact.name || '';
+                        document.getElementById('phone').value = resumeData.contact.phone || '';
+                        document.getElementById('email').value = resumeData.contact.email || '';
+                        document.getElementById('linkedin').value = resumeData.contact.linkedin || '';
+                        document.getElementById('portfolio').value = resumeData.contact.portfolio || '';
+                        document.getElementById('location').value = resumeData.contact.location || '';
+                    }
+                    
+                    if (resumeData.summary) {
+                        document.getElementById('summary').value = resumeData.summary || '';
+                    }
+                    
+                    if (resumeData.skills) {
+                        if (resumeData.skills.hard) {
+                            hardSkills.push(...resumeData.skills.hard);
+                            updateSkillsDisplay('hard', hardSkills, 'hardSkillsContainer');
+                        }
+                        if (resumeData.skills.soft) {
+                            softSkills.push(...resumeData.skills.soft);
+                            updateSkillsDisplay('soft', softSkills, 'softSkillsContainer');
+                        }
+                        if (resumeData.skills.tools) {
+                            toolSkills.push(...resumeData.skills.tools);
+                            updateSkillsDisplay('tools', toolSkills, 'toolsSkillsContainer');
+                        }
+                    }
+                    
+                    if (resumeData.work) {
+                        document.getElementById('jobTitle').value = resumeData.work.title || '';
+                        document.getElementById('company').value = resumeData.work.company || '';
+                        document.getElementById('workLocation').value = resumeData.work.location || '';
+                        document.getElementById('startDate').value = resumeData.work.startDate || '';
+                        document.getElementById('endDate').value = resumeData.work.endDate || '';
+                        document.getElementById('currentJob').checked = resumeData.work.current || false;
+                        document.getElementById('workDescription').value = resumeData.work.description || '';
+                        
+                        // Initialize end date disabled state
+                        if (resumeData.work.current) {
+                            endDateInput.disabled = true;
+                        }
+                    }
+                    
+                    if (resumeData.education) {
+                        document.getElementById('degree').value = resumeData.education.degree || '';
+                        document.getElementById('institution').value = resumeData.education.institution || '';
+                        document.getElementById('graduationYear').value = resumeData.education.graduationYear || '';
+                        document.getElementById('honorsGPA').value = resumeData.education.honorsGPA || '';
+                    }
+                    
+                    if (resumeData.certifications && resumeData.certifications.length > 0) {
+                        certifications = resumeData.certifications;
+                        updateCertificationsDisplay();
+                    }
+                    
+                    if (resumeData.projects && resumeData.projects.length > 0) {
+                        projects = resumeData.projects;
+                        updateProjectsDisplay();
+                    }
+                    
+                    if (resumeData.languages && resumeData.languages.length > 0) {
+                        languages = resumeData.languages;
+                        updateLanguagesDisplay();
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading saved data:', error);
+            }
+        });
+    </script>
+</body>
+</html>
