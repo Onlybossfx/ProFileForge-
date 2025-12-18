@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help Center | ProfileForge</title>
+    <meta name="description" content="Get help with ProfileForge resume builder. FAQ, troubleshooting, contact support, and expert resume tips.">
+    <meta name="keywords" content="resume help, FAQ, support, troubleshooting, resume tips, contact">
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .help-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .help-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+            border-radius: 20px;
+        }
+
+        .help-header h1 {
+            font-size: 3rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .help-header p {
+            color: var(--gray);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 25px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 25px;
+            padding-left: 55px;
+            border: 2px solid var(--light-gray);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            font-size: 1.2rem;
+        }
+
+        .help-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .help-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .help-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .help-card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .help-card-icon i {
+            font-size: 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .help-card h3 {
+            font-size: 1.3rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .help-card p {
+            color: var(--gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .help-link {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s;
+        }
+
+        .help-link:hover {
+            gap: 12px;
+        }
+
+        .faq-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--dark);
+            margin-bottom: 35px;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        .faq-list {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--light-gray);
+            padding: 25px 0;
+        }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            padding: 10px 0;
+        }
+
+        .faq-question h3 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            font-weight: 600;
+            flex: 1;
+            margin: 0;
+        }
+
+        .faq-toggle {
+            color: var(--primary);
+            font-size: 1.2rem;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding-top: 15px;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 20px;
+            padding: 50px;
+            color: white;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .contact-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .contact-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+
+        .contact-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .contact-option {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 12px;
+            min-width: 200px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            border: 1px solid transparent;
+        }
+
+        .contact-option:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-option a {
+            color: inherit;
+            text-decoration: none;
+            display: block;
+        }
+
+        .contact-option i {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .contact-option h4 {
+            font-size: 1.1rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .contact-option p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .quick-tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+
+        .tip-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent);
+        }
+
+        .tip-card i {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .tip-card h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .tip-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--primary-dark);
+            transform: translateY(-5px);
+        }
+
+        /* Quick Navigation */
+        .quick-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+
+        /* Search match highlighting */
+        .faq-item.search-match {
+            background-color: rgba(124, 58, 237, 0.05);
+            border-left: 4px solid var(--primary);
+            padding-left: 10px;
+        }
+
+        /* Form styles */
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--light-gray);
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Mobile optimization for contact section */
+        @media (max-width: 768px) {
+            .help-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .help-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .faq-section, .contact-section {
+                padding: 25px;
+            }
+            
+            .contact-options {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .contact-option {
+                min-width: auto;
+                text-align: left;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 15px;
+            }
+            
+            .contact-option i {
+                align-self: flex-start;
+                margin-bottom: 10px;
+                font-size: 1.5rem;
+            }
+            
+            .back-to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="logo">
+            <i class="fas fa-sparkles"></i>
+            <span>ProFileForge</span>
+        </a>
+        <div class="header-badge">Help Center</div>
+    </div>
+
+    <div class="help-container">
+        <!-- Header Section -->
+        <div class="help-header">
+            <h1>How can we help you?</h1>
+            <p>Find answers to common questions, troubleshooting guides, and contact information</p>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search for help articles..." id="searchInput">
+            </div>
+            
+            <!-- Quick Navigation -->
+            <div class="quick-nav">
+                <a href="#faq" class="btn btn-secondary" style="padding: 8px 12px; font-size: 0.8rem;">FAQ</a>
+                <a href="#troubleshooting" class="btn btn-secondary" style="padding: 8px 12px; font-size: 0.8rem;">Troubleshooting</a>
+                <a href="#contact" class="btn btn-secondary" style="padding: 8px 12px; font-size: 0.8rem;">Contact</a>
+                <a href="#tips" class="btn btn-secondary" style="padding: 8px 12px; font-size: 0.8rem;">Tips</a>
+                <a href="form.html" class="btn btn-primary" style="padding: 8px 12px; font-size: 0.8rem;">
+                    <i class="fas fa-arrow-left"></i> Back to Builder
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Help Grid -->
+        <div class="help-grid">
+            <div class="help-card">
+                <div class="help-card-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3>Getting Started</h3>
+                <p>Learn how to create your first resume, choose templates, and save your progress.</p>
+                <a href="#getting-started" class="help-link">
+                    Get Started
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="help-card">
+                <div class="help-card-icon">
+                    <i class="fas fa-download"></i>
+                </div>
+                <h3>Download & Export</h3>
+                <p>Export your resume as PDF, Word, or plain text. Learn about ATS optimization.</p>
+                <a href="#download-export" class="help-link">
+                    Learn More
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="help-card">
+                <div class="help-card-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <h3>Editing & Updates</h3>
+                <p>How to edit existing resumes, update information, and manage multiple versions.</p>
+                <a href="#editing" class="help-link">
+                    Edit Guides
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="help-card">
+                <div class="help-card-icon">
+                    <i class="fas fa-question-circle"></i>
+                </div>
+                <h3>Troubleshooting</h3>
+                <p>Common issues and solutions for PDF generation, data saving, and browser compatibility.</p>
+                <a href="#troubleshooting" class="help-link">
+                    Fix Problems
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="help-card">
+                <div class="help-card-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Privacy & Security</h3>
+                <p>Learn about data privacy, browser storage, and how we keep your information safe.</p>
+                <a href="#privacy" class="help-link">
+                    Privacy Info
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="help-card">
+                <div class="help-card-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Tips & Best Practices</h3>
+                <p>Professional resume writing tips, ATS optimization, and job application advice.</p>
+                <a href="#tips" class="help-link">
+                    View Tips
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section" id="faq">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-list">
+                <!-- Getting Started FAQs -->
+                <div class="faq-category">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.2rem;">Getting Started</h3>
+                    <div class="faq-item" id="getting-started">
+                        <div class="faq-question">
+                            <h3>Do I need to create an account to use ProfileForge?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No account required! ProfileForge works entirely in your browser. Your resume data is saved locally on your device. This means you can start creating your resume immediately without any sign-up process.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I save my resume progress?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Your progress is automatically saved in your browser's local storage. You can close the browser and return later to continue where you left off. For additional safety, we recommend downloading your resume as a PDF when you complete each section.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I edit a resume I created previously?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! Click the "Edit Existing Resume" button on the homepage. Your browser will load your saved resume from local storage. If you're using a different browser or device, you can upload your previously downloaded PDF or Word file to continue editing.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Download & Export FAQs -->
+                <div class="faq-category" id="download-export">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.2rem; margin-top: 30px;">Download & Export</h3>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What file formats can I download my resume in?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>ProfileForge supports three download formats:<br>
+                            1. <strong>PDF</strong> - Perfect for printing and email applications<br>
+                            2. <strong>Word (DOCX)</strong> - Editable format for further customization<br>
+                            3. <strong>Text (TXT)</strong> - Simple text format for online forms</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is my resume ATS (Applicant Tracking System) friendly?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! All our templates are designed to be ATS-friendly. We use clean formatting, standard fonts, and proper section headers. Avoid using the "Creative" template for ATS-heavy applications as its two-column layout might not parse correctly in some systems.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Why is my PDF file size large?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We generate high-quality PDFs suitable for professional printing (300 DPI). This results in larger file sizes but ensures your resume looks perfect when printed. For email applications, the file size is still within acceptable limits (usually 200-500KB).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Editing FAQs -->
+                <div class="faq-category" id="editing">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.2rem; margin-top: 30px;">Editing & Updates</h3>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I update my existing resume?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Simply click "Edit Existing Resume" on the homepage. Your browser will load the last saved version. Make your changes and save again. Your updated version will replace the previous one in browser storage.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I create multiple versions of my resume?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! You can create multiple resumes by:<br>
+                            1. Starting a new resume from scratch<br>
+                            2. Downloading your current resume as a Word file and editing it offline<br>
+                            3. Using different browsers to store different versions</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What happens if I clear my browser data?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Clearing browser data will remove your saved resumes. Always download your completed resumes as PDF or Word files for permanent storage. We recommend downloading after each editing session.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Troubleshooting FAQs -->
+                <div class="faq-category" id="troubleshooting">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.2rem; margin-top: 30px;">Troubleshooting</h3>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>My resume isn't saving properly. What should I do?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Try these steps:<br>
+                            1. Ensure your browser allows local storage (most do by default)<br>
+                            2. Try using a different browser (Chrome, Firefox, Edge work best)<br>
+                            3. Clear browser cache and try again<br>
+                            4. Download your resume immediately after completing each section</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>PDF download is not working. How can I fix this?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>If PDF generation fails:<br>
+                            1. Try the "Print" option instead (Ctrl+P or Cmd+P)<br>
+                            2. Use the Word download option for an editable version<br>
+                            3. Ensure you have a stable internet connection (libraries load from CDN)<br>
+                            4. Try a different browser or update your current one</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>My resume looks different in the PDF. Why?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>PDF conversion can sometimes cause minor formatting differences. For best results:<br>
+                            1. Use the "Print Preview" before downloading<br>
+                            2. Stick to standard fonts in the templates<br>
+                            3. Avoid extremely long paragraphs<br>
+                            4. Download as Word if you need precise formatting control</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Privacy FAQs -->
+                <div class="faq-category" id="privacy">
+                    <h3 style="color: var(--primary); margin-bottom: 20px; font-size: 1.2rem; margin-top: 30px;">Privacy & Security</h3>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is my resume data stored on your servers?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No! All your data stays in your browser's local storage. We don't have servers storing your information. This means:<br>
+                            1. Complete privacy - only you can access your data<br>
+                            2. No account creation required<br>
+                            3. Your information never leaves your device unless you download it</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What happens if I use a different computer?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Your resume data is stored locally on each device. To access your resume on another computer:<br>
+                            1. Download your resume as a Word file on the original computer<br>
+                            2. Upload the Word file on the new computer using "Edit Existing Resume"<br>
+                            3. Or simply recreate the resume (takes only 10-15 minutes)</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is ProfileForge free to use? Any hidden costs?</h3>
+                            <span class="faq-toggle">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>ProfileForge is completely free with no hidden costs, subscriptions, or watermarks. We believe professional resume building should be accessible to everyone. You get:<br>
+                            1. All 7 professional templates<br>
+                            2. Unlimited downloads in all formats<br>
+                            3. No ads or upsells<br>
+                            4. Full privacy - your data stays with you</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Tips Section -->
+        <div class="quick-tips" id="tips">
+            <div class="tip-card">
+                <i class="fas fa-bullseye"></i>
+                <h4>ATS Optimization Tip</h4>
+                <p>Use the "Modern Pro" or "Executive" templates for ATS-heavy applications. These have the cleanest formatting for automated systems.</p>
+            </div>
+            <div class="tip-card">
+                <i class="fas fa-file-pdf"></i>
+                <h4>PDF Quality Tip</h4>
+                <p>For best print quality, always download as PDF. The PDF is optimized for 300 DPI professional printing.</p>
+            </div>
+            <div class="tip-card">
+                <i class="fas fa-save"></i>
+                <h4>Data Safety Tip</h4>
+                <p>Download your resume after each editing session. Browser storage can be cleared accidentally.</p>
+            </div>
+            <div class="tip-card">
+                <i class="fas fa-palette"></i>
+                <h4>Template Selection</h4>
+                <p>Match your template to your industry: Corporate → Executive, Tech → Modern Pro, Creative → Bold/Portfolio.</p>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="contact-section">
+            <h2>Need Personal Assistance?</h2>
+            <p>Can't find what you're looking for? Our team responds within 24 hours on weekdays.</p>
+            
+            <!-- Response time badge -->
+            <div style="display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; margin-bottom: 20px;">
+                <i class="fas fa-clock"></i> Avg. response: <strong>6 hours</strong>
+            </div>
+
+            <!-- FAQ Suggestion Box -->
+            <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 12px; margin-bottom: 30px; text-align: left; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <h4 style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-lightbulb"></i> Before contacting...
+                </h4>
+                <p style="margin-bottom: 10px; opacity: 0.9;">Most issues are solved in our FAQ:</p>
+                <ul style="padding-left: 20px; opacity: 0.9; margin-bottom: 0;">
+                    <li><a href="#troubleshooting" style="color: white; text-decoration: underline;">Troubleshooting guide</a></li>
+                    <li><a href="#download-export" style="color: white; text-decoration: underline;">Download & export issues</a></li>
+                    <li><a href="#privacy" style="color: white; text-decoration: underline;">Privacy & security questions</a></li>
+                </ul>
+            </div>
+            
+            <!-- Contact Options -->
+            <div class="contact-options">
+                <a href="mailto:support@profileforge.example.com" class="contact-option" style="text-decoration: none; color: inherit;">
+                    <i class="fas fa-envelope"></i>
+                    <h4>Email Support</h4>
+                    <p>support@profileforge.com<br>Response within 24 hours</p>
+                </a>
+                
+                <div class="contact-option" id="feedbackBtn" style="cursor: pointer;">
+                    <i class="fas fa-comments"></i>
+                    <h4>Feedback Form</h4>
+                    <p>Share your suggestions<br>Help us improve</p>
+                </div>
+                
+                <a href="https://github.com/yourusername/profileforge/issues" target="_blank" class="contact-option" style="text-decoration: none; color: inherit;">
+                    <i class="fab fa-github"></i>
+                    <h4>GitHub Issues</h4>
+                    <p>Report bugs<br>Open source community</p>
+                </a>
+            </div>
+
+            <!-- Support Hours -->
+            <div style="margin-top: 30px; font-size: 0.9rem; opacity: 0.8; max-width: 700px; margin-left: auto; margin-right: auto;">
+                <p style="margin-bottom: 5px; display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <i class="fas fa-calendar"></i> 
+                    <span><strong>Support Hours:</strong> Mon-Fri, 9AM-5PM EST</span>
+                </p>
+                <p style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>For urgent issues, use GitHub Issues for fastest response</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Print Option -->
+        <div style="text-align: center; margin: 20px 0;">
+            <button onclick="window.print()" class="btn btn-secondary" style="padding: 10px 20px;">
+                <i class="fas fa-print"></i> Print Help Guide
+            </button>
+        </div>
+
+        <!-- Back to Top Button -->
+        <div class="back-to-top" id="backToTop">
+            <i class="fas fa-arrow-up"></i>
+        </div>
+    </div>
+
+    <script>
+        // FAQ Toggle Functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Search Functionality
+        const searchInput = document.getElementById('searchInput');
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        searchInput.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase().trim();
+            let hasResults = false;
+            
+            if (searchTerm.length < 2) {
+                faqItems.forEach(item => {
+                    item.style.display = 'block';
+                    item.classList.remove('search-match');
+                });
+                return;
+            }
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question h3').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    item.classList.add('search-match', 'active');
+                    hasResults = true;
+                } else {
+                    item.style.display = 'none';
+                    item.classList.remove('search-match');
+                }
+            });
+            
+            // Show "no results" message
+            const noResults = document.getElementById('noResults');
+            if (!hasResults && !noResults) {
+                const noResultsMsg = document.createElement('div');
+                noResultsMsg.id = 'noResults';
+                noResultsMsg.innerHTML = `<p style="text-align: center; color: var(--gray); padding: 20px;">No results found for "${searchTerm}". Try different keywords.</p>`;
+                document.querySelector('.faq-list').appendChild(noResultsMsg);
+            } else if (hasResults && noResults) {
+                noResults.remove();
+            }
+        });
+
+        // Back to Top Button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Help card click functionality
+        document.querySelectorAll('.help-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        // Expand the FAQ section if it's collapsed
+                        const faqItem = targetElement.closest('.faq-item');
+                        if (faqItem && !faqItem.classList.contains('active')) {
+                            faqItem.classList.add('active');
+                        }
+                        
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+
+        // Add keyboard shortcut for search
+        document.addEventListener('keydown', (e) => {
+            // Ctrl/Cmd + K to focus search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+            
+            // Escape to clear search
+            if (e.key === 'Escape' && document.activeElement === searchInput) {
+                searchInput.value = '';
+                searchInput.dispatchEvent(new Event('input'));
+            }
+        });
+
+        // Auto-expand FAQ item based on URL hash
+        window.addEventListener('load', () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const targetElement = document.querySelector(hash);
+                if (targetElement) {
+                    const faqItem = targetElement.closest('.faq-item');
+                    if (faqItem) {
+                        faqItem.classList.add('active');
+                        setTimeout(() => {
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 100,
+                                behavior: 'smooth'
+                            });
+                        }, 100);
+                    }
+                }
+            }
+        });
+
+        // ==============================================
+        // FORMSPREE FEEDBACK FORM FUNCTIONALITY
+        // ==============================================
+        
+        // IMPORTANT: Replace YOUR_FORMSPREE_FORM_ID with your actual Formspree form ID
+        const FORMSPREE_ENDPOINT = "https://formspree.io/f/xwvekezz";
+        
+        const feedbackBtn = document.getElementById('feedbackBtn');
+        if (feedbackBtn) {
+            feedbackBtn.addEventListener('click', openFeedbackForm);
+        }
+
+        function openFeedbackForm() {
+            const feedbackHTML = `
+                <div class="feedback-overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 10000; backdrop-filter: blur(5px);">
+                    <div class="feedback-modal" style="background: white; padding: 30px; border-radius: 15px; max-width: 500px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3 style="margin: 0; color: var(--dark);">Send Feedback</h3>
+                            <button onclick="closeFeedback()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray);">&times;</button>
+                        </div>
+                        
+                        <form id="feedbackForm" method="POST">
+                            <input type="hidden" name="_subject" value="ProfileForge Feedback">
+                            
+                            <div class="form-group">
+                                <label class="form-label">Your Email (optional)</label>
+                                <input type="email" name="email" placeholder="you@example.com" class="form-input">
+                                <small style="color: var(--gray); font-size: 0.85rem;">So we can reply to you if needed</small>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Feedback Type</label>
+                                <select name="feedback_type" class="form-select">
+                                    <option value="suggestion">Suggestion</option>
+                                    <option value="bug">Bug Report</option>
+                                    <option value="feature_request">Feature Request</option>
+                                    <option value="question">Question</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Your Feedback *</label>
+                                <textarea 
+                                    name="message" 
+                                    placeholder="What can we improve? What features would you like to see? What problems did you encounter?..."
+                                    class="form-textarea"
+                                    style="height: 150px;"
+                                    required
+                                ></textarea>
+                            </div>
+                            
+                            <!-- Page context (hidden fields) -->
+                            <input type="hidden" name="page_url" value="${window.location.href}">
+                            <input type="hidden" name="user_agent" value="${navigator.userAgent}">
+                            <input type="hidden" name="timestamp" value="${new Date().toISOString()}">
+                            
+                            <!-- Honeypot spam protection -->
+                            <input type="text" name="_gotcha" style="display:none">
+                            
+                            <div style="display: flex; gap: 10px; margin-top: 25px;">
+                                <button type="submit" style="background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600; flex: 1;">
+                                    <span id="submitText">Submit Feedback</span>
+                                    <span id="submitLoading" style="display: none;">
+                                        <i class="fas fa-spinner fa-spin"></i> Sending...
+                                    </span>
+                                </button>
+                                <button type="button" onclick="closeFeedback()" style="background: #e2e8f0; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600;">Cancel</button>
+                            </div>
+                            
+                            <p style="margin-top: 15px; font-size: 0.85rem; color: var(--gray);">
+                                <i class="fas fa-info-circle"></i> Your feedback helps us improve ProfileForge for everyone.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            `;
+            
+            const div = document.createElement('div');
+            div.innerHTML = feedbackHTML;
+            document.body.appendChild(div);
+            
+            // Handle form submission
+            const form = document.getElementById('feedbackForm');
+            form.addEventListener('submit', handleFeedbackSubmit);
+            
+            // Focus on first input
+            setTimeout(() => {
+                const firstInput = form.querySelector('input, textarea, select');
+                if (firstInput) firstInput.focus();
+            }, 100);
+        }
+
+        function handleFeedbackSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const submitText = document.getElementById('submitText');
+            const submitLoading = document.getElementById('submitLoading');
+            
+            // Show loading state
+            submitText.style.display = 'none';
+            submitLoading.style.display = 'inline';
+            submitBtn.disabled = true;
+            
+            // Prepare form data
+            const formData = new FormData(form);
+            
+            // Send to Formspree
+            fetch(FORMSPREE_ENDPOINT, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    showFeedbackSuccess();
+                } else {
+                    showFeedbackError("Failed to send feedback. Please try again.");
+                }
+            })
+            .catch((error) => {
+                console.error('Feedback error:', error);
+                showFeedbackError("Network error. Please check your connection and try again.");
+            });
+        }
+
+        function showFeedbackSuccess() {
+            const modal = document.querySelector('.feedback-modal');
+            if (modal) {
+                modal.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 3rem; color: var(--secondary); margin-bottom: 15px;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h3 style="color: var(--dark); margin-bottom: 10px;">Thank You!</h3>
+                        <p style="color: var(--gray); margin-bottom: 20px; line-height: 1.5;">
+                            Your feedback has been sent successfully. We'll review it and get back to you if needed.
+                        </p>
+                        <div style="background: rgba(16, 185, 129, 0.1); padding: 15px; border-radius: 8px; margin: 20px 0;">
+                            <i class="fas fa-lightbulb" style="color: var(--secondary);"></i>
+                            <span style="color: var(--dark); font-weight: 600;"> What happens next?</span>
+                            <p style="color: var(--gray); margin-top: 5px; font-size: 0.9rem; margin: 0;">
+                                We review all feedback weekly. If you included your email, we'll contact you within 3-5 business days.
+                            </p>
+                        </div>
+                        <button onclick="closeFeedback()" style="background: var(--primary); color: white; border: none; padding: 12px 30px; border-radius: 8px; cursor: pointer; font-weight: 600; margin-top: 15px;">
+                            Close
+                        </button>
+                    </div>
+                `;
+                
+                // Auto-close after 5 seconds
+                setTimeout(closeFeedback, 5000);
+            }
+        }
+
+        function showFeedbackError(message = "Something went wrong. Please try again.") {
+            const modal = document.querySelector('.feedback-modal');
+            if (modal) {
+                modal.innerHTML = `
+                    <div style="text-align: center; padding: 20px;">
+                        <div style="font-size: 3rem; color: #ef4444; margin-bottom: 15px;">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3 style="color: var(--dark); margin-bottom: 10px;">Oops!</h3>
+                        <p style="color: var(--gray); margin-bottom: 20px;">
+                            ${message}
+                        </p>
+                        <div style="display: flex; gap: 10px; justify-content: center;">
+                            <button onclick="openFeedbackForm()" style="background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600;">Try Again</button>
+                            <a href="mailto:support@profileforge.com?subject=ProfileForge%20Feedback" style="background: #e2e8f0; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600; text-decoration: none; color: var(--dark); display: inline-block;">
+                                Email Instead
+                            </a>
+                            <button onclick="closeFeedback()" style="background: #e2e8f0; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 600;">Close</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function closeFeedback() {
+            const overlay = document.querySelector('.feedback-overlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+
+        // Close feedback with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && document.querySelector('.feedback-overlay')) {
+                closeFeedback();
+            }
+        });
+
+        // Handle empty links in footer (for index.html compatibility)
+        document.querySelectorAll('a[href="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                alert('This section is coming soon!');
+            });
+        });
+
+        // Log for debugging
+        console.log('Help Center Loaded - ProfileForge Support System');
+        console.log('Feedback form configured for Formspree');
+        console.log('IMPORTANT: Replace YOUR_FORMSPREE_FORM_ID with your actual Formspree form ID');
+    </script>
+</body>
+</html>
