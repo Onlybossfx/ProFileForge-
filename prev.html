@@ -1052,10 +1052,51 @@
                 
                 resumeData = JSON.parse(savedData);
                 
-                if (!resumeData.contact || !resumeData.contact.name) {
-                    showErrorState('Incomplete resume data. Please create a new resume.');
-                    return;
+                // ENSURE ALL SECTIONS EXIST (even if empty)
+                const requiredSections = [
+                    'certifications',
+                    'projects', 
+                    'languages',
+                    'skills'
+                ];
+                
+                requiredSections.forEach(section => {
+                    if (!resumeData[section]) {
+                        resumeData[section] = [];
+                    }
+                });
+                
+                // Ensure skills has all sub-sections
+                if (!resumeData.skills) {
+                    resumeData.skills = { hard: [], soft: [], tools: [] };
+                } else {
+                    resumeData.skills.hard = resumeData.skills.hard || [];
+                    resumeData.skills.soft = resumeData.skills.soft || [];
+                    resumeData.skills.tools = resumeData.skills.tools || [];
                 }
+                
+                // Ensure contact info exists
+                if (!resumeData.contact) {
+                    resumeData.contact = {
+                        name: 'Your Name',
+                        email: '',
+                        phone: '',
+                        location: '',
+                        linkedin: '',
+                        portfolio: ''
+                    };
+                }
+                
+                if (!resumeData.contact.name) {
+                    resumeData.contact.name = 'Your Name';
+                }
+                
+                console.log('Resume Data Loaded:', {
+                    sections: Object.keys(resumeData),
+                    contact: resumeData.contact,
+                    certifications: resumeData.certifications?.length || 0,
+                    projects: resumeData.projects?.length || 0
+                });
                 
                 renderResume();
                 updateStats();
@@ -1191,7 +1232,7 @@
             return renderAllSections('academic');
         }
 
-        // Main function that renders ALL 8 sections for any template
+        // Main function that renders ALL 8 sections for any template - ALWAYS
         function renderAllSections(template) {
             const { contact, summary, skills, work, education, certifications, projects, languages } = resumeData;
             const jobTitle = work?.title || 'Professional Title';
@@ -1202,53 +1243,67 @@
             let html = templateParts.header;
             
             // ====== 1. PROFESSIONAL SUMMARY ======
+            html += templateParts.sectionStart('PROFESSIONAL SUMMARY');
             if (summary) {
-                html += templateParts.sectionStart('PROFESSIONAL SUMMARY');
                 html += templateParts.content(summary);
-                html += templateParts.sectionEnd;
+            } else {
+                html += templateParts.content('Professional summary not provided');
             }
+            html += templateParts.sectionEnd;
             
             // ====== 2. WORK EXPERIENCE ======
+            html += templateParts.sectionStart('WORK EXPERIENCE');
             if (work && work.title) {
-                html += templateParts.sectionStart('WORK EXPERIENCE');
                 html += templateParts.workExperience(work);
-                html += templateParts.sectionEnd;
+            } else {
+                html += templateParts.content('Work experience not specified');
             }
+            html += templateParts.sectionEnd;
             
             // ====== 3. EDUCATION ======
+            html += templateParts.sectionStart('EDUCATION');
             if (education && education.degree) {
-                html += templateParts.sectionStart('EDUCATION');
                 html += templateParts.education(education);
-                html += templateParts.sectionEnd;
+            } else {
+                html += templateParts.content('Education not specified');
             }
+            html += templateParts.sectionEnd;
             
             // ====== 4. SKILLS ======
+            html += templateParts.sectionStart('SKILLS');
             if (skills && (skills.hard?.length > 0 || skills.soft?.length > 0 || skills.tools?.length > 0)) {
-                html += templateParts.sectionStart('SKILLS');
                 html += templateParts.skillsSection(skills);
-                html += templateParts.sectionEnd;
+            } else {
+                html += templateParts.content('Skills not specified');
             }
+            html += templateParts.sectionEnd;
             
-            // ====== 5. CERTIFICATIONS ======
+            // ====== 5. CERTIFICATIONS & AWARDS ======
+            html += templateParts.sectionStart('CERTIFICATIONS & AWARDS');
             if (certifications?.length > 0) {
-                html += templateParts.sectionStart('CERTIFICATIONS & AWARDS');
                 html += templateParts.certificationsSection(certifications);
-                html += templateParts.sectionEnd;
+            } else {
+                html += templateParts.content('No certifications or awards specified');
             }
+            html += templateParts.sectionEnd;
             
-            // ====== 6. PROJECTS ======
+            // ====== 6. PROJECTS / PORTFOLIO ======
+            html += templateParts.sectionStart('PROJECTS / PORTFOLIO');
             if (projects?.length > 0) {
-                html += templateParts.sectionStart('PROJECTS / PORTFOLIO');
                 html += templateParts.projectsSection(projects);
-                html += templateParts.sectionEnd;
+            } else {
+                html += templateParts.content('No projects or portfolio items specified');
             }
+            html += templateParts.sectionEnd;
             
             // ====== 7. LANGUAGES ======
+            html += templateParts.sectionStart('LANGUAGES');
             if (languages?.length > 0) {
-                html += templateParts.sectionStart('LANGUAGES');
                 html += templateParts.languagesSection(languages);
-                html += templateParts.sectionEnd;
+            } else {
+                html += templateParts.content('Languages not specified');
             }
+            html += templateParts.sectionEnd;
             
             return html;
         }
@@ -1336,37 +1391,55 @@
                                 </div>
                             </div>`;
                         }
+                        if (!skills.hard?.length && !skills.soft?.length && !skills.tools?.length) {
+                            html = '<div style="color: var(--gray); font-style: italic;">Skills not specified</div>';
+                        }
                         return html;
                     },
-                    certificationsSection: (certs) => certs.map(cert => `
-                        <div class="content-item">
-                            <div class="content-header">
-                                <div class="content-title">${escapeHtml(cert.name || '')}</div>
-                                <div class="content-date">${cert.date || ''}</div>
-                            </div>
-                            <div class="content-subtitle">${escapeHtml(cert.organization || '')} ${cert.credentialId ? `• ID: ${escapeHtml(cert.credentialId)}` : ''}</div>
-                        </div>
-                    `).join(''),
-                    projectsSection: (projects) => projects.map(project => `
-                        <div class="content-item">
-                            <div class="content-header">
-                                <div class="content-title">${escapeHtml(project.title || '')}</div>
-                            </div>
-                            ${project.description ? `<div class="content-description">${formatText(escapeHtml(project.description))}</div>` : ''}
-                            ${project.tools ? `<div style="font-size: 11px; color: var(--gray); margin-top: 5px;"><strong>Tools:</strong> ${escapeHtml(project.tools)}</div>` : ''}
-                            ${project.link ? `<div style="font-size: 11px; color: var(--primary); margin-top: 3px;">${escapeHtml(project.link)}</div>` : ''}
-                        </div>
-                    `).join(''),
-                    languagesSection: (languages) => `
-                        <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
-                            ${languages.map(lang => `
-                                <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f0f0f0;">
-                                    <span>${escapeHtml(lang.name || '')}</span>
-                                    <span style="color: var(--primary); font-weight: 500;">${formatLanguageLevel(lang.level)}</span>
+                    certificationsSection: (certs) => {
+                        if (!certs || certs.length === 0) {
+                            return '<div style="color: var(--gray); font-style: italic; padding: 10px; text-align: center;">No certifications or awards specified</div>';
+                        }
+                        return certs.map(cert => `
+                            <div class="content-item">
+                                <div class="content-header">
+                                    <div class="content-title">${escapeHtml(cert.name || '')}</div>
+                                    <div class="content-date">${cert.date || ''}</div>
                                 </div>
-                            `).join('')}
-                        </div>
-                    `
+                                <div class="content-subtitle">${escapeHtml(cert.organization || '')} ${cert.credentialId ? `• ID: ${escapeHtml(cert.credentialId)}` : ''}</div>
+                            </div>
+                        `).join('');
+                    },
+                    projectsSection: (projects) => {
+                        if (!projects || projects.length === 0) {
+                            return '<div style="color: var(--gray); font-style: italic; padding: 10px; text-align: center;">No projects or portfolio items specified</div>';
+                        }
+                        return projects.map(project => `
+                            <div class="content-item">
+                                <div class="content-header">
+                                    <div class="content-title">${escapeHtml(project.title || '')}</div>
+                                </div>
+                                ${project.description ? `<div class="content-description">${formatText(escapeHtml(project.description))}</div>` : ''}
+                                ${project.tools ? `<div style="font-size: 11px; color: var(--gray); margin-top: 5px;"><strong>Tools:</strong> ${escapeHtml(project.tools)}</div>` : ''}
+                                ${project.link ? `<div style="font-size: 11px; color: var(--primary); margin-top: 3px;">${escapeHtml(project.link)}</div>` : ''}
+                            </div>
+                        `).join('');
+                    },
+                    languagesSection: (languages) => {
+                        if (!languages || languages.length === 0) {
+                            return '<div style="color: var(--gray); font-style: italic; padding: 10px; text-align: center;">Languages not specified</div>';
+                        }
+                        return `
+                            <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
+                                ${languages.map(lang => `
+                                    <div style="display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid #f0f0f0;">
+                                        <span>${escapeHtml(lang.name || '')}</span>
+                                        <span style="color: var(--primary); font-weight: 500;">${formatLanguageLevel(lang.level)}</span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                    }
                 },
                 executive: {
                     header: `
@@ -1374,8 +1447,8 @@
                             <div class="name">${name}</div>
                             <div class="title">${escapeHtml(jobTitle)}</div>
                             <div class="contact-info">
-                                ${email || 'email@example.com'} • ${phone || '(555) 123-4567'} • ${location || 'City, State'}<br>
-                                ${linkedin || 'linkedin.com/in/yourprofile'} ${portfolio ? `• ${portfolio}` : ''}
+                                ${email || 'Email not provided'} • ${phone || 'Phone not provided'} • ${location || 'Location not provided'}<br>
+                                ${linkedin || 'LinkedIn not provided'} ${portfolio ? `• ${portfolio}` : ''}
                             </div>
                         </div>
                     `,
@@ -1389,7 +1462,7 @@
                         <div class="content">
                             <strong>${escapeHtml(work.title || 'Your Position')} | ${escapeHtml(work.company || 'Company Name')}</strong><br>
                             ${work.location ? `${escapeHtml(work.location)} | ` : ''}${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
-                            ${work.description ? formatText(escapeHtml(work.description)) : '• Led teams and drove business growth'}
+                            ${work.description ? formatText(escapeHtml(work.description)) : 'Work description not provided'}
                         </div>
                     `,
                     education: (education) => `
@@ -1401,25 +1474,40 @@
                     `,
                     skillsSection: (skills) => {
                         const allSkills = [...(skills.hard || []), ...(skills.soft || []), ...(skills.tools || [])];
+                        if (allSkills.length === 0) {
+                            return `<div class="content">Skills not specified</div>`;
+                        }
                         return `<div class="content">
                             ${allSkills.slice(0, 15).map(skill => `<span style="display: inline-block; background: #f0f0f0; padding: 3px 8px; margin: 2px; border-radius: 3px; font-size: 10px;">${escapeHtml(skill)}</span>`).join('')}
                         </div>`;
                     },
-                    certificationsSection: (certs) => `
+                    certificationsSection: (certs) => {
+                        if (!certs || certs.length === 0) {
+                            return `<div class="content">No certifications or awards specified</div>`;
+                        }
+                        return `
                         <div class="content">
                             ${certs.map(cert => `• ${escapeHtml(cert.name || '')} (${escapeHtml(cert.organization || '')})${cert.date ? `, ${cert.date}` : ''}<br>`).join('')}
-                        </div>
-                    `,
-                    projectsSection: (projects) => `
+                        </div>`;
+                    },
+                    projectsSection: (projects) => {
+                        if (!projects || projects.length === 0) {
+                            return `<div class="content">No projects or portfolio items specified</div>`;
+                        }
+                        return `
                         <div class="content">
                             ${projects.map(project => `• <strong>${escapeHtml(project.title || '')}</strong>: ${formatText(escapeHtml(project.description || ''))}${project.tools ? ` [${escapeHtml(project.tools)}]` : ''}<br><br>`).join('')}
-                        </div>
-                    `,
-                    languagesSection: (languages) => `
+                        </div>`;
+                    },
+                    languagesSection: (languages) => {
+                        if (!languages || languages.length === 0) {
+                            return `<div class="content">Languages not specified</div>`;
+                        }
+                        return `
                         <div class="content">
                             ${languages.map(lang => `• ${escapeHtml(lang.name || '')} (${formatLanguageLevel(lang.level)})<br>`).join('')}
-                        </div>
-                    `
+                        </div>`;
+                    }
                 },
                 modern: {
                     header: `
@@ -1429,10 +1517,10 @@
                                 <div class="title">${escapeHtml(jobTitle)}</div>
                             </div>
                             <div class="contact">
-                                ${email || 'email@example.com'}<br>
-                                ${phone || '(555) 123-4567'}<br>
-                                ${location || 'City, State'}<br>
-                                ${linkedin || 'linkedin.com/in/yourprofile'}
+                                ${email || 'Email not provided'}<br>
+                                ${phone || 'Phone not provided'}<br>
+                                ${location || 'Location not provided'}<br>
+                                ${linkedin || 'LinkedIn not provided'}
                             </div>
                         </div>
                     `,
@@ -1446,37 +1534,52 @@
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             <strong>${escapeHtml(work.title || 'Your Position')} | ${escapeHtml(work.company || 'Company Name')}</strong><br>
                             ${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}${work.location ? ` | ${escapeHtml(work.location)}` : ''}<br>
-                            ${work.description ? formatText(escapeHtml(work.description)) : 'Key responsibilities and achievements...'}
+                            ${work.description ? formatText(escapeHtml(work.description)) : 'Work description not provided'}
                         </div>
                     `,
                     education: (education) => `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             <strong>${escapeHtml(education.degree || 'Your Degree')}</strong><br>
                             ${escapeHtml(education.institution || 'University Name')} | ${education.graduationYear || 'Year'}
-                            ${education.honorsGPA ? `<br>${escapeHtml(education.honorsGPA)}` : ''}
+                            ${education.honorsGPA ? `<br>${escapeHtml(education.honorsGPA)}</div>` : ''}
                         </div>
                     `,
                     skillsSection: (skills) => {
                         const allSkills = [...(skills.hard || []), ...(skills.soft || []), ...(skills.tools || [])];
+                        if (allSkills.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">Skills not specified</div>`;
+                        }
                         return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${allSkills.slice(0, 12).map(skill => `${escapeHtml(skill)} • `).join('').slice(0, -2)}
                         </div>`;
                     },
-                    certificationsSection: (certs) => `
+                    certificationsSection: (certs) => {
+                        if (!certs || certs.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">No certifications or awards specified</div>`;
+                        }
+                        return `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${certs.map(cert => `• ${escapeHtml(cert.name || '')}${cert.organization ? ` (${escapeHtml(cert.organization)})` : ''}${cert.date ? ` - ${cert.date}` : ''}<br>`).join('')}
-                        </div>
-                    `,
-                    projectsSection: (projects) => `
+                        </div>`;
+                    },
+                    projectsSection: (projects) => {
+                        if (!projects || projects.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">No projects or portfolio items specified</div>`;
+                        }
+                        return `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${projects.map(project => `<strong>${escapeHtml(project.title || '')}</strong><br>${formatText(escapeHtml(project.description || ''))}${project.tools ? `<br><em>Tools:</em> ${escapeHtml(project.tools)}` : ''}<br><br>`).join('')}
-                        </div>
-                    `,
-                    languagesSection: (languages) => `
+                        </div>`;
+                    },
+                    languagesSection: (languages) => {
+                        if (!languages || languages.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">Languages not specified</div>`;
+                        }
+                        return `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${languages.map(lang => `• ${escapeHtml(lang.name || '')}: ${formatLanguageLevel(lang.level)}<br>`).join('')}
-                        </div>
-                    `
+                        </div>`;
+                    }
                 },
                 minimal: {
                     header: `
@@ -1484,7 +1587,7 @@
                             <div class="name">${name}</div>
                             <div class="title">${escapeHtml(jobTitle)}</div>
                             <div style="font-size: 11px; color: #6b7280; margin-top: 5px;">
-                                ${email || 'email@example.com'} • ${location || 'City, State'}
+                                ${email || 'Email not provided'} • ${location || 'Location not provided'}
                             </div>
                         </div>
                     `,
@@ -1500,7 +1603,7 @@
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             <strong>${escapeHtml(work.title || 'Your Position')}</strong><br>
                             ${escapeHtml(work.company || 'Company Name')} | ${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
-                            ${work.description ? formatText(escapeHtml(work.description)) : 'Key responsibilities...'}
+                            ${work.description ? formatText(escapeHtml(work.description)) : 'Work description not provided'}
                         </div>
                     `,
                     education: (education) => `
@@ -1511,25 +1614,40 @@
                     `,
                     skillsSection: (skills) => {
                         const allSkills = [...(skills.hard || []), ...(skills.tools || [])];
+                        if (allSkills.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">Skills not specified</div>`;
+                        }
                         return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${allSkills.slice(0, 10).map(skill => `${escapeHtml(skill)} • `).join('').slice(0, -2)}
                         </div>`;
                     },
-                    certificationsSection: (certs) => `
+                    certificationsSection: (certs) => {
+                        if (!certs || certs.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">No certifications or awards specified</div>`;
+                        }
+                        return `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${certs.map(cert => `• ${escapeHtml(cert.name || '')}${cert.organization ? ` (${escapeHtml(cert.organization)})` : ''}<br>`).join('')}
-                        </div>
-                    `,
-                    projectsSection: (projects) => `
+                        </div>`;
+                    },
+                    projectsSection: (projects) => {
+                        if (!projects || projects.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">No projects or portfolio items specified</div>`;
+                        }
+                        return `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${projects.map(project => `• <strong>${escapeHtml(project.title || '')}</strong>: ${formatText(escapeHtml(project.description || ''))}<br>`).join('')}
-                        </div>
-                    `,
-                    languagesSection: (languages) => `
+                        </div>`;
+                    },
+                    languagesSection: (languages) => {
+                        if (!languages || languages.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">Languages not specified</div>`;
+                        }
+                        return `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${languages.map(lang => `• ${escapeHtml(lang.name || '')} (${formatLanguageLevel(lang.level)})<br>`).join('')}
-                        </div>
-                    `
+                        </div>`;
+                    }
                 },
                 creative: {
                     header: '',
@@ -1540,7 +1658,7 @@
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             <strong>${escapeHtml(work.title || 'Your Position')}</strong><br>
                             ${escapeHtml(work.company || 'Company Name')} | ${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
-                            ${work.description ? formatText(escapeHtml(work.description)) : 'Key responsibilities and achievements...'}
+                            ${work.description ? formatText(escapeHtml(work.description)) : 'Work description not provided'}
                         </div>
                     `,
                     education: (education) => `
@@ -1551,25 +1669,40 @@
                     `,
                     skillsSection: (skills) => {
                         const allSkills = [...(skills.hard || []), ...(skills.tools || [])];
+                        if (allSkills.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">Skills not specified</div>`;
+                        }
                         return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${allSkills.slice(0, 8).map(skill => `${escapeHtml(skill)}<br>`).join('')}
                         </div>`;
                     },
-                    certificationsSection: (certs) => `
+                    certificationsSection: (certs) => {
+                        if (!certs || certs.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">No certifications or awards specified</div>`;
+                        }
+                        return `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${certs.map(cert => `• ${escapeHtml(cert.name || '')}${cert.organization ? ` (${escapeHtml(cert.organization)})` : ''}<br>`).join('')}
-                        </div>
-                    `,
-                    projectsSection: (projects) => `
+                        </div>`;
+                    },
+                    projectsSection: (projects) => {
+                        if (!projects || projects.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">No projects or portfolio items specified</div>`;
+                        }
+                        return `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${projects.map(project => `<strong>${escapeHtml(project.title || '')}</strong><br>${formatText(escapeHtml(project.description || ''))}<br><br>`).join('')}
-                        </div>
-                    `,
-                    languagesSection: (languages) => `
+                        </div>`;
+                    },
+                    languagesSection: (languages) => {
+                        if (!languages || languages.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">Languages not specified</div>`;
+                        }
+                        return `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${languages.map(lang => `• ${escapeHtml(lang.name || '')}: ${formatLanguageLevel(lang.level)}<br>`).join('')}
-                        </div>
-                    `
+                        </div>`;
+                    }
                 },
                 tech: {
                     header: `
@@ -1588,7 +1721,7 @@
                         <div class="content">
                             <strong>${escapeHtml(work.title || 'Your Position')} | ${escapeHtml(work.company || 'Company Name')}</strong><br>
                             ${work.location ? `${escapeHtml(work.location)} | ` : ''}${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
-                            ${work.description ? formatText(escapeHtml(work.description)) : 'Key technical responsibilities...'}
+                            ${work.description ? formatText(escapeHtml(work.description)) : 'Work description not provided'}
                         </div>
                     `,
                     education: (education) => `
@@ -1599,25 +1732,40 @@
                     `,
                     skillsSection: (skills) => {
                         const allSkills = [...(skills.hard || []), ...(skills.tools || [])];
+                        if (allSkills.length === 0) {
+                            return `<div class="content">Skills not specified</div>`;
+                        }
                         return `<div class="content">
                             ${allSkills.slice(0, 15).map(skill => `<span style="display: inline-block; background: #374151; color: #d1d5db; padding: 3px 8px; margin: 2px; border-radius: 3px; font-size: 10px;">${escapeHtml(skill)}</span>`).join('')}
                         </div>`;
                     },
-                    certificationsSection: (certs) => `
+                    certificationsSection: (certs) => {
+                        if (!certs || certs.length === 0) {
+                            return `<div class="content">No certifications or awards specified</div>`;
+                        }
+                        return `
                         <div class="content">
                             ${certs.map(cert => `• ${escapeHtml(cert.name || '')} (${escapeHtml(cert.organization || '')})${cert.date ? ` - ${cert.date}` : ''}<br>`).join('')}
-                        </div>
-                    `,
-                    projectsSection: (projects) => `
+                        </div>`;
+                    },
+                    projectsSection: (projects) => {
+                        if (!projects || projects.length === 0) {
+                            return `<div class="content">No projects or portfolio items specified</div>`;
+                        }
+                        return `
                         <div class="content">
                             ${projects.map(project => `<strong>${escapeHtml(project.title || '')}</strong><br>${formatText(escapeHtml(project.description || ''))}${project.tools ? `<br><span style="color: #9ca3af;">Stack: ${escapeHtml(project.tools)}</span>` : ''}<br><br>`).join('')}
-                        </div>
-                    `,
-                    languagesSection: (languages) => `
+                        </div>`;
+                    },
+                    languagesSection: (languages) => {
+                        if (!languages || languages.length === 0) {
+                            return `<div class="content">Languages not specified</div>`;
+                        }
+                        return `
                         <div class="content">
                             ${languages.map(lang => `• ${escapeHtml(lang.name || '')}: <span style="color: #60a5fa;">${formatLanguageLevel(lang.level)}</span><br>`).join('')}
-                        </div>
-                    `
+                        </div>`;
+                    }
                 },
                 bold: {
                     header: `
@@ -1636,7 +1784,7 @@
                         <div class="content">
                             <strong>${escapeHtml(work.title || 'Your Position')}</strong><br>
                             ${escapeHtml(work.company || 'Company Name')} | ${work.location ? `${escapeHtml(work.location)} | ` : ''}${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
-                            ${work.description ? formatText(escapeHtml(work.description)) : 'Key achievements and responsibilities...'}
+                            ${work.description ? formatText(escapeHtml(work.description)) : 'Work description not provided'}
                         </div>
                     `,
                     education: (education) => `
@@ -1647,25 +1795,40 @@
                     `,
                     skillsSection: (skills) => {
                         const allSkills = [...(skills.hard || []), ...(skills.soft || [])];
+                        if (allSkills.length === 0) {
+                            return `<div class="content">Skills not specified</div>`;
+                        }
                         return `<div class="content">
                             ${allSkills.slice(0, 12).map(skill => `<span style="display: inline-block; background: #7c3aed; color: white; padding: 4px 10px; margin: 3px; border-radius: 4px; font-size: 10px; font-weight: 600;">${escapeHtml(skill)}</span>`).join('')}
                         </div>`;
                     },
-                    certificationsSection: (certs) => `
+                    certificationsSection: (certs) => {
+                        if (!certs || certs.length === 0) {
+                            return `<div class="content">No certifications or awards specified</div>`;
+                        }
+                        return `
                         <div class="content">
                             ${certs.map(cert => `<strong>${escapeHtml(cert.name || '')}</strong>${cert.organization ? ` - ${escapeHtml(cert.organization)}` : ''}${cert.date ? ` (${cert.date})` : ''}<br>`).join('')}
-                        </div>
-                    `,
-                    projectsSection: (projects) => `
+                        </div>`;
+                    },
+                    projectsSection: (projects) => {
+                        if (!projects || projects.length === 0) {
+                            return `<div class="content">No projects or portfolio items specified</div>`;
+                        }
+                        return `
                         <div class="content">
                             ${projects.map(project => `<strong>${escapeHtml(project.title || '')}</strong><br>${formatText(escapeHtml(project.description || ''))}<br><br>`).join('')}
-                        </div>
-                    `,
-                    languagesSection: (languages) => `
+                        </div>`;
+                    },
+                    languagesSection: (languages) => {
+                        if (!languages || languages.length === 0) {
+                            return `<div class="content">Languages not specified</div>`;
+                        }
+                        return `
                         <div class="content">
                             ${languages.map(lang => `<strong>${escapeHtml(lang.name || '')}:</strong> <span style="color: #7c3aed;">${formatLanguageLevel(lang.level)}</span><br>`).join('')}
-                        </div>
-                    `
+                        </div>`;
+                    }
                 },
                 academic: {
                     header: `
@@ -1673,7 +1836,7 @@
                             <div class="name">${name}</div>
                             <div class="title">${escapeHtml(jobTitle)}</div>
                             <div class="contact-info">
-                                ${email || 'email@university.edu'} • ${phone || '(555) 123-4567'} • ${location || 'City, State'}
+                                ${email || 'Email not provided'} • ${phone || 'Phone not provided'} • ${location || 'Location not provided'}
                             </div>
                         </div>
                     `,
@@ -1687,7 +1850,7 @@
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             <strong>${escapeHtml(work.title || 'Your Position')}</strong><br>
                             ${escapeHtml(work.company || 'Company Name')} | ${work.startDate || 'Start'} ${work.current ? '- Present' : work.endDate ? `- ${work.endDate}` : ''}<br>
-                            ${work.description ? formatText(escapeHtml(work.description)) : 'Research and professional activities...'}
+                            ${work.description ? formatText(escapeHtml(work.description)) : 'Work description not provided'}
                         </div>
                     `,
                     education: (education) => `
@@ -1699,25 +1862,40 @@
                     `,
                     skillsSection: (skills) => {
                         const allSkills = [...(skills.hard || []), ...(skills.tools || [])];
+                        if (allSkills.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">Skills not specified</div>`;
+                        }
                         return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${allSkills.slice(0, 12).map(skill => `${escapeHtml(skill)} • `).join('').slice(0, -2)}
                         </div>`;
                     },
-                    certificationsSection: (certs) => `
+                    certificationsSection: (certs) => {
+                        if (!certs || certs.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">No certifications or awards specified</div>`;
+                        }
+                        return `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${certs.map(cert => `• ${escapeHtml(cert.name || '')} (${escapeHtml(cert.organization || '')})${cert.date ? `, ${cert.date}` : ''}<br>`).join('')}
-                        </div>
-                    `,
-                    projectsSection: (projects) => `
+                        </div>`;
+                    },
+                    projectsSection: (projects) => {
+                        if (!projects || projects.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">No projects or portfolio items specified</div>`;
+                        }
+                        return `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${projects.map(project => `• ${escapeHtml(project.title || '')}: ${formatText(escapeHtml(project.description || ''))}<br><br>`).join('')}
-                        </div>
-                    `,
-                    languagesSection: (languages) => `
+                        </div>`;
+                    },
+                    languagesSection: (languages) => {
+                        if (!languages || languages.length === 0) {
+                            return `<div style="font-size: 11px; line-height: 1.5; color: #4b5563;">Languages not specified</div>`;
+                        }
+                        return `
                         <div style="font-size: 11px; line-height: 1.5; color: #4b5563;">
                             ${languages.map(lang => `• ${escapeHtml(lang.name || '')} (${formatLanguageLevel(lang.level)})<br>`).join('')}
-                        </div>
-                    `
+                        </div>`;
+                    }
                 }
             };
             
@@ -1731,10 +1909,10 @@
                         <div class="section">
                             <div class="sidebar-section-title">CONTACT</div>
                             <div style="font-size: 10px; line-height: 1.5;">
-                                ${email || 'email@example.com'}<br>
-                                ${phone || '(555) 123-4567'}<br>
-                                ${location || 'City, State'}<br>
-                                ${linkedin || 'linkedin.com/in/yourprofile'}
+                                ${email || 'Email not provided'}<br>
+                                ${phone || 'Phone not provided'}<br>
+                                ${location || 'Location not provided'}<br>
+                                ${linkedin || 'LinkedIn not provided'}
                             </div>
                         </div>
                         
@@ -1744,7 +1922,13 @@
                             <div style="font-size: 10px; line-height: 1.6;">
                                 ${[...(resumeData.skills.hard || []), ...(resumeData.skills.tools || [])].slice(0, 8).map(skill => `${escapeHtml(skill)}<br>`).join('')}
                             </div>
-                        </div>` : ''}
+                        </div>` : 
+                        `<div class="section">
+                            <div class="sidebar-section-title">SKILLS</div>
+                            <div style="font-size: 10px; line-height: 1.6;">
+                                Skills not specified
+                            </div>
+                        </div>`}
                         
                         ${resumeData.languages?.length > 0 ? `
                         <div class="section">
@@ -1752,7 +1936,13 @@
                             <div style="font-size: 10px; line-height: 1.6;">
                                 ${resumeData.languages.map(lang => `${escapeHtml(lang.name || '')} (${formatLanguageLevel(lang.level)})<br>`).join('')}
                             </div>
-                        </div>` : ''}
+                        </div>` : 
+                        `<div class="section">
+                            <div class="sidebar-section-title">LANGUAGES</div>
+                            <div style="font-size: 10px; line-height: 1.6;">
+                                Languages not specified
+                            </div>
+                        </div>`}
                         
                         ${resumeData.certifications?.length > 0 ? `
                         <div class="section">
@@ -1760,7 +1950,13 @@
                             <div style="font-size: 10px; line-height: 1.6;">
                                 ${resumeData.certifications.slice(0, 3).map(cert => `• ${escapeHtml(cert.name || '')}<br>`).join('')}
                             </div>
-                        </div>` : ''}
+                        </div>` : 
+                        `<div class="section">
+                            <div class="sidebar-section-title">CERTIFICATIONS</div>
+                            <div style="font-size: 10px; line-height: 1.6;">
+                                No certifications
+                            </div>
+                        </div>`}
                     </div>
                     <div class="main-content">
                 `;
