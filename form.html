@@ -494,28 +494,7 @@
             <p class="section-description">Add any relevant certificates, licenses, or recognitions</p>
 
             <div id="certificationsContainer">
-                <div class="form-group certification-entry">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Certification/Award Name</label>
-                            <input type="text" class="certification-name" placeholder="AWS Certified Solutions Architect">
-                        </div>
-                        <div class="form-group">
-                            <label>Issuing Organization</label>
-                            <input type="text" class="certification-org" placeholder="Amazon Web Services">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Date Earned</label>
-                            <input type="month" class="certification-date">
-                        </div>
-                        <div class="form-group">
-                            <label>Credential ID (Optional)</label>
-                            <input type="text" class="certification-id" placeholder="ABC123XYZ">
-                        </div>
-                    </div>
-                </div>
+                <!-- Will be populated by JavaScript -->
             </div>
 
             <button type="button" class="add-more-btn" onclick="addCertification()">
@@ -534,24 +513,7 @@
             <p class="section-description">Showcase your work and projects</p>
 
             <div id="projectsContainer">
-                <div class="form-group project-entry">
-                    <div class="form-group">
-                        <label>Project Title</label>
-                        <input type="text" class="project-title" placeholder="E-commerce Website Redesign">
-                    </div>
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea class="project-description" placeholder="Redesigned and implemented a responsive e-commerce platform with improved user experience..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Tools Used</label>
-                        <input type="text" class="project-tools" placeholder="React, Node.js, MongoDB, Figma">
-                    </div>
-                    <div class="form-group">
-                        <label>Project Link (Optional)</label>
-                        <input type="url" class="project-link" placeholder="https://github.com/username/project">
-                    </div>
-                </div>
+                <!-- Will be populated by JavaScript -->
             </div>
 
             <button type="button" class="add-more-btn" onclick="addProject()">
@@ -570,25 +532,7 @@
             <p class="section-description">List spoken/written languages and proficiency levels</p>
 
             <div id="languagesContainer">
-                <div class="form-group language-entry">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Language</label>
-                            <input type="text" class="language-name" placeholder="English" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Proficiency Level</label>
-                            <select class="language-level" required>
-                                <option value="">Select level</option>
-                                <option value="native">Native</option>
-                                <option value="fluent">Fluent</option>
-                                <option value="professional">Professional</option>
-                                <option value="intermediate">Intermediate</option>
-                                <option value="basic">Basic</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
+                <!-- Will be populated by JavaScript -->
             </div>
 
             <button type="button" class="add-more-btn" onclick="addLanguage()">
@@ -622,25 +566,10 @@
         const softSkills = [];
         const toolSkills = [];
         
-        // Arrays for dynamic sections
-        let certifications = [{
-            name: '',
-            organization: '',
-            date: '',
-            credentialId: ''
-        }];
-        
-        let projects = [{
-            title: '',
-            description: '',
-            tools: '',
-            link: ''
-        }];
-        
-        let languages = [{
-            name: '',
-            level: ''
-        }];
+        // Arrays for dynamic sections - Start with EMPTY arrays
+        let certifications = [];
+        let projects = [];
+        let languages = [];
 
         function escapeHtml(text) {
             if (!text) return '';
@@ -891,6 +820,17 @@
 
         function updateCertificationsDisplay() {
             const container = document.getElementById('certificationsContainer');
+            
+            // If no certifications, show one empty form
+            if (certifications.length === 0) {
+                certifications = [{
+                    name: '',
+                    organization: '',
+                    date: '',
+                    credentialId: ''
+                }];
+            }
+            
             container.innerHTML = certifications.map((cert, index) => `
                 <div class="form-group certification-entry" data-index="${index}">
                     ${index > 0 ? '<div style="border-top: 2px dashed var(--light-gray); margin: 20px 0; padding-top: 20px;"></div>' : ''}
@@ -930,7 +870,7 @@
         }
 
         function removeCertification(index) {
-            if (index > 0 && index < certifications.length) {
+            if (index >= 0 && index < certifications.length) {
                 certifications.splice(index, 1);
                 updateCertificationsDisplay();
             }
@@ -948,6 +888,17 @@
 
         function updateProjectsDisplay() {
             const container = document.getElementById('projectsContainer');
+            
+            // If no projects, show one empty form
+            if (projects.length === 0) {
+                projects = [{
+                    title: '',
+                    description: '',
+                    tools: '',
+                    link: ''
+                }];
+            }
+            
             container.innerHTML = projects.map((project, index) => `
                 <div class="form-group project-entry" data-index="${index}">
                     ${index > 0 ? '<div style="border-top: 2px dashed var(--light-gray); margin: 20px 0; padding-top: 20px;"></div>' : ''}
@@ -983,7 +934,7 @@
         }
 
         function removeProject(index) {
-            if (index > 0 && index < projects.length) {
+            if (index >= 0 && index < projects.length) {
                 projects.splice(index, 1);
                 updateProjectsDisplay();
             }
@@ -999,6 +950,15 @@
 
         function updateLanguagesDisplay() {
             const container = document.getElementById('languagesContainer');
+            
+            // If no languages, show one empty form
+            if (languages.length === 0) {
+                languages = [{
+                    name: '',
+                    level: ''
+                }];
+            }
+            
             container.innerHTML = languages.map((language, index) => `
                 <div class="form-group language-entry" data-index="${index}">
                     ${index > 0 ? '<div style="border-top: 2px dashed var(--light-gray); margin: 20px 0; padding-top: 20px;"></div>' : ''}
@@ -1032,7 +992,7 @@
         }
 
         function removeLanguage(index) {
-            if (index > 0 && index < languages.length) {
+            if (index >= 0 && index < languages.length) {
                 languages.splice(index, 1);
                 updateLanguagesDisplay();
             }
@@ -1058,7 +1018,7 @@
                     skills: {
                         hard: [...hardSkills],
                         soft: [...softSkills],
-                        tools: [...toolSkills]  // FIXED: Matches 'tools' not 'tool'
+                        tools: [...toolSkills]
                     },
                     work: {
                         title: document.getElementById('jobTitle').value.trim(),
@@ -1075,13 +1035,30 @@
                         graduationYear: document.getElementById('graduationYear').value.trim(),
                         honorsGPA: document.getElementById('honorsGPA').value.trim()
                     },
-                    certifications: certifications.filter(cert => cert.name || cert.organization),
-                    projects: projects.filter(project => project.title || project.description),
-                    languages: languages.filter(lang => lang.name && lang.level),
+                    // FIXED: Save ALL data, even if empty
+                    certifications: [...certifications],
+                    projects: [...projects],
+                    languages: [...languages],
                     timestamp: new Date().toISOString()
                 };
 
+                // Debug: Show what's being saved
+                console.log('Saving resume data:', {
+                    certifications: resumeData.certifications,
+                    projects: resumeData.projects,
+                    languages: resumeData.languages
+                });
+
                 localStorage.setItem('resumeData', JSON.stringify(resumeData));
+                
+                // Verify it was saved
+                const saved = JSON.parse(localStorage.getItem('resumeData'));
+                console.log('Saved to localStorage:', {
+                    hasCertifications: saved.certifications?.length > 0,
+                    hasProjects: saved.projects?.length > 0,
+                    hasLanguages: saved.languages?.length > 0
+                });
+                
                 window.location.href = 'confirm.html';
             } catch (error) {
                 console.error('Error saving data:', error);
@@ -1093,7 +1070,12 @@
         document.addEventListener('DOMContentLoaded', () => {
             updateProgress();
             
-            // Enter key for skill inputs - FIXED: Added for tools
+            // Initialize dynamic sections displays
+            updateCertificationsDisplay();
+            updateProjectsDisplay();
+            updateLanguagesDisplay();
+            
+            // Enter key for skill inputs
             document.getElementById('newHardSkill').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -1111,11 +1093,11 @@
             document.getElementById('newToolSkill').addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
-                    addSkill('tools');  // FIXED: Changed from 'tool' to 'tools'
+                    addSkill('tools');
                 }
             });
 
-            // Handle current job checkbox disabling end date - NEW FIX
+            // Handle current job checkbox disabling end date
             const currentJobCheckbox = document.getElementById('currentJob');
             const endDateInput = document.getElementById('endDate');
             
@@ -1131,6 +1113,13 @@
                 const savedData = localStorage.getItem('resumeData');
                 if (savedData) {
                     const resumeData = JSON.parse(savedData);
+                    
+                    // Debug loaded data
+                    console.log('Loaded from localStorage:', {
+                        certifications: resumeData.certifications?.length || 0,
+                        projects: resumeData.projects?.length || 0,
+                        languages: resumeData.languages?.length || 0
+                    });
                     
                     if (resumeData.contact) {
                         document.getElementById('fullName').value = resumeData.contact.name || '';
@@ -1182,6 +1171,7 @@
                         document.getElementById('honorsGPA').value = resumeData.education.honorsGPA || '';
                     }
                     
+                    // FIXED: Load dynamic sections properly
                     if (resumeData.certifications && resumeData.certifications.length > 0) {
                         certifications = resumeData.certifications;
                         updateCertificationsDisplay();
