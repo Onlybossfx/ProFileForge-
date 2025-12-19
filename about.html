@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About ProfileForge | Personal Resume Builder Project</title>
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .about-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .about-hero {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border-radius: 20px;
+        }
+
+        .about-hero h1 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .about-hero .tagline {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .about-hero p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .personal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 20px;
+            font-size: 0.95rem;
+        }
+
+        .about-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .about-section {
+            margin-bottom: 40px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .about-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .about-section h2 {
+            font-size: 1.6rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .about-section h2 i {
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .about-section p {
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .creator-card {
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            margin: 30px 0;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .creator-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .creator-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .value-card {
+            background: var(--light);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .value-card i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .value-card h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .value-card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+            margin: 0;
+        }
+
+        .personal-note {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+
+        .personal-note h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--light);
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .about-content {
+                padding: 25px;
+            }
+            
+            .about-section h2 {
+                font-size: 1.4rem;
+            }
+            
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="logo">
+            <i class="fas fa-sparkles"></i>
+            <span>ProfileForge</span>
+        </a>
+        <div class="header-badge">About</div>
+    </div>
+
+    <div class="about-container">
+        <!-- Hero Section -->
+        <div class="about-hero">
+            <h1>About ProfileForge</h1>
+            <div class="tagline">A Personal Project with a Purpose</div>
+            <p>Free, private resume building for everyone. No accounts, no tracking, just better resumes.</p>
+            <div class="personal-badge">
+                <i class="fas fa-user-circle"></i>
+                <span>Personal Project • One Developer • 100% Free</span>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="about-content">
+            <!-- Story Section -->
+            <div class="about-section">
+                <h2><i class="fas fa-book"></i> The Story Behind ProfileForge</h2>
+                <p>ProfileForge started as a personal project born from frustration with existing resume builders. Most tools required accounts, collected personal data, or had hidden fees. I wanted something different.</p>
+                <p>As a developer who values privacy and simplicity, I built ProfileForge with one goal: <strong>create the most user-respecting resume builder possible.</strong></p>
+                <p>This isn't a corporate product with investors and business plans. It's a passion project built to genuinely help people in their job search journey.</p>
+            </div>
+
+            <!-- Creator Section -->
+            <div class="about-section">
+                <h2><i class="fas fa-user"></i> The Creator</h2>
+                
+                <div class="creator-card">
+                    <div class="creator-avatar">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>A Solo Developer</h3>
+                    <p>ProfileForge is built and maintained by <strong>one person</strong> who cares about privacy, design, and helping others.</p>
+                    <p>I'm a developer who believes technology should serve people, not track them. This project represents my commitment to creating tools that respect user privacy while being genuinely useful.</p>
+                </div>
+
+                <div class="personal-note">
+                    <h4><i class="fas fa-heart"></i> A Personal Note</h4>
+                    <p>Every feature in ProfileForge is built with real users in mind. I read every piece of feedback and constantly look for ways to improve. This isn't just a project—it's something I genuinely care about.</p>
+                    <p>If you have suggestions or feedback, I personally read and consider every message.</p>
+                </div>
+            </div>
+
+            <!-- Mission & Values -->
+            <div class="about-section">
+                <h2><i class="fas fa-bullseye"></i> Our Core Principles</h2>
+                <p>ProfileForge operates on three simple principles:</p>
+                
+                <div class="values-grid">
+                    <div class="value-card">
+                        <i class="fas fa-user-shield"></i>
+                        <h4>Privacy First</h4>
+                        <p>Your data stays in your browser. No accounts, no servers, no tracking. You control your information completely.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <i class="fas fa-gift"></i>
+                        <h4>Free Forever</h4>
+                        <p>No hidden fees, no watermarks, no premium features. Everything is and will always be completely free.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <i class="fas fa-laptop-code"></i>
+                        <h4>Simplicity</h4>
+                        <p>Clean design, intuitive interface, no unnecessary complexity. Focus on what matters: creating great resumes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How It Works -->
+            <div class="about-section">
+                <h2><i class="fas fa-cogs"></i> How ProfileForge Works</h2>
+                <p><strong>Local Browser Storage:</strong> All your resume data is stored only in your web browser. This means:</p>
+                <ul style="color: var(--gray); padding-left: 20px; margin: 15px 0;">
+                    <li>Your data never leaves your device</li>
+                    <li>No servers storing your information</li>
+                    <li>Complete control over your data</li>
+                    <li>Instant access without login</li>
+                </ul>
+                <p><strong>No Backend Magic:</strong> ProfileForge runs entirely in your browser. No complex infrastructure, just clean JavaScript and HTML. This keeps things fast, secure, and private.</p>
+            </div>
+
+            <!-- Stats/Impact -->
+            <div class="about-section">
+                <h2><i class="fas fa-chart-line"></i> Impact & Vision</h2>
+                <p>While ProfileForge is a personal project, the goal is ambitious: <strong>help as many people as possible land better jobs</strong> through better resumes.</p>
+                
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Free & Private</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">0</div>
+                        <div class="stat-label">Accounts Required</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">∞</div>
+                        <div class="stat-label">Resumes Created</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Dedicated Developer</div>
+                    </div>
+                </div>
+                
+                <p><strong>The Vision:</strong> To become the most trusted, privacy-focused resume builder available, completely free and accessible to everyone regardless of their technical skills or budget.</p>
+            </div>
+
+            <!-- Future Plans -->
+            <div class="about-section">
+                <h2><i class="fas fa-road"></i> What's Next?</h2>
+                <p>As a personal project, development happens in my spare time. Current priorities:</p>
+                <ul style="color: var(--gray); padding-left: 20px; margin: 15px 0;">
+                    <li>Adding more professional templates</li>
+                    <li>Improving mobile experience</li>
+                    <li>Enhancing ATS optimization features</li>
+                    <li>Adding cover letter builder</li>
+                </ul>
+                <p><strong>User-Driven Development:</strong> Features are added based on user feedback. Have an idea? <a href="contact.html">Share it with me!</a></p>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <div class="cta-section">
+            <h3>Ready to Create Your Resume?</h3>
+            <p>Join thousands who've used ProfileForge to create professional, ATS-friendly resumes.</p>
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 25px; flex-wrap: wrap;">
+                <a href="form.html" class="btn btn-primary">
+                    <i class="fas fa-file-alt"></i> Start Building
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                    <i class="fas fa-envelope"></i> Contact Me
+                </a>
+                <a href="help.html" class="btn btn-secondary">
+                    <i class="fas fa-question-circle"></i> Get Help
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple animation for value cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const valueCards = document.querySelectorAll('.value-card');
+            valueCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'opacity 0.5s, transform 0.5s';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 50);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

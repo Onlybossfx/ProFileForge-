@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service | ProfileForge - Personal Project</title>
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .terms-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .terms-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+            border-radius: 20px;
+        }
+
+        .terms-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .terms-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .personal-project-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(245, 158, 11, 0.1);
+            color: var(--accent);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .terms-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .terms-section {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .terms-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .terms-section h2 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .terms-section h2 i {
+            color: var(--accent);
+            font-size: 1.2rem;
+        }
+
+        .terms-section h3 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin: 20px 0 10px;
+            font-weight: 600;
+        }
+
+        .terms-section p {
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .terms-section ul, .terms-section ol {
+            color: var(--gray);
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .terms-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .warning-box {
+            background: rgba(245, 158, 11, 0.05);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .warning-box h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-box {
+            background: rgba(124, 58, 237, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .personal-notice {
+            background: rgba(124, 58, 237, 0.05);
+            border: 2px dashed var(--primary);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            text-align: center;
+        }
+
+        .personal-notice h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .contact-method {
+            flex: 1;
+            min-width: 200px;
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+            display: block;
+        }
+
+        .contact-method:hover {
+            background: white;
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-method i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .contact-method h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .contact-method p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 0;
+        }
+
+        .personal-signature {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--light-gray);
+            font-style: italic;
+            color: var(--gray);
+        }
+
+        /* ===== FIXED BUTTON STYLES ===== */
+        .terms-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .terms-btn {
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            justify-content: center;
+            min-width: 200px;
+        }
+
+        .terms-btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .terms-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            color: white;
+            text-decoration: none;
+        }
+
+        .terms-btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .terms-btn-secondary:hover {
+            background: rgba(124, 58, 237, 0.1);
+            transform: translateY(-3px);
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .terms-header h1 {
+                font-size: 2rem;
+            }
+            
+            .terms-content {
+                padding: 25px;
+            }
+            
+            .terms-section h2 {
+                font-size: 1.3rem;
+            }
+            
+            .contact-method {
+                min-width: 100%;
+            }
+            
+            .terms-btn {
+                min-width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .terms-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="logo">
+            <i class="fas fa-sparkles"></i>
+            <span>ProfileForge</span>
+        </a>
+        <div class="header-badge">Terms of Service</div>
+    </div>
+
+    <div class="terms-container">
+        <!-- Header -->
+        <div class="terms-header">
+            <h1>Terms of Service</h1>
+            <p>Please read these terms carefully before using this personal project.</p>
+            <div class="personal-project-badge">
+                <i class="fas fa-user-circle"></i>
+                <span>Personal Project • One Developer • No Company</span>
+            </div>
+        </div>
+
+        <!-- Personal Project Notice -->
+        <div class="personal-notice">
+            <h3><i class="fas fa-info-circle"></i> Personal Project Notice</h3>
+            <p><strong>ProfileForge is a personal project</strong> operated by an individual developer, not a registered company or business entity. Please understand this context while reading these terms.</p>
+        </div>
+
+        <!-- Terms Content -->
+        <div class="terms-content">
+            <!-- Acceptance -->
+            <div class="terms-section">
+                <h2><i class="fas fa-check-circle"></i> 1. Acceptance of Terms</h2>
+                <p>By accessing and using ProfileForge, you accept and agree to be bound by these Terms of Service.</p>
+                
+                <div class="warning-box">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Important: Personal Project Context</h4>
+                    <p><strong>ProfileForge is a personal project</strong> operated by an individual developer. This means:</p>
+                    <ul>
+                        <li>This is a <strong>non-commercial, free service</strong> provided in the developer's spare time</li>
+                        <li>There is <strong>no company, no investors, and no business model</strong> behind this project</li>
+                        <li>The service is provided "as is" with <strong>no guarantees of uptime or continued availability</strong></li>
+                        <li>All development, maintenance, and support are handled by <strong>one person</strong></li>
+                        <li>This is a <strong>passion project</strong>, not a commercial product</li>
+                    </ul>
+                </div>
+                
+                <h3>Minimum Age Requirement</h3>
+                <p>You must be at least <strong>13 years old</strong> to use ProfileForge.</p>
+            </div>
+
+            <!-- Service Description -->
+            <div class="terms-section">
+                <h2><i class="fas fa-info-circle"></i> 2. Service Description</h2>
+                <p>ProfileForge provides:</p>
+                <ul>
+                    <li>A free online resume builder with professional templates</li>
+                    <li>Local browser storage for your resume data</li>
+                    <li>Export functionality in multiple formats (PDF, Word, Text)</li>
+                    <li>No-account-required resume creation and editing</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Important Disclaimers</h4>
+                    <p><strong>No Guarantees:</strong> ProfileForge does not guarantee job offers, interviews, or specific results from using our service.</p>
+                    <p><strong>"As Is" Service:</strong> The service is provided "as is" without any warranties of any kind.</p>
+                    <p><strong>Personal Project Limitations:</strong> As a personal project operated by one person, there may be occasional downtime, bugs, or limitations that wouldn't exist in a commercial product.</p>
+                </div>
+            </div>
+
+            <!-- User Responsibilities -->
+            <div class="terms-section">
+                <h2><i class="fas fa-user-check"></i> 3. User Responsibilities</h2>
+                <p>By using ProfileForge, you agree to:</p>
+                <ul>
+                    <li>Provide accurate, truthful, and non-misleading information in your resumes</li>
+                    <li>Use the service for lawful purposes only</li>
+                    <li>Not spam, hack, or abuse the service in any way</li>
+                    <li>Download and backup your resumes regularly</li>
+                    <li>Not use bots, scrapers, or automated tools to access our service</li>
+                    <li>Not attempt to disrupt or interfere with the service</li>
+                </ul>
+                
+                <h3>Data Management (Your Responsibility)</h3>
+                <p>You are responsible for:</p>
+                <ul>
+                    <li>Keeping downloaded resume files secure</li>
+                    <li>Regularly exporting important resumes</li>
+                    <li>Understanding that browser storage can be cleared</li>
+                    <li>Backing up your resume files separately</li>
+                </ul>
+                
+                <div class="info-box">
+                    <h4><i class="fas fa-lightbulb"></i> Why This Matters</h4>
+                    <p>As a personal project with local storage, <strong>I cannot recover your data if you lose it.</strong> Regular downloads are essential for data preservation.</p>
+                </div>
+            </div>
+
+            <!-- Intellectual Property -->
+            <div class="terms-section">
+                <h2><i class="fas fa-copyright"></i> 4. Intellectual Property</h2>
+                
+                <h3>Developer's Property</h3>
+                <p>The ProfileForge developer owns and retains all rights to:</p>
+                <ul>
+                    <li>The ProfileForge website design, code, and architecture</li>
+                    <li>Logo, branding, and visual identity elements</li>
+                    <li>Resume templates and formatting designs</li>
+                    <li>Documentation, guides, and help content</li>
+                </ul>
+                
+                <h3>Your Property</h3>
+                <p>You own and retain all rights to:</p>
+                <ul>
+                    <li>The content of the resumes you create</li>
+                    <li>Your personal information and data</li>
+                    <li>Any original content you input into the system</li>
+                </ul>
+                
+                <div class="info-box">
+                    <h4><i class="fas fa-handshake"></i> Simple License</h4>
+                    <p>You grant the developer permission to temporarily process and display your resume content only for the purpose of providing the service to you. No ownership claims are made on your content.</p>
+                </div>
+            </div>
+
+            <!-- Data & Storage -->
+            <div class="terms-section">
+                <h2><i class="fas fa-database"></i> 5. Data & Storage (Personal Project Model)</h2>
+                
+                <h3>Local Storage Only</h3>
+                <p>Understanding our storage model is crucial:</p>
+                <ul>
+                    <li>Your data is stored in your browser's local storage only</li>
+                    <li>As the developer, <strong>I cannot access your data</strong> - it exists only in your browser</li>
+                    <li>Using different browsers/devices creates separate data stores</li>
+                </ul>
+                
+                <h3>Developer's Commitment</h3>
+                <p>The developer commits to:</p>
+                <ul>
+                    <li>Not accessing or storing your data on any servers</li>
+                    <li>Not selling, renting, or sharing your personal information</li>
+                    <li>Being transparent about data practices (see Privacy Policy)</li>
+                    <li>Using secure methods for any data processing</li>
+                </ul>
+                
+                <div class="warning-box">
+                    <h4><i class="fas fa-user-shield"></i> No Data Recovery Possible</h4>
+                    <p><strong>Important:</strong> If you lose access to your browser data, <strong>I cannot recover it for you.</strong> As a personal project with local-only storage, data recovery is impossible once lost from your browser.</p>
+                </div>
+            </div>
+
+            <!-- Limitation of Liability -->
+            <div class="terms-section">
+                <h2><i class="fas fa-balance-scale"></i> 6. Limitation of Liability (Personal Project)</h2>
+                
+                <div class="warning-box">
+                    <h4><i class="fas fa-shield-alt"></i> Important Personal Project Disclaimer</h4>
+                    <p><strong>ProfileForge is a personal project, not a business.</strong> As such, to the fullest extent permitted by law:</p>
+                    <ul>
+                        <li>The developer shall not be liable for lost resume data</li>
+                        <li>The developer shall not be liable for job application outcomes</li>
+                        <li>The developer shall not be liable for service interruptions or bugs</li>
+                        <li>The developer shall not be liable for browser compatibility issues</li>
+                        <li>The developer shall not be liable for any direct, indirect, or consequential damages</li>
+                    </ul>
+                    <p><strong>Maximum Liability:</strong> In no event shall total liability exceed $0.00, as this is a completely free personal project.</p>
+                </div>
+                
+                <h3>No Warranty</h3>
+                <p>The service is provided "as is" without any warranties of any kind, express or implied. As a personal project, there are <strong>no guarantees of uptime, feature availability, or continued operation.</strong></p>
+            </div>
+
+            <!-- Prohibited Uses -->
+            <div class="terms-section">
+                <h2><i class="fas fa-ban"></i> 7. Prohibited Uses</h2>
+                <p>You may NOT use ProfileForge to:</p>
+                <ul>
+                    <li>Create illegal, harmful, or fraudulent resumes</li>
+                    <li>Impersonate others or provide false identities</li>
+                    <li>Attempt to hack, disrupt, or compromise the service</li>
+                    <li>Use the service for spam, harassment, or abusive purposes</li>
+                    <li>Copy, redistribute, or resell our templates commercially</li>
+                    <li>Reverse engineer or attempt to extract source code</li>
+                    <li>Create content that violates others' intellectual property</li>
+                    <li>Generate resumes for automated or bulk purposes</li>
+                </ul>
+                
+                <div class="info-box">
+                    <h4><i class="fas fa-heart"></i> Fair Use Expectation</h4>
+                    <p>As a personal project running on minimal resources, please use ProfileForge respectfully. Excessive or abusive use could affect availability for other users.</p>
+                </div>
+            </div>
+
+            <!-- Termination -->
+            <div class="terms-section">
+                <h2><i class="fas fa-power-off"></i> 8. Termination</h2>
+                
+                <h3>By Developer</h3>
+                <p>As the sole developer, I reserve the right to terminate or suspend access to this personal project for conduct that violates these Terms or is harmful to other users.</p>
+                
+                <h3>By You</h3>
+                <p>You may stop using ProfileForge at any time by simply closing your browser. To delete your data, clear your browser's local storage.</p>
+                
+                <h3>Effect of Termination</h3>
+                <p>Upon termination, your right to use the service will immediately cease. Any data in your browser storage will remain until you clear it.</p>
+                
+                <div class="info-box">
+                    <h4><i class="fas fa-code"></i> Project Continuity</h4>
+                    <p>As a personal project, ProfileForge may be discontinued if I can no longer maintain it. I'll provide notice if this happens, but please understand this possibility with any personal project.</p>
+                </div>
+            </div>
+
+            <!-- Changes to Terms -->
+            <div class="terms-section">
+                <h2><i class="fas fa-sync-alt"></i> 9. Changes to Terms</h2>
+                <p>I reserve the right to modify or replace these Terms at any time. As a personal project, I may update terms to reflect changes in the service or legal requirements.</p>
+                
+                <h3>Notification Method</h3>
+                <p>Changes will be posted on this page with an updated "Last Updated" date. As a personal project, I don't have mass notification systems.</p>
+                
+                <h3>Continued Use</h3>
+                <p>Your continued use of ProfileForge after changes constitutes acceptance of the new terms.</p>
+            </div>
+
+            <!-- Governing Law -->
+            <div class="terms-section">
+                <h2><i class="fas fa-gavel"></i> 10. Governing Law & Disputes</h2>
+                <p>These Terms shall be governed by the laws of the developer's country of residence.</p>
+                
+                <h3>Dispute Resolution (Personal Approach)</h3>
+                <p>As a personal project, I prefer direct communication for any disputes:</p>
+                <ol>
+                    <li>Contact me directly to discuss the issue</li>
+                    <li>Most matters can be resolved through conversation</li>
+                    <li>If unresolved, we can explore mediation options</li>
+                </ol>
+                
+                <div class="info-box">
+                    <h4><i class="fas fa-comments"></i> Direct Communication First</h4>
+                    <p>Please contact me directly before pursuing formal disputes. As one person running this project, I'm usually able to resolve issues through direct conversation.</p>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="terms-section">
+                <h2><i class="fas fa-envelope"></i> 11. Contact the Developer</h2>
+                <p>For questions about these Terms or the project:</p>
+                
+                <div class="contact-info">
+                    <a href="mailto:emmaephraim2006@gmail.com" class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <h4>Email</h4>
+                        <p>Direct to developer</p>
+                    </a>
+                    
+                    <a href="help.html" class="contact-method">
+                        <i class="fas fa-question-circle"></i>
+                        <h4>Help Center</h4>
+                        <p>Get help & answers</p>
+                    </a>
+                    
+                    <a href="privacy.html" class="contact-method">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Privacy Policy</h4>
+                        <p>Read privacy details</p>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Personal Signature -->
+            <div class="personal-signature">
+                <p>"These terms are written to be fair and transparent, not to trap you in legal jargon. As a solo developer, I'm committed to running this project with integrity and respect for all users."</p>
+            </div>
+        </div>
+
+        <!-- Fixed Buttons -->
+        <div class="back-to-home">
+            <div class="terms-buttons">
+                <a href="index.html" class="terms-btn terms-btn-primary">
+                    <i class="fas fa-home"></i> Back to ProfileForge
+                </a>
+                <a href="about.html" class="terms-btn terms-btn-secondary">
+                    <i class="fas fa-info-circle"></i> About This Project
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Terms of Service - Personal Project');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | ProfileForge - Personal Project</title>
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .policy-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .policy-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border-radius: 20px;
+        }
+
+        .policy-header h1 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .policy-header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .personal-project-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+        .policy-content {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .policy-section {
+            margin-bottom: 30px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .policy-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .policy-section h2 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .policy-section h2 i {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .policy-section h3 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin: 20px 0 10px;
+            font-weight: 600;
+        }
+
+        .policy-section p {
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .policy-section ul, .policy-section ol {
+            color: var(--gray);
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .policy-section li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: rgba(124, 58, 237, 0.05);
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .highlight-box h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .personal-notice {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--accent);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .personal-notice h4 {
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .contact-method {
+            flex: 1;
+            min-width: 200px;
+            background: var(--light);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s;
+            display: block;
+        }
+
+        .contact-method:hover {
+            background: white;
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contact-method i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .contact-method h4 {
+            color: var(--dark);
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .contact-method p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .back-to-home {
+            text-align: center;
+            margin-top: 30px;
+            padding: 20px 0;
+        }
+
+        .personal-signature {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .personal-signature h3 {
+            color: var(--dark);
+            margin-bottom: 10px;
+        }
+
+        .personal-signature p {
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        /* ===== FIXED BUTTON STYLES ===== */
+        .policy-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .policy-btn {
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            justify-content: center;
+            min-width: 200px;
+        }
+
+        .policy-btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: var(--shadow);
+        }
+
+        .policy-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+            color: white;
+            text-decoration: none;
+        }
+
+        .policy-btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .policy-btn-secondary:hover {
+            background: rgba(124, 58, 237, 0.1);
+            transform: translateY(-3px);
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .policy-header h1 {
+                font-size: 2rem;
+            }
+            
+            .policy-content {
+                padding: 25px;
+            }
+            
+            .policy-section h2 {
+                font-size: 1.3rem;
+            }
+            
+            .contact-method {
+                min-width: 100%;
+            }
+            
+            .policy-btn {
+                min-width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .policy-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="logo">
+            <i class="fas fa-sparkles"></i>
+            <span>ProfileForge</span>
+        </a>
+        <div class="header-badge">Privacy Policy</div>
+    </div>
+
+    <div class="policy-container">
+        <!-- Header -->
+        <div class="policy-header">
+            <h1>Privacy Policy</h1>
+            <p>Your privacy is our priority. Here's how this personal project handles your information.</p>
+            <div class="personal-project-badge">
+                <i class="fas fa-user-circle"></i>
+                <span>Personal Project • One Developer • 100% Free</span>
+            </div>
+        </div>
+
+        <!-- Policy Content -->
+        <div class="policy-content">
+            <!-- Personal Project Notice -->
+            <div class="policy-section">
+                <h2><i class="fas fa-user"></i> Personal Project Notice</h2>
+                <p><strong>ProfileForge is a personal project</strong> created and operated by a solo developer. This is not a corporate entity or registered business—it's a passion project built to help people create better resumes while respecting their privacy.</p>
+                
+                <div class="personal-notice">
+                    <h4><i class="fas fa-info-circle"></i> What This Means For You</h4>
+                    <ul>
+                        <li>This is a <strong>non-commercial personal project</strong> - no business model, no investors</li>
+                        <li>Built and maintained by <strong>one developer in their spare time</strong></li>
+                        <li>Completely free with <strong>no plans for monetization</strong></li>
+                        <li>No corporate policies or legal departments - just transparent privacy practices</li>
+                        <li>Your data is handled by <strong>one person</strong>, not a company</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Information Collection -->
+            <div class="policy-section">
+                <h2><i class="fas fa-database"></i> Information We Collect</h2>
+                <p>We collect only the information you provide when creating your resume:</p>
+                <ul>
+                    <li>Personal details (name, email, phone, location)</li>
+                    <li>Work experience and employment history</li>
+                    <li>Education background and qualifications</li>
+                    <li>Skills, certifications, and achievements</li>
+                    <li>Resume preferences and template choices</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h4><i class="fas fa-exclamation-circle"></i> Important: What We DON'T Collect</h4>
+                    <ul>
+                        <li>Passwords or login credentials (no accounts required)</li>
+                        <li>Payment information (our service is completely free)</li>
+                        <li>Sensitive personal data (SSN, ID numbers, etc.)</li>
+                        <li>Browser history or unrelated browsing data</li>
+                        <li>IP addresses or location data (beyond what your browser shares)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Data Storage -->
+            <div class="policy-section">
+                <h2><i class="fas fa-save"></i> How We Store Your Data</h2>
+                <h3>Local Browser Storage Only</h3>
+                <p>All your resume data is stored <strong>exclusively in your web browser's local storage</strong>. This means:</p>
+                <ul>
+                    <li>Your data never leaves your device</li>
+                    <li>We don't have servers storing your information</li>
+                    <li>Only you can access your data on the device you use</li>
+                    <li>Your information is as secure as your browser/device</li>
+                </ul>
+                
+                <h3>No Cloud Backup</h3>
+                <p>Since data stays in your browser:</p>
+                <ul>
+                    <li>Clearing browser data will delete your resumes</li>
+                    <li>Using a different browser or device won't show your saved resumes</li>
+                    <li>We strongly recommend downloading completed resumes as PDF/Word files</li>
+                    <li>There is no way for me (the developer) to access or recover your data</li>
+                </ul>
+                
+                <div class="personal-notice">
+                    <h4><i class="fas fa-user-shield"></i> Developer's Access</h4>
+                    <p>As the sole developer of this project, <strong>I cannot access your resume data</strong>. It exists only in your browser. If you clear your browser data or lose access to your device, I have no way to recover it for you.</p>
+                </div>
+            </div>
+
+            <!-- Data Usage -->
+            <div class="policy-section">
+                <h2><i class="fas fa-cogs"></i> How We Use Your Information</h2>
+                <p>We use your data only to:</p>
+                <ul>
+                    <li>Generate and display your resume in real-time</li>
+                    <li>Save your progress within the same browser session</li>
+                    <li>Allow you to edit and update your resume</li>
+                    <li>Provide resume templates and formatting options</li>
+                </ul>
+                
+                <div class="highlight-box">
+                    <h4><i class="fas fa-ban"></i> What We DON'T Do</h4>
+                    <ul>
+                        <li>We do NOT sell, rent, or trade your personal information</li>
+                        <li>We do NOT use your data for advertising or marketing</li>
+                        <li>We do NOT share your information with third parties (except essential services below)</li>
+                        <li>We do NOT track you across other websites</li>
+                        <li>We do NOT create user profiles or analytics from your data</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Third-Party Services -->
+            <div class="policy-section">
+                <h2><i class="fas fa-external-link-alt"></i> Third-Party Services</h2>
+                <p>We use minimal third-party services to provide our functionality:</p>
+                <ul>
+                    <li><strong>Formspree:</strong> For feedback form submissions (only if you choose to submit feedback)</li>
+                    <li><strong>FontAwesome:</strong> For icons displayed on our site</li>
+                    <li><strong>Google Fonts:</strong> For typography and better reading experience</li>
+                </ul>
+                <p>These services may collect standard log data (like IP address) as per their own privacy policies.</p>
+                
+                <div class="personal-notice">
+                    <h4><i class="fas fa-code"></i> Technical Simplicity</h4>
+                    <p>As a personal project, ProfileForge uses the simplest possible tech stack. No analytics, no tracking scripts, no ad networks. Just clean HTML, CSS, and JavaScript running in your browser.</p>
+                </div>
+            </div>
+
+            <!-- Your Rights -->
+            <div class="policy-section">
+                <h2><i class="fas fa-user-check"></i> Your Rights & Control</h2>
+                <p>You have complete control over your data:</p>
+                <ul>
+                    <li><strong>Access:</strong> View your data anytime in the resume builder</li>
+                    <li><strong>Export:</strong> Download your resume in PDF, Word, or Text formats</li>
+                    <li><strong>Delete:</strong> Clear browser storage to remove all data instantly</li>
+                    <li><strong>Edit:</strong> Modify your information anytime during your session</li>
+                    <li><strong>Opt-out:</strong> Simply close your browser to stop using our service</li>
+                </ul>
+                
+                <h3>How to Delete Your Data</h3>
+                <p>To permanently delete all your ProfileForge data:</p>
+                <ol>
+                    <li>Open your browser settings</li>
+                    <li>Navigate to "Privacy" or "Clear browsing data"</li>
+                    <li>Select "Local storage" or "Site data"</li>
+                    <li>Clear data for profileforge.com</li>
+                </ol>
+                
+                <div class="highlight-box">
+                    <h4><i class="fas fa-trash-alt"></i> Immediate Deletion</h4>
+                    <p>Because your data is stored locally, deletion is immediate and permanent. Once cleared from your browser, it cannot be recovered by anyone—including me as the developer.</p>
+                </div>
+            </div>
+
+            <!-- Security -->
+            <div class="policy-section">
+                <h2><i class="fas fa-lock"></i> Data Security</h2>
+                <p>Since your data never leaves your device:</p>
+                <ul>
+                    <li>No risk of server breaches or database hacks</li>
+                    <li>Your information is protected by your browser's security</li>
+                    <li>We recommend keeping your browser updated for maximum security</li>
+                    <li>Download important resumes for backup and safekeeping</li>
+                </ul>
+                
+                <div class="personal-notice">
+                    <h4><i class="fas fa-heart"></i> A Personal Commitment</h4>
+                    <p>As a solo developer, I've designed ProfileForge to be secure by architecture, not just by policy. The fact that your data stays in your browser isn't just convenient—it's the core of our privacy approach.</p>
+                </div>
+            </div>
+
+            <!-- Children's Privacy -->
+            <div class="policy-section">
+                <h2><i class="fas fa-child"></i> Children's Privacy</h2>
+                <p>ProfileForge is not intended for children under 13. We do not knowingly collect information from children under 13. If you believe we have inadvertently collected such information, please contact me to have it removed.</p>
+            </div>
+
+            <!-- Policy Changes -->
+            <div class="policy-section">
+                <h2><i class="fas fa-sync-alt"></i> Changes to This Policy</h2>
+                <p>I may update this privacy policy occasionally. I will notify you of any changes by updating the "Last Updated" date at the top of this page. Your continued use of ProfileForge after changes constitutes acceptance of the updated policy.</p>
+                
+                <div class="highlight-box">
+                    <h4><i class="fas fa-bell"></i> Notification Method</h4>
+                    <p>As a personal project, I don't have newsletter systems or mass notification tools. Policy changes will be announced on the ProfileForge website and GitHub repository. Significant changes will be highlighted in update notes.</p>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="policy-section">
+                <h2><i class="fas fa-envelope"></i> Contact the Developer</h2>
+                <p>For privacy questions, concerns, or data deletion requests, contact me directly:</p>
+                
+                <div class="contact-info">
+                    <a href="mailto:emmaephraim2006@gmail.com" class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <h4>Email</h4>
+                        <p>Direct to developer</p>
+                    </a>
+                    
+                    <a href="help.html" class="contact-method">
+                        <i class="fas fa-question-circle"></i>
+                        <h4>Help Center</h4>
+                        <p>Common questions answered</p>
+                    </a>
+                    
+                    <a href="https://github.com/Onlybossfx/ProFileForge-" target="_blank" class="contact-method">
+                        <i class="fab fa-github"></i>
+                        <h4>GitHub Issues</h4>
+                        <p>Public issue tracking</p>
+                    </a>
+                </div>
+                
+                <div class="personal-notice" style="margin-top: 20px;">
+                    <h4><i class="fas fa-comments"></i> Direct Communication</h4>
+                    <p>As a personal project, I handle all communications personally. No support team, no automated responses—just direct communication from the developer who built this tool.</p>
+                </div>
+            </div>
+
+            <!-- Personal Signature -->
+            <div class="personal-signature">
+                <h3><i class="fas fa-handshake"></i> A Personal Commitment</h3>
+                <p>"I built ProfileForge because I believe privacy shouldn't be a premium feature. As the sole developer, I'm personally committed to protecting your data and being transparent about how this tool works."</p>
+            </div>
+        </div>
+
+        <!-- Fixed Buttons -->
+        <div class="back-to-home">
+            <div class="policy-buttons">
+                <a href="index.html" class="policy-btn policy-btn-primary">
+                    <i class="fas fa-home"></i> Back to ProfileForge
+                </a>
+                <a href="about.html" class="policy-btn policy-btn-secondary">
+                    <i class="fas fa-user-circle"></i> About This Project
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Update current year
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Privacy Policy - Personal Project');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | ProfileForge - Get in Touch</title>
+    <link rel="stylesheet" href="shared.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .contact-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .contact-hero {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border-radius: 20px;
+        }
+
+        .contact-hero h1 {
+            font-size: 2.8rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+            font-weight: 800;
+        }
+
+        .contact-hero p {
+            color: var(--gray);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 20px;
+        }
+
+        .personal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(124, 58, 237, 0.1);
+            color: var(--primary);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .contact-methods {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: var(--shadow);
+        }
+
+        .contact-form-container {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title i {
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .method-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .method-card {
+            background: var(--light);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .method-card:hover {
+            border-color: var(--primary);
+            background: white;
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .method-card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .method-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .method-card h3 {
+            color: var(--dark);
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .method-card p {
+            color: var(--gray);
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        .method-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .method-meta i {
+            color: var(--accent);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--light-gray);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 480px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .faq-preview {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+        }
+
+        .faq-answer {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        .personal-info {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--light-gray);
+        }
+
+        .personal-info h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .personal-info p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .response-time {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="index.html" class="logo">
+            <i class="fas fa-sparkles"></i>
+            <span>ProfileForge</span>
+        </a>
+        <div class="header-badge">Contact</div>
+    </div>
+
+    <div class="contact-container">
+        <!-- Hero Section -->
+        <div class="contact-hero">
+            <h1>Get in Touch</h1>
+            <p>Have questions, feedback, or just want to say hello? I'd love to hear from you.</p>
+            <div class="personal-badge">
+                <i class="fas fa-user-circle"></i>
+                <span>Personal Project • Direct to Developer • Quick Responses</span>
+            </div>
+            <div class="response-time">
+                <i class="fas fa-clock"></i>
+                <span>Average Response Time: 6-24 hours</span>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="contact-grid">
+            <!-- Contact Methods -->
+            <div class="contact-methods">
+                <h2 class="section-title"><i class="fas fa-envelope"></i> Ways to Contact</h2>
+                
+                <div class="method-cards">
+                    <!-- Feedback Form -->
+                    <a href="#" onclick="openFeedbackForm(); return false;" class="method-card">
+                        <div class="method-card-header">
+                            <div class="method-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h3>Feedback Form</h3>
+                        </div>
+                        <p>Share suggestions, report bugs, or request features. This is the best way to help improve ProfileForge.</p>
+                        <div class="method-meta">
+                            <i class="fas fa-check-circle"></i>
+                            <span>I read every submission personally</span>
+                        </div>
+                    </a>
+
+                    <!-- GitHub Issues -->
+                    <a href="https://github.com/Onlybossfx/ProFileForge-" target="_blank" class="method-card">
+                        <div class="method-card-header">
+                            <div class="method-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h3>GitHub Issues</h3>
+                        </div>
+                        <p>For technical issues, bug reports, and feature requests. Great for tracking development progress.</p>
+                        <div class="method-meta">
+                            <i class="fas fa-external-link-alt"></i>
+                            <span>Public issue tracking</span>
+                        </div>
+                    </a>
+
+                    <!-- Email -->
+                    <a href="mailto:emmaephraim2006@gmail.com" class="method-card">
+                        <div class="method-card-header">
+                            <div class="method-icon">
+                                <i class="fas fa-at"></i>
+                            </div>
+                            <h3>Email</h3>
+                        </div>
+                        <p>For personal inquiries, privacy concerns, or questions not covered elsewhere.</p>
+                        <div class="method-meta">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Private and direct</span>
+                        </div>
+                    </a>
+
+                    <!-- Help Center -->
+                    <a href="help.html" class="method-card">
+                        <div class="method-card-header">
+                            <div class="method-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <h3>Help Center</h3>
+                        </div>
+                        <p>Most questions are already answered in our detailed Help Center. Quick answers for common issues.</p>
+                        <div class="method-meta">
+                            <i class="fas fa-book"></i>
+                            <span>Comprehensive guides & FAQs</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Quick FAQ -->
+            <div class="faq-preview">
+                <h2 class="section-title"><i class="fas fa-question-circle"></i> Quick Answers</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question">What's the best way to report a bug?</div>
+                    <div class="faq-answer">Use GitHub Issues for technical bugs. Include your browser, OS, and steps to reproduce.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can you add a specific feature?</div>
+                    <div class="faq-answer">Yes! Use the Feedback Form or GitHub Issues. I consider every feature request.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Is ProfileForge really free forever?</div>
+                    <div class="faq-answer">Absolutely. This is a personal project, not a business. No plans for fees ever.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Who sees my feedback/emails?</div>
+                    <div class="faq-answer">Just me. As a solo developer, I personally handle all communications.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">Can I contribute to the project?</div>
+                    <div class="faq-answer">Yes! Check GitHub for contribution guidelines. Open source contributions welcome.</div>
+                </div>
+
+                <div style="text-align: center; margin-top: 25px;">
+                    <a href="help.html" class="btn btn-secondary" style="padding: 10px 25px;">
+                        <i class="fas fa-book-open"></i> View Full Help Center
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Personal Info -->
+        <div class="personal-info">
+            <h3><i class="fas fa-user-circle"></i> A Personal Note</h3>
+            <p>ProfileForge is a personal project built and maintained by one developer. Unlike corporate support, you're communicating directly with me—the person who built every part of this tool.</p>
+            <p>I read every message personally and genuinely appreciate your feedback. It's what helps me make ProfileForge better for everyone.</p>
+            
+            <div style="margin-top: 30px;">
+                <a href="about.html" class="btn btn-secondary">
+                    <i class="fas fa-info-circle"></i> Learn More About This Project
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Feedback form function (reuse from help.html)
+        function openFeedbackForm() {
+            // This should match the feedback form function from help.html
+            // If you want a separate form on contact page, let me know!
+            alert('Feedback form would open here. Use the Formspree integration from help.html.');
+        }
+
+        // Update current year in footer if needed
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Contact page loaded - ProfileForge Personal Project');
+        });
+    </script>
+</body>
+</html>
